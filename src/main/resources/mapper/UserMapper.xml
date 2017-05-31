@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.UserDao">
+    <resultMap id="UserResult" type="User">
+        <id column="id" property="id"/>
+        <result column="org_id" property="orgId"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="password" property="password"/>
+    </resultMap>
+    <select id="getUserByPhone" resultMap="UserResult">
+        SELECT * FROM kjet_user WHERE phone=#{phone}
+    </select>
+</mapper>
