@@ -9,4 +9,10 @@ package com.pas.edu.exception;
  * Modified :
  */
 public class AuthorizationException extends BaseException {
+    public AuthorizationException() {
+    }
+
+    public AuthorizationException(String message) {
+        super(message);
+    }
 }

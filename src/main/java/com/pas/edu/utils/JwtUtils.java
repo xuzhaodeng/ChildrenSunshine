@@ -16,7 +16,7 @@ import java.util.Date;
  * CreateDate : 2017/5/19  13:43
  * Email : ericli_wang@163.com
  * Version : 2.0
- * Desc :
+ * Desc :  token工具类
  * Modified :
  */
 public class JwtUtils {

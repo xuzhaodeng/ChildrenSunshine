@@ -9,11 +9,14 @@ package com.pas.edu.config;
  * Modified :
  */
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -37,13 +40,10 @@ public class MyBatisConfig {
      */
     @Bean
     @Primary
+    @ConfigurationProperties(prefix = "datasource")
     public DataSource getDataSource() throws Exception {
-        Properties props = new Properties();
-        props.put("driverClassName", env.getProperty("datasource.driverClassName"));
-        props.put("url", env.getProperty("datasource.url"));
-        props.put("username", env.getProperty("datasource.username"));
-        props.put("password", env.getProperty("datasource.password"));
-        return DruidDataSourceFactory.createDataSource(props);
+        DruidDataSource druidDataSource = new DruidDataSource();
+        return druidDataSource;
     }
 
     /**
@@ -62,6 +62,7 @@ public class MyBatisConfig {
         return fb.getObject();
     }
 
+    @Bean
     @Primary
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);

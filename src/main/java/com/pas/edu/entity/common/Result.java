@@ -14,16 +14,16 @@ import lombok.Data;
 public class Result {
     private int code;
     private String msg;
-    private Object datas;
+    private Object data;
 
     public Result() {
         this(ResultCode.SUCCESS);
     }
 
-    public Result(int code, String msg, Object datas) {
+    public Result(int code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
-        this.datas = datas;
+        this.data = data;
     }
 
     public Result(int code, String msg) {

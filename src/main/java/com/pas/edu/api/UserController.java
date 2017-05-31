@@ -27,7 +27,12 @@ public class UserController extends BaseController {
     public Result login(@RequestBody LoginRequest loginRequest) {
         User user = userService.getUserByPhone(loginRequest.getPhone());
         Result result = new Result();
-        result.setDatas(user);
+        result.setData(user);
         return result;
+    }
+
+    @RequestMapping("test")
+    public Result test(@RequestBody LoginRequest loginRequest) {
+        return new Result();
     }
 }
