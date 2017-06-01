@@ -22,10 +22,13 @@ SpringBoot + Mybatis
 ### 其他技术框架
 ##### 缓存
 - ehcache
+
 ##### json序列化
 - fastJson
+
 ##### 接口测试
 - Swagger2
 - 测试地址 /swagger-ui.html
+
 ##### 分页插件
 - PageHelper
