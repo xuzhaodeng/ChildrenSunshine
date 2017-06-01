@@ -22,7 +22,8 @@
         <result column="orgCode" property="orgCode"/>
         <result column="orgLevel" property="orgLevel"/>
     </resultMap>
-    <select id="getUserByPhone" resultMap="UserResult">
+    <!--查询用户信息，包含所属机构信息-->
+    <sql id="getUserWithOrgInfo">
         SELECT
             users.*,
             orgs.org_parent_id orgParentId,
@@ -32,6 +33,12 @@
         FROM kjet_system_user users
             LEFT JOIN kjet_organization orgs
                 ON users.org_id = orgs.org_id
+    </sql>
+    <select id="getUserByPhone" resultMap="UserResult">
+        <include refid="getUserWithOrgInfo"/>
         WHERE users.phone = #{phone}
+    </select>
+    <select id="getUserAll" resultMap="UserResult">
+        <include refid="getUserWithOrgInfo"/>
     </select>
 </mapper>

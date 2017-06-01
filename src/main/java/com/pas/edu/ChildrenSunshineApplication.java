@@ -11,14 +11,19 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullBooleanAsFalse;
 import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullNumberAsZero;
 import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullStringAsEmpty;
 
 @SpringBootApplication
+//配置自动注入
 @EnableAutoConfiguration
+//缓存开启
 @EnableCaching
+//启动事务注解
+@EnableTransactionManagement
 public class ChildrenSunshineApplication {
 
     public static void main(String[] args) {

@@ -27,3 +27,5 @@ SpringBoot + Mybatis
 ##### 接口测试
 - Swagger2
 - 测试地址 /swagger-ui.html
+##### 分页插件
+- PageHelper

@@ -1,16 +1,30 @@
 package com.pas.edu;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pas.edu.dao.UserDao;
+import com.pas.edu.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ChildrenSunshineApplicationTests {
+    @Autowired
+    UserDao userDao;
+
+    @Test
+    public void queryUser() {
+        Page<User> page = PageHelper.startPage(0, 3);
+        userDao.getUserAll();
+        System.out.println("===>" + page.getResult());
+    }
 
     @Test
     public void contextLoads() {
