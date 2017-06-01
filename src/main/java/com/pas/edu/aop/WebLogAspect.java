@@ -53,8 +53,10 @@ public class WebLogAspect {
 
     @Around("webLog()") //指定拦截器规则
     public Object Interceptor(ProceedingJoinPoint pjp) throws Throwable {
+        long startTime = System.currentTimeMillis();
         Object result = null;
         result = pjp.proceed();
+        logger.info("消耗时间:{} ms", (System.currentTimeMillis() - startTime));
         return result;
     }
 

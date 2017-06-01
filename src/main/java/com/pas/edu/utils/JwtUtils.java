@@ -1,9 +1,12 @@
 package com.pas.edu.utils;
 
+import com.pas.edu.entity.TokenInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -21,6 +24,7 @@ import java.util.Date;
  */
 public class JwtUtils {
     public static final String token = "dG9rZW4xMjM0NTY=";
+    private static final long EXPIRE_TIME =  60*60;
 
     public static Claims parseJWT(String jsonWebToken, String base64Security) {
         try {
@@ -33,7 +37,7 @@ public class JwtUtils {
         }
     }
 
-    public static String createJWT(String userId) {
+    public static TokenInfo createJWT(String userId) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = System.currentTimeMillis();
@@ -50,11 +54,15 @@ public class JwtUtils {
                 .setAudience("audience")
                 .signWith(signatureAlgorithm, signingKey);
         //添加Token过期时间
-        long expMillis = nowMillis + 1000 * 60;
+        long expMillis = nowMillis + EXPIRE_TIME*1000;
         Date exp = new Date(expMillis);
         builder.setExpiration(exp).setNotBefore(now);
 
         //生成JWT
-        return builder.compact();
+        String token = builder.compact();
+        TokenInfo tokenInfo = new TokenInfo();
+        tokenInfo.setToken(token);
+        tokenInfo.setExpireTime(EXPIRE_TIME);
+        return tokenInfo;
     }
 }

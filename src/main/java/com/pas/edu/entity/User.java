@@ -1,5 +1,6 @@
 package com.pas.edu.entity;
 
+import com.alibaba.druid.sql.parser.Token;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
@@ -14,7 +15,6 @@ import lombok.Data;
 @Data
 public class User {
     private int id;
-    private int orgId;
     private String name;
     private String phone;
     private String idCard;
@@ -23,4 +23,10 @@ public class User {
     private String headImg;
     private int valid;
     private String desc;
+    private int orgId;
+    private String orgName;
+    private String orgCode;
+    private String orgParentId;
+    private int orgLevel;
+    private TokenInfo tokenInfo;
 }

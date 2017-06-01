@@ -12,8 +12,24 @@
         <result column="name" property="name"/>
         <result column="phone" property="phone"/>
         <result column="password" property="password"/>
+        <result column="valid" property="valid"/>
+        <result column="head_img" property="headImg"/>
+        <result column="description" property="desc"/>
+        <result column="orgName" property="orgName"/>
+        <result column="orgParentId" property="orgParentId"/>
+        <result column="orgCode" property="orgCode"/>
+        <result column="orgLevel" property="orgLevel"/>
     </resultMap>
     <select id="getUserByPhone" resultMap="UserResult">
-        SELECT * FROM kjet_user WHERE phone=#{phone}
+        SELECT
+            users.*,
+            orgs.org_parent_id orgParentId,
+            orgs.org_name orgName,
+            orgs.org_code orgCode,
+            orgs.org_level orgLevel
+        FROM kjet_system_user users
+            LEFT JOIN kjet_organization orgs
+                 ON users.org_id=orgs.org_id
+        WHERE users.phone=#{phone}
     </select>
 </mapper>

@@ -1,9 +1,11 @@
 package com.pas.edu.api;
 
 import com.pas.edu.entity.LoginRequest;
+import com.pas.edu.entity.TokenInfo;
 import com.pas.edu.entity.User;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.UserService;
+import com.pas.edu.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +27,10 @@ public class UserController extends BaseController {
 
     @RequestMapping("login")
     public Result login(@RequestBody LoginRequest loginRequest) {
-        User user = userService.getUserByPhone(loginRequest.getPhone());
         Result result = new Result();
+        User user = userService.getUserByPhone(loginRequest.getPhone());
+        TokenInfo tokenInfo = JwtUtils.createJWT(String.valueOf(user.getId()));
+        user.setTokenInfo(tokenInfo);
         result.setData(user);
         return result;
     }
