@@ -5,7 +5,7 @@ package com.pas.edu.exception;
  * CreateDate : 2017/5/31  11:05
  * Email : ericli_wang@163.com
  * Version : 2.0
- * Desc :
+ * Desc :  授权异常
  * Modified :
  */
 public class AuthorizationException extends BaseException {

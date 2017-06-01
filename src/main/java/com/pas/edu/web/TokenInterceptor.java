@@ -27,6 +27,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
+        //获取token
         String token = request.getHeader("Authorization");
         if (StringUtils.isEmpty(token)) {
             LogUtils.logHttpRequest(request);

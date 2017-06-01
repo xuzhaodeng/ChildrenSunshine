@@ -25,6 +25,11 @@ public class UserController extends BaseController {
     @Autowired
     UserService userService;
 
+    /**
+     * 登录接口
+     * @param loginRequest
+     * @return
+     */
     @RequestMapping("login")
     public Result login(@RequestBody LoginRequest loginRequest) {
         Result result = new Result();

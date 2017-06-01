@@ -5,7 +5,7 @@ package com.pas.edu.entity.common;
  * CreateDate : 2017/5/27  14:39
  * Email : ericli_wang@163.com
  * Version : 2.0
- * Desc :
+ * Desc :  返回结果类型
  * Modified :
  */
 public enum ResultCode {

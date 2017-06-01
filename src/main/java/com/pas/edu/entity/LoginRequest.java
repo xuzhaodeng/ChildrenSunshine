@@ -7,7 +7,7 @@ import lombok.Data;
  * CreateDate : 2017/5/31  10:32
  * Email : ericli_wang@163.com
  * Version : 2.0
- * Desc :
+ * Desc :  登录请求实体
  * Modified :
  */
 @Data
