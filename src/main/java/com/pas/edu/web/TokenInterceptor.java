@@ -6,7 +6,6 @@ import com.pas.edu.utils.LogUtils;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.expression.AccessException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -33,7 +32,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             LogUtils.logHttpRequest(request);
             throw new AuthorizationException("非法请求,请传入Authorization");
         } else {
-            Claims claims = JwtUtils.parseJWT(token, JwtUtils.token);
+            Claims claims = JwtUtils.parseJWT(token, JwtUtils.KEY);
             if (claims == null) {
                 LogUtils.logHttpRequest(request);
                 throw new AuthorizationException("非法请求,token错误或失效");

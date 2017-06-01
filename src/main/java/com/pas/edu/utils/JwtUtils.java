@@ -5,8 +5,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -23,13 +21,14 @@ import java.util.Date;
  * Modified :
  */
 public class JwtUtils {
-    public static final String token = "dG9rZW4xMjM0NTY=";
-    private static final long EXPIRE_TIME =  60*60;
+    public static final String KEY = "dG9rZW4xMjM0NTY=";
+    //token有效时间，单位s
+    private static final long EXPIRE_TIME = 60 * 60;
 
     public static Claims parseJWT(String jsonWebToken, String base64Security) {
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(token))
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(KEY))
                     .parseClaimsJws(jsonWebToken).getBody();
             return claims;
         } catch (Exception ex) {
@@ -44,7 +43,7 @@ public class JwtUtils {
         Date now = new Date(nowMillis);
 
         //生成签名密钥
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(token);
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         //添加构成JWT的参数
@@ -54,7 +53,7 @@ public class JwtUtils {
                 .setAudience("audience")
                 .signWith(signatureAlgorithm, signingKey);
         //添加Token过期时间
-        long expMillis = nowMillis + EXPIRE_TIME*1000;
+        long expMillis = nowMillis + EXPIRE_TIME * 1000;
         Date exp = new Date(expMillis);
         builder.setExpiration(exp).setNotBefore(now);
 

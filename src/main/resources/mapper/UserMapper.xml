@@ -6,6 +6,8 @@
     id:必须与对应接口的某个对应的方法名一致
  -->
 <mapper namespace="com.pas.edu.dao.UserDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
     <resultMap id="UserResult" type="User">
         <id column="id" property="id"/>
         <result column="org_id" property="orgId"/>
@@ -24,12 +26,12 @@
         SELECT
             users.*,
             orgs.org_parent_id orgParentId,
-            orgs.org_name orgName,
-            orgs.org_code orgCode,
-            orgs.org_level orgLevel
+            orgs.org_name      orgName,
+            orgs.org_code      orgCode,
+            orgs.org_level     orgLevel
         FROM kjet_system_user users
             LEFT JOIN kjet_organization orgs
-                 ON users.org_id=orgs.org_id
-        WHERE users.phone=#{phone}
+                ON users.org_id = orgs.org_id
+        WHERE users.phone = #{phone}
     </select>
 </mapper>
