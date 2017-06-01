@@ -6,6 +6,7 @@ SpringBoot + Mybatis
     - application.properties SpringBoot配置文件
     - logback-boot.xml 日志配置使用logback
     - mybatis-config mybatis配置
+    - ehcache.xml 缓存配置
 - java/com/pas/edu
     - aop
     - api 接口包
@@ -17,3 +18,12 @@ SpringBoot + Mybatis
     - utils 工具包
     - web Web相关类（拦截器等）
     - ChildrenSunshineApplication.java   SpringBoot启动类
+
+### 其他技术框架
+##### 缓存
+- ehcache
+##### json序列化
+- fastJson
+##### 接口测试
+- Swagger2
+- 测试地址 /swagger-ui.html

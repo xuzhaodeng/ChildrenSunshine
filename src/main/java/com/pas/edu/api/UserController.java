@@ -6,9 +6,12 @@ import com.pas.edu.entity.User;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.UserService;
 import com.pas.edu.utils.JwtUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Desc :  用户接口
  * Modified :
  */
+@Api(value = "用户", tags = "用户接口")
 @RestController
 @RequestMapping("api/user")
 public class UserController extends BaseController {
@@ -27,10 +31,12 @@ public class UserController extends BaseController {
 
     /**
      * 登录接口
+     *
      * @param loginRequest
      * @return
      */
-    @RequestMapping("login")
+    @ApiOperation(value = "登录", notes = "手机号，密码登录")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public Result login(@RequestBody LoginRequest loginRequest) {
         Result result = new Result();
         User user = userService.getUserByPhone(loginRequest.getPhone());
@@ -40,7 +46,7 @@ public class UserController extends BaseController {
         return result;
     }
 
-    @RequestMapping("test")
+    @RequestMapping(value = "test", method = RequestMethod.POST)
     public Result test(@RequestBody LoginRequest loginRequest) {
         return new Result();
     }
