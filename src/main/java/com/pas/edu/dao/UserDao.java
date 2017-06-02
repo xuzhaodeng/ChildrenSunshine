@@ -19,4 +19,9 @@ public interface UserDao {
     User getUserByPhone(@Param("phone") String phone);
 
     List<User> getUserAll();
+
+    User getUserById(@Param("userId") int userId);
+
+    void updatePwd(@Param("userId") int userId, @Param("password") String password);
+
 }

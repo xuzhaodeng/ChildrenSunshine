@@ -34,6 +34,10 @@
             LEFT JOIN kjet_organization orgs
                 ON users.org_id = orgs.org_id
     </sql>
+    <sql id="getUser">
+        SELECT users.*
+        FROM kjet_system_user users
+    </sql>
     <select id="getUserByPhone" resultMap="UserResult">
         <include refid="getUserWithOrgInfo"/>
         WHERE users.phone = #{phone}
@@ -41,4 +45,14 @@
     <select id="getUserAll" resultMap="UserResult">
         <include refid="getUserWithOrgInfo"/>
     </select>
+    <select id="getUserById" resultMap="UserResult">
+        <include refid="getUser"/>
+        WHERE users.user_id = #{userId}
+    </select>
+
+    <update id="updatePwd">
+        UPDATE kjet_system_user
+        SET password = #{password}
+        WHERE user_id = #{userId}
+    </update>
 </mapper>

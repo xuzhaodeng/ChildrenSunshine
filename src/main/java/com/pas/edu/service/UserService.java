@@ -1,5 +1,6 @@
 package com.pas.edu.service;
 
+import com.pas.edu.entity.ModifyPwdRequest;
 import com.pas.edu.entity.User;
 
 /**
@@ -12,4 +13,6 @@ import com.pas.edu.entity.User;
  */
 public interface UserService {
     User getUserByPhone(String phone);
+
+    void modifyPwd(ModifyPwdRequest modifyPwdRequest) throws Exception;
 }

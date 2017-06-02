@@ -6,11 +6,8 @@ import com.pas.edu.exception.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,13 +33,11 @@ public class GlobalExceptionHandler {
         return result;
     }
 
-    //缺少参数异常
-    @ExceptionHandler({MissingServletRequestParameterException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public Result requestMissingServletRequest(MissingServletRequestParameterException ex) {
-        ex.printStackTrace();
+    public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         Result result = new Result(ResultCode.REQUEST_ERROR);
-        result.setMsg("缺少必要参数,参数名称为" + ex.getParameterName());
+        result.setMsg(ex.getMessage());
         return result;
     }
 

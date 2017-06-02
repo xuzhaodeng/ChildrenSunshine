@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.OrganDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <resultMap id="OrganResult" type="Organ">
+        <id column="orgId" property="orgId"/>
+        <result column="orgLevel" property="orgLevel"/>
+        <result column="parentOrgId" property="parentOrgId"/>
+        <result column="orgName" property="orgName"/>
+        <result column="orgCode" property="orgCode"/>
+    </resultMap>
+    <sql id="selectOrgan">
+        SELECT
+            organ.org_id        orgId,
+            organ.org_level     orgLevel,
+            organ.org_parent_id parentOrgId,
+            organ.org_name      orgName,
+            organ.org_code      orgCode
+        FROM kjet_organization organ
+    </sql>
+    <select id="getChildOrganList" resultMap="OrganResult">
+        <include refid="selectOrgan"/>
+        WHERE organ.org_parent_id=#{orgId}
+    </select>
+    <select id="getOrgan" resultMap="OrganResult">
+        <include refid="selectOrgan"/>
+        WHERE organ.org_id=#{orgId}
+    </select>
+</mapper>
