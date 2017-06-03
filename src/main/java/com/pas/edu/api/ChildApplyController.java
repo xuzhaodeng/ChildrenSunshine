@@ -73,8 +73,8 @@ public class ChildApplyController extends BaseController {
 	
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@RequestMapping(value = "deldata", method = RequestMethod.POST)
-	public Result delRoster(@RequestParam(value = "uid", required = true)){
-		
+	public Result delRoster(){
+		return null;
 	}
 
 }
