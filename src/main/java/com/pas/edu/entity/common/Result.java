@@ -38,4 +38,8 @@ public class Result {
         this.code = resultCode.code();
         this.msg = resultCode.msg();
     }
+    public void setResultCode(ResultCode resultCode){
+        this.code = resultCode.code();
+        this.msg = resultCode.msg();
+    }
 }

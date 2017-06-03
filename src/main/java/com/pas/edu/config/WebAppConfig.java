@@ -27,7 +27,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    @ConfigurationProperties(prefix = "")
     public void addInterceptors(InterceptorRegistry registry) {
         //是否拦截
         boolean isTokenInterceptEnable = Boolean.parseBoolean(env.getProperty("interceptor.token.enable").trim());

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.CollectionDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <insert id="save">
+        INSERT INTO kjet_child_apply
+        (child_name, child_id_card)
+        VALUES (#{childName}, #{childIdCard});
+    </insert>
+</mapper>

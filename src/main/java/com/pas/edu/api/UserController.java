@@ -35,9 +35,9 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "登录", notes = "手机号，密码登录")
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Result login(@RequestBody LoginRequest loginRequest) {
+    public Result login(@RequestBody @Valid LoginRequest loginRequest) throws Exception {
         Result result = new Result();
-        User user = userService.getUserByPhone(loginRequest.getPhone());
+        User user = userService.login(loginRequest.getPhone(),loginRequest.getPassword());
         //设置返回token
         TokenInfo tokenInfo = JwtUtils.createJWT(String.valueOf(user.getId()));
         user.setTokenInfo(tokenInfo);

@@ -12,7 +12,7 @@ import com.pas.edu.entity.User;
  * Modified :
  */
 public interface UserService {
-    User getUserByPhone(String phone);
+    User login(String phone,String password) throws Exception;
 
     void modifyPwd(ModifyPwdRequest modifyPwdRequest) throws Exception;
 }
