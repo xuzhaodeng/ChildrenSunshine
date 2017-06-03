@@ -53,9 +53,8 @@ public class ChildApplyController extends BaseController {
 	
 	
 	@ApiOperation(value = "花名详情", notes = "获取花名册信息")
-	@ApiImplicitParam(name = "childId", paramType = "path", value = "孩子id", required = true, dataType = "int")
-	@RequestMapping(value = "detail/{childId}", method = RequestMethod.GET)
-	public Result getRosterDetailed(@PathVariable Integer childId) throws Exception {
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public Result getRosterDetailed(@RequestParam(value = "childId", required = true) Integer childId) throws Exception {
         Result result = new Result();
         result.setData(caService.getRosterInfoByChildId(childId));
         return result;
