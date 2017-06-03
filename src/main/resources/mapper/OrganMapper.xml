@@ -15,6 +15,7 @@
         <result column="orgName" property="orgName"/>
         <result column="orgCode" property="orgCode"/>
     </resultMap>
+    <!--查询机构-->
     <sql id="selectOrgan">
         SELECT
             organ.org_id        orgId,
@@ -24,6 +25,7 @@
             organ.org_code      orgCode
         FROM kjet_organization organ
     </sql>
+    <!--查询子机构机构-->
     <select id="getChildOrganList" resultMap="OrganResult">
         <include refid="selectOrgan"/>
         WHERE organ.org_parent_id=#{orgId}

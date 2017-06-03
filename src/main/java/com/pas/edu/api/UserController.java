@@ -55,10 +55,4 @@ public class UserController extends BaseController {
         userService.modifyPwd(modifyPwdRequest);
         return result;
     }
-
-    @ApiOperation(value = "测试", notes = "测试使用")
-    @RequestMapping(value = "test", method = RequestMethod.POST)
-    public Result test(@RequestBody LoginRequest loginRequest) {
-        return new Result();
-    }
 }
