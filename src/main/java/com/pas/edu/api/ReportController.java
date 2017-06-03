@@ -29,8 +29,8 @@ public class ReportController {
 
     @ApiOperation(value = "机构采集报表", notes = "")
     @ApiImplicitParam(name = "orgId", paramType = "path", value = "机构id", required = true, dataType = "int")
-    @RequestMapping(value = "summaryList/{orgId}", method = RequestMethod.GET)
-    public Result summaryList(@PathVariable int orgId) throws Exception {
+    @RequestMapping(value = "applyReportList/{orgId}", method = RequestMethod.GET)
+    public Result applyReportList(@PathVariable int orgId) throws Exception {
         Result result = new Result();
         result.setData(reportService.getApplyReport(orgId));
         return result;

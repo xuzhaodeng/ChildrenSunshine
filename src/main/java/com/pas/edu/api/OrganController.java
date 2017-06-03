@@ -40,7 +40,7 @@ public class OrganController extends BaseController {
     @ApiOperation(value = "机构", notes = "完整的机构信息")
     @ApiImplicitParam(name = "id", paramType = "path", value = "机构id", required = true, dataType = "int")
     @RequestMapping(value = "test/{id}", method = RequestMethod.GET)
-    public Result login(@PathVariable int id) throws Exception {
+    public Result test(@PathVariable int id) throws Exception {
         Result result = new Result();
         CompleteOrgan organ = organService.getCompleteOrgan(id);
         result.setData(organ);

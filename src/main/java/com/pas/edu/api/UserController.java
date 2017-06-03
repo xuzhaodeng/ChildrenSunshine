@@ -47,7 +47,7 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "修改密码", notes = "")
     @RequestMapping(value = "modifyPwd", method = RequestMethod.POST)
-    public Result login(@RequestBody @Valid ModifyPwdRequest modifyPwdRequest) throws Exception {
+    public Result modifyPwd(@RequestBody @Valid ModifyPwdRequest modifyPwdRequest) throws Exception {
         Result result = new Result();
         if (!modifyPwdRequest.getNewPwd().equals(modifyPwdRequest.getNewPwdConfirm())) {
             throw new CommonException("两次数据密码不一致");

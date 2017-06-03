@@ -135,15 +135,19 @@ public class ReportServiceImpl implements ReportService {
         ApplyStatusReport report = new ApplyStatusReport();
         report.setOrgId(orgId);
         Organ organ = organDao.getOrgan(orgId);
-        //通过orgId获取申请列表
+        //过去该机构下的所有申请列表
         List<ChildRoster> childRosterList = childApplyDao.getChildRoserByOrg(organ.getOrgId(), organ.getOrgLevel());
+        //待审核
         int notAuditCount = 0;
+        //审核中
         int inAuditCount = 0;
+        //通过
         int passCount = 0;
+        //拒绝
         int refuseCount = 0;
         for (ChildRoster childRoster : childRosterList) {
             int status = 0;
-            // TODO: 2017/6/3 获取审核数量
+            // TODO: 2017/6/3 根据机构级别获取当前机构的状态信息
             switch (organ.getOrgLevel()) {
                 case 1:
                     status = childRoster.getVillageStatus();
