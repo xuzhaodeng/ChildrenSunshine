@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.ChildApplyDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    
+    <resultMap id="childApplyMap" type="childApply">
+        <id column="child_id" property="childId"/>
+        <result column="child_name" property="childName"/>
+        <result column="guardian_phone" property=guaTelNum/>
+        <result column="village_status" property="villageStatus"/>
+        <result column="town_status" property="townStatus"/>
+        <result column="county_status" property="countyStatus"/>
+        <result column="city_status" property="cityStatus"/>
+    </resultMap>
+    
+    <!-- 数据采集添加 -->
+    <insert id="insertChildApply" useGeneratedKeys="true" keyColumn="child_id" parameterType="ChildRoster">
+    	insert into kjet_child_apply(child_id_card, child_head_img, child_name,
+    	child_sex, child_birthday, child_nation, child_address, child_family_population,
+    	child_itself_reason, child_reason, guardian_id_card, guardian_phone, guardian_name
+    	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category,
+    	welfare, welfare_desc, basic_life, basic_life_desc, education_happening, education_happening_desc,
+    	medical_happening, medical_happening_desc, village_status, town_status,
+    	county_status, city_status, operate_uid, create_time, update_time) values(
+    	#{ childIdCard }, #{ headImg }, #{ childName }, #{ childSex },
+    	#{ childBornTime }, #{ nation }, #{ address }, #{ familyPopulation },
+    	#{ itselfReason }, #{  })
+    </insert>
+    
+    <!-- 数据采集更新 -->
+    <update id="updateChildApply" parameterType="ChildRoster">
+    	update kjet_child_apply set where child_id = #{ childId }
+    </update>
+    
+    <!-- 数据采集查询-->
+    <sql id="selectChild">
+        SELECT
+            child.child_id        childId,
+            child.child_name     childName,
+            child.guardian_phone, guaPhone
+            child.village_status      villStatus,
+            child.town_status      townStatus,
+            child.county_status      countyStatus
+            child.city_status      cityStatus
+        FROM kjet_child_apply child
+    </sql>
+    
+    <!-- 根据id查询数据采集信息 --> 
+    <select id="getRosterInfoByChildId" resultMap="childApplyMap">
+        select * from kjet_child_apply
+        WHERE child.child_id = #{ childId }
+    </select>
+    
+    <!-- 数据采集列表 - 村 -->
+    <select id="getChildApplyLsts" resultMap="childApplyMap">
+        <include refid="selectChild"/>
+        WHERE child.childId = #{ childId }
+    </select>
+</mapper>
