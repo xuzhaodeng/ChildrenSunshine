@@ -18,6 +18,9 @@ public interface ChildApplyDao {
 	
 	
 	List<ChildRoster> getChildApplyLsts(@Param("uid") Integer uid);
+	
+	
+	
 
 
 	List<ChildRoster> getChildRoserByOrg(@Param("orgId") int orgId ,

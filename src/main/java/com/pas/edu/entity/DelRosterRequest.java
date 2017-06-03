@@ -7,8 +7,6 @@ public class DelRosterRequest {
 	
 	private Integer uid;
 	
-	private Integer currPage;
-	
-	private Integer pageSize;
+	private String childIds;
 
 }
