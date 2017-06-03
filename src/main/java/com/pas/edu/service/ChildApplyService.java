@@ -10,4 +10,6 @@ public interface ChildApplyService {
 	void updateChildApply(ChildRoster childRoster);
 	
 	
+	ChildRoster getRosterInfoByChildId(Integer childId);
+	
 }

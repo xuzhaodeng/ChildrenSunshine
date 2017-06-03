@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class ChildRoster {
 	
+	private Integer childId;
+	
 	private String headImg; //用户图片
 	
 	@NotEmpty(message = "孩子姓名不能为空")

@@ -42,6 +42,7 @@ public class ChildApplyController extends BaseController {
     }
 	
 	@ApiOperation(value = "花名册", notes = "花名册更新")
+	
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result updateRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
         Result result = new Result();
@@ -51,11 +52,11 @@ public class ChildApplyController extends BaseController {
 	
 	
 	@ApiOperation(value = "花名详情", notes = "获取花名册信息")
-	@ApiImplicitParam(name = "id", paramType = "path", value = "机构id", required = true, dataType = "int")
-	@RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
-	public Result getRosterDetailed(@PathVariable int id) throws Exception {
+	@ApiImplicitParam(name = "childId", paramType = "path", value = "孩子id", required = true, dataType = "int")
+	@RequestMapping(value = "detail/{childId}", method = RequestMethod.GET)
+	public Result getRosterDetailed(@PathVariable Integer childId) throws Exception {
         Result result = new Result();
-        //result.setData(organ);
+        result.setData(caService.getRosterInfoByChildId(childId));
         return result;
     }
 
