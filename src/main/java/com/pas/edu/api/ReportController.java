@@ -1,6 +1,5 @@
 package com.pas.edu.api;
 
-import com.pas.edu.entity.Organ;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ReportService;
 import io.swagger.annotations.Api;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Author: eric
@@ -32,10 +29,20 @@ public class ReportController {
 
     @ApiOperation(value = "机构采集报表", notes = "")
     @ApiImplicitParam(name = "orgId", paramType = "path", value = "机构id", required = true, dataType = "int")
-    @RequestMapping(value = "summaryList/{orgId}", method = RequestMethod.GET)
-    public Result login(@PathVariable int orgId) throws Exception {
+    @RequestMapping(value = "applyReportList/{orgId}", method = RequestMethod.GET)
+    public Result applyReportList(@PathVariable int orgId) throws Exception {
         Result result = new Result();
-        result.setData(reportService.getSummaryList(orgId));
+        result.setData(reportService.getApplyReport(orgId));
+        return result;
+    }
+
+
+    @ApiOperation(value = "审核状态", notes = "")
+    @ApiImplicitParam(name = "orgId", paramType = "path", value = "机构id", required = true, dataType = "int")
+    @RequestMapping(value = "applyStatus/{orgId}", method = RequestMethod.GET)
+    public Result getApplyStatus(@PathVariable int orgId) throws Exception {
+        Result result = new Result();
+        result.setData(reportService.getApplyStatusReport(orgId));
         return result;
     }
 }

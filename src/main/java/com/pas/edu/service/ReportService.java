@@ -1,5 +1,6 @@
 package com.pas.edu.service;
 
+import com.pas.edu.entity.ApplyStatusReport;
 import com.pas.edu.entity.Summary;
 
 import java.util.List;
@@ -14,5 +15,7 @@ import java.util.List;
  * Desc:
  */
 public interface ReportService {
-    List<Summary> getSummaryList(int orgId);
+    List<Summary> getApplyReport(int orgId) throws Exception;
+
+    ApplyStatusReport getApplyStatusReport(int orgId) throws Exception;
 }

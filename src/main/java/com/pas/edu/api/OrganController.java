@@ -1,9 +1,6 @@
 package com.pas.edu.api;
 
-import com.pas.edu.entity.LoginRequest;
-import com.pas.edu.entity.Organ;
-import com.pas.edu.entity.TokenInfo;
-import com.pas.edu.entity.User;
+import com.pas.edu.entity.*;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.OrganService;
 import com.pas.edu.service.UserService;
@@ -29,12 +26,23 @@ public class OrganController extends BaseController {
     @Autowired
     OrganService organService;
 
-    @ApiOperation(value = "机构详情", notes = "获取机构以及父机构和子机构的信息")
+    @ApiOperation(value = "用户机构详情", notes = "获取机构以及父机构和子机构的信息")
     @ApiImplicitParam(name = "id", paramType = "path", value = "机构id", required = true, dataType = "int")
     @RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
-    public Result login(@PathVariable int id) throws Exception {
+    public Result userOrgan(@PathVariable int id) throws Exception {
         Result result = new Result();
         Organ organ = organService.getOrganDetail(id);
+        result.setData(organ);
+        return result;
+    }
+
+
+    @ApiOperation(value = "机构", notes = "完整的机构信息")
+    @ApiImplicitParam(name = "id", paramType = "path", value = "机构id", required = true, dataType = "int")
+    @RequestMapping(value = "test/{id}", method = RequestMethod.GET)
+    public Result test(@PathVariable int id) throws Exception {
+        Result result = new Result();
+        CompleteOrgan organ = organService.getCompleteOrgan(id);
         result.setData(organ);
         return result;
     }

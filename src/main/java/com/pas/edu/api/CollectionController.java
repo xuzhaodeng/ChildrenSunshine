@@ -23,7 +23,7 @@ import javax.validation.Valid;
  * Desc:
  */
 @RestController
-@Api(value = "采集", tags = "采集接口")
+@Api(value = "示例", tags = "示例采集接口")
 @RequestMapping(value = "api/collection")
 public class CollectionController {
     @Autowired
