@@ -41,6 +41,7 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	public List<ChildRoster> getChildApplyLsts(Integer uid, Integer currPage, Integer pageSize) {
 		Page<ChildRoster> page = PageHelper.startPage(currPage * pageSize, pageSize);
 		List<ChildRoster> resultLsts = cpDao.getChildApplyLsts(uid);
+		System.out.println("数组长度为: " + resultLsts.size());
 		return resultLsts;
 	}
 	

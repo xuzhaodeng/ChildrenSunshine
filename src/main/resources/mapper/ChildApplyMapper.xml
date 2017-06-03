@@ -77,9 +77,9 @@
     <sql id="selectChild">
         SELECT
             child.child_id        childId,
-            child.child_name     childName,
-            child.guardian_phone guaPhone,
-            child.village_status      villStatus,
+            child.child_name     guaName,
+            child.guardian_phone guaTelNum,
+            child.village_status      villageStatus,
             child.town_status     townStatus,
             child.county_status      countyStatus,
             child.city_status      cityStatus
@@ -93,7 +93,7 @@
     </select>
     
     <!-- 数据采集列表 - 村 -->
-    <select id="getChildApplyLsts" resultMap="childApplyMap">
+    <select id="getChildApplyLsts" resultType="java.util.Map">
         <include refid="selectChild"/>
         WHERE child.operate_id = #{ uid }
     </select>

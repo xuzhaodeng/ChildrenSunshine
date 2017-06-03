@@ -66,10 +66,15 @@ public class ChildApplyController extends BaseController {
 	public Result getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid, 
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
-		System.out.println(uid);
 		Result result = new Result();
 		result.setData(caService.getChildApplyLsts(uid, currPage, pageSize));
 		return result;
+	}
+	
+	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
+	@RequestMapping(value = "deldata", method = RequestMethod.POST)
+	public Result delRoster(@RequestParam(value = "uid", required = true)){
+		
 	}
 
 }
