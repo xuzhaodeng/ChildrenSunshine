@@ -11,35 +11,29 @@ import lombok.Data;
  * Modified :
  */
 @Data
-public class Result {
-    private int code;
-    private String msg;
-    private Object data;
+public class Result extends BaseResult<Object> {
 
     public Result() {
-        this(ResultCode.SUCCESS);
     }
 
     public Result(int code, String msg, Object data) {
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
+        super(code, msg, data);
     }
 
     public Result(int code, String msg) {
-        this(code, msg, null);
+        super(code, msg);
     }
 
     public Result(int code) {
-        this(code, null);
+        super(code);
     }
 
     public Result(ResultCode resultCode) {
-        this.code = resultCode.code();
-        this.msg = resultCode.msg();
+        super(resultCode);
     }
-    public void setResultCode(ResultCode resultCode){
-        this.code = resultCode.code();
-        this.msg = resultCode.msg();
+
+    public void setResultCode(ResultCode resultCode) {
+        setCode(resultCode.code());
+        setMsg(resultCode.msg());
     }
 }

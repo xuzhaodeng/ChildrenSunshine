@@ -2,6 +2,7 @@ package com.pas.edu.entity;
 
 import com.alibaba.druid.sql.parser.Token;
 import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -16,16 +17,16 @@ import lombok.Data;
 public class User {
     //用户id
     private int id;
-    //用户名
+    @ApiModelProperty("用户名")
     private String name;
-    //登录手机号
+    @ApiModelProperty("登录手机号")
     private String phone;
-    //身份号
+    @ApiModelProperty("身份号")
     private String idCard;
     //密码
     @JSONField(serialize = false)
     private String password;
-    //头像连接
+    @ApiModelProperty("头像链接")
     private String headImg;
     //是否有效1有效，2禁用
     private int valid;

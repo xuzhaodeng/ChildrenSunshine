@@ -4,6 +4,7 @@ import com.pas.edu.entity.LoginRequest;
 import com.pas.edu.entity.ModifyPwdRequest;
 import com.pas.edu.entity.TokenInfo;
 import com.pas.edu.entity.User;
+import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.exception.CommonException;
 import com.pas.edu.service.UserService;
@@ -35,9 +36,9 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "登录", notes = "手机号，密码登录")
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Result login(@RequestBody @Valid LoginRequest loginRequest) throws Exception {
-        Result result = new Result();
-        User user = userService.login(loginRequest.getPhone(),loginRequest.getPassword());
+    public BaseResult<User> login(@RequestBody @Valid LoginRequest loginRequest) throws Exception {
+        BaseResult<User> result = new BaseResult<User>();
+        User user = userService.login(loginRequest.getPhone(), loginRequest.getPassword());
         //设置返回token
         TokenInfo tokenInfo = JwtUtils.createJWT(String.valueOf(user.getId()));
         user.setTokenInfo(tokenInfo);
