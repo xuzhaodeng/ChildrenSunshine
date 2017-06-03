@@ -95,8 +95,11 @@
     <!-- 数据采集列表 - 村 -->
     <select id="getChildApplyLsts" resultType="java.util.Map">
         <include refid="selectChild"/>
-        WHERE child.operate_id = #{ uid }
+        WHERE child.operate_id = #{ uid } and isdel = 1
     </select>
     
-    <!--  -->
+    <!-- 采集数据删除 -->
+    <update id="delRoster" parameterType="java.lang.String">
+    	update kjet_child_apply set isdel = 2 where child_id in(#{ childIds }) and operate_id = #{ uid }
+    </update>
 </mapper>

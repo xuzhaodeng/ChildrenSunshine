@@ -17,4 +17,7 @@ public interface ChildApplyService {
 	
 	List<ChildRoster> getChildApplyLsts(Integer uid, Integer page, Integer pageSize);
 	
+	
+	void delRoster(Integer uid, String childIds);
+	
 }

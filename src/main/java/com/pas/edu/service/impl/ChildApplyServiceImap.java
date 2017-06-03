@@ -44,6 +44,11 @@ public class ChildApplyServiceImap implements ChildApplyService {
 		System.out.println("数组长度为: " + resultLsts.size());
 		return resultLsts;
 	}
+
+	@Override
+	public void delRoster(Integer uid, String childIds) {
+		cpDao.delRoster(uid, childIds);
+	}
 	
 
 }

@@ -74,6 +74,7 @@ public class ChildApplyController extends BaseController {
 	@RequestMapping(value = "deldata", method = RequestMethod.POST)
 	public Result delRoster(@RequestBody DelRosterRequest delRoster){
 		Result result = new Result();
+		caService.delRoster(delRoster.getUid(), delRoster.getChildIds());
 		return result;
 	}
 
