@@ -14,5 +14,5 @@ import java.util.List;
  * Desc:
  */
 public interface ReportService {
-    List<Summary> getSummaryList(int orgId);
+    List<Summary> getSummaryList(int orgId) throws Exception;
 }
