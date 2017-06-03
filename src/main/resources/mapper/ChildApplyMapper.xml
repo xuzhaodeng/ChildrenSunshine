@@ -9,7 +9,7 @@
     <!--缓存配置-->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
     
-    <resultMap id="childApplyMap" type="childApply">
+    <resultMap id="childApplyMap" type="ChildRoster">
         <id column="child_id" property="childId"/>
         <result column="child_name" property="childName"/>
         <result column="guardian_phone" property="guaTelNum"/>
@@ -21,17 +21,25 @@
     
     <!-- 数据采集添加 -->
     <insert id="insertChildApply" useGeneratedKeys="true" keyColumn="child_id" parameterType="ChildRoster">
-    	insert into kjet_child_apply(child_id_card, child_head_img, child_name,
-    	child_sex, child_birthday, child_nation, child_address, child_family_population,
+    	insert into kjet_child_apply(child_id_card, child_head_img, child_name, child_sex, 
+    	child_birthday, child_nation, child_address, child_family_population,
     	child_itself_reason, child_reason, guardian_id_card, guardian_phone, guardian_name
     	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category,
     	welfare, welfare_desc, basic_life, basic_life_desc, education_happening, education_happening_desc,
     	medical_happening, medical_happening_desc, village_status, town_status,
-    	county_status, city_status, operate_uid, create_time, update_time) values(
+    	county_status, city_status, operate_uid, create_time, update_time, child_province_id, child_province_name,
+    	child_city_id, child_city_name, child_county_id, child_county_name,
+    	town_id, town_name, village_id, village_name) values(
     	#{ childIdCard }, #{ headImg }, #{ childName }, #{ childSex },
     	#{ childBornTime }, #{ nation }, #{ address }, #{ familyPopulation },
-    	#{ itselfReason }, #{  })
-    </insert>
+    	#{ itselfReason }, #{ familyReason }, #{ guaIdCard }, #{ guaTelNum }, #{ guaName },
+    	#{ guaSex }, #{ guaBornTime }, #{ guaChildRela }, #{ guaHappening }, #{ dilemmaCategory },
+    	#{ welfareHappening }, #{ otherWelfare }, #{ basicLifeHappening }, #{ otherBasicLife }, #{ educationHappening }, #{ otherEducation },
+    	#{ medicalHappening }, #{ otherMedical }, #{ villageStatus }, #{ townStatus },
+    	#{ countyStatus }, #{ cityStatus }, #{ operateId }, #{ createTime }, #{ updateTime }, #{ provinceId }, #{ provinceName },
+    	#{ cityId }, #{ cityName }, #{ countyId }, #{ countyName }, 
+    	#{ townId }, #{ townName }, #{ villageId }, #{ villageName })
+    </insert> 
     
     <!-- 数据采集更新 -->
     <update id="updateChildApply" parameterType="ChildRoster">

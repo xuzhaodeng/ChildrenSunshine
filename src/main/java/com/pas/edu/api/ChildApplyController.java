@@ -3,6 +3,7 @@ package com.pas.edu.api;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +28,10 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "花名册", tags = "花名册接口")
 @RestController
 @RequestMapping("api/roster")
-public class ChildApplyController {
+public class ChildApplyController extends BaseController {
 	
-	@Resource
-	private ChildApplyService caService;
+	@Autowired
+	ChildApplyService caService;
 	
 	@ApiOperation(value = "花名册", notes = "花名册添加")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
