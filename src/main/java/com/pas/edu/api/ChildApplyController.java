@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pas.edu.entity.ChildRoster;
-import com.pas.edu.entity.RosterRequest;
+import com.pas.edu.entity.DelRosterRequest;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ChildApplyService;
 

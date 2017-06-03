@@ -3,7 +3,7 @@ package com.pas.edu.entity;
 import lombok.Data;
 
 @Data
-public class RosterRequest {
+public class DelRosterRequest {
 	
 	private Integer uid;
 	
