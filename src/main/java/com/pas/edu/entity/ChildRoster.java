@@ -73,6 +73,12 @@ public class ChildRoster {
 	
 	private Integer cityStatus; //市审核状态
 	
-	//private Integer 
+	private Integer provinceId; //省份Id
+	
+	private String provinceName; //省份名称
+	
+	private Integer cityId; //市id
+	
+	private String cityName; //
 	
 }
