@@ -1,6 +1,5 @@
 package com.pas.edu.api;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pas.edu.entity.ChildRoster;
+import com.pas.edu.entity.RosterRequest;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ChildApplyService;
 
@@ -33,7 +34,7 @@ public class ChildApplyController extends BaseController {
 	@Autowired
 	ChildApplyService caService;
 	
-	@ApiOperation(value = "花名册", notes = "花名册添加")
+	@ApiOperation(value = "花名册添加", notes = "花名册添加")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public Result addRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
         Result result = new Result();
@@ -41,7 +42,7 @@ public class ChildApplyController extends BaseController {
         return result;
     }
 	
-	@ApiOperation(value = "花名册", notes = "花名册更新")
+	@ApiOperation(value = "花名册更新", notes = "花名册更新")
 	
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result updateRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
@@ -59,5 +60,16 @@ public class ChildApplyController extends BaseController {
         result.setData(caService.getRosterInfoByChildId(childId));
         return result;
     }
+	
+	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
+	@RequestMapping(value = "datlsts", method = RequestMethod.GET)
+	public Result getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid, 
+			@RequestParam(value = "currPage", required = true) Integer currPage, 
+			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
+		System.out.println(uid);
+		Result result = new Result();
+		result.setData(caService.getChildApplyLsts(uid, currPage, pageSize));
+		return result;
+	}
 
 }

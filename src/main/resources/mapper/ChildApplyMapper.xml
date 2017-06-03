@@ -27,7 +27,7 @@
     	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category,
     	welfare, welfare_desc, basic_life, basic_life_desc, education_happening, education_happening_desc,
     	medical_happening, medical_happening_desc, village_status, town_status,
-    	county_status, city_status, operate_uid, create_time, update_time, child_province_id, child_province_name,
+    	county_status, city_status, operate_id, create_time, update_time, child_province_id, child_province_name,
     	child_city_id, child_city_name, child_county_id, child_county_name,
     	town_id, town_name, village_id, village_name) values(
     	#{ childIdCard }, #{ headImg }, #{ childName }, #{ childSex },
@@ -44,8 +44,32 @@
     <!-- 数据采集更新 -->
     <update id="updateChildApply" parameterType="ChildRoster">
     	update kjet_child_apply set
-    	
-    	
+    	child_id_card = #{ childIdCard },
+    	child_head_img = #{ headImg },
+    	child_name = #{ childName },
+    	child_sex = #{ childSex },
+    	child_birthday = #{ childBornTime },
+    	child_nation = #{ nation },
+    	child_address = #{ address },
+    	child_family_population = #{ familyPopulation },
+    	child_itself_reason = #{ itselfReason },
+    	child_reason = #{ familyReason },
+    	guardian_id_card = #{ guaIdCard },
+    	guardian_phone = #{ guaTelNum },
+    	guardian_name = #{ guaName },
+    	guardian_sex = #{ guaSex },
+    	guardian_birthday = #{ guaBornTime },
+    	guardian_child_rela = #{ guaChildRela },
+    	guardian_hapening = #{ guaHappening },
+    	plight_category = #{ dilemmaCategory },
+    	welfare = #{ welfareHappening },
+    	welfare_desc = #{ otherWelfare },
+    	basic_life = #{ basicLifeHappening },
+    	basic_life_desc = #{ otherBasicLife },
+    	education_happening = #{ educationHappening },
+    	education_happening_desc = #{ otherEducation },
+    	medical_happening = #{ medicalHappening },
+    	medical_happening_desc = #{ otherMedical }
     	where child_id = #{ childId }
     </update>
     
@@ -54,10 +78,10 @@
         SELECT
             child.child_id        childId,
             child.child_name     childName,
-            child.guardian_phone, guaPhone
+            child.guardian_phone guaPhone,
             child.village_status      villStatus,
-            child.town_status      townStatus,
-            child.county_status      countyStatus
+            child.town_status     townStatus,
+            child.county_status      countyStatus,
             child.city_status      cityStatus
         FROM kjet_child_apply child
     </sql>
@@ -71,6 +95,6 @@
     <!-- 数据采集列表 - 村 -->
     <select id="getChildApplyLsts" resultMap="childApplyMap">
         <include refid="selectChild"/>
-        WHERE child.childId = #{ childId }
+        WHERE child.operate_id = #{ uid }
     </select>
 </mapper>

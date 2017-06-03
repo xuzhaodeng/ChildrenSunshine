@@ -1,5 +1,7 @@
 package com.pas.edu.service;
 
+import java.util.List;
+
 import com.pas.edu.entity.ChildRoster;
 
 public interface ChildApplyService {
@@ -11,5 +13,8 @@ public interface ChildApplyService {
 	
 	
 	ChildRoster getRosterInfoByChildId(Integer childId);
+	
+	
+	List<ChildRoster> getChildApplyLsts(Integer uid, Integer page, Integer pageSize);
 	
 }
