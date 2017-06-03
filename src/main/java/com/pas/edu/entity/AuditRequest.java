@@ -12,7 +12,7 @@ public class AuditRequest {
     @NotEmpty
     private Integer applyId;
     /**
-     * 级别(0：乡镇；1：区县；2：市)
+     * 级别(0:村；1：乡镇；2：区县；3：市)
      */
     @NotEmpty
     private Integer level;
