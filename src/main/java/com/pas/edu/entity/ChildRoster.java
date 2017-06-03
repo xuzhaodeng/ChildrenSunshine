@@ -79,6 +79,18 @@ public class ChildRoster {
 	
 	private Integer cityId; //市id
 	
-	private String cityName; //
+	private String cityName; //市名称
+	
+	private Integer countyId; //县ID
+	
+	private String countyName; //县名称
+	
+	private Integer townId; //镇id
+	
+	private String townName; //镇名称
+	
+	private Integer villageId; //村ID
+	
+	private String villageName; //村名称
 	
 }

@@ -1,6 +1,7 @@
 package com.pas.edu.api;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,9 +34,17 @@ public class ChildApplyController {
 	
 	@ApiOperation(value = "花名册", notes = "花名册添加")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public Result addRoster(@RequestBody ChildRoster childRoster) throws Exception {
+    public Result addRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
         Result result = new Result();
         caService.addChildRoster(childRoster);
+        return result;
+    }
+	
+	@ApiOperation(value = "花名册", notes = "花名册更新")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Result updateRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
+        Result result = new Result();
+        caService.updateChildApply(childRoster);
         return result;
     }
 	

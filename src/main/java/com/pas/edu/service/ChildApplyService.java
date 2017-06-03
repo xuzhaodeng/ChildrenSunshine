@@ -7,4 +7,7 @@ public interface ChildApplyService {
 	void addChildRoster(ChildRoster childRoster); 
 	
 	
+	void updateChildApply(ChildRoster childRoster);
+	
+	
 }

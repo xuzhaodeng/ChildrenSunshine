@@ -12,7 +12,7 @@
     <resultMap id="childApplyMap" type="childApply">
         <id column="child_id" property="childId"/>
         <result column="child_name" property="childName"/>
-        <result column="guardian_phone" property=guaTelNum/>
+        <result column="guardian_phone" property="guaTelNum"/>
         <result column="village_status" property="villageStatus"/>
         <result column="town_status" property="townStatus"/>
         <result column="county_status" property="countyStatus"/>
