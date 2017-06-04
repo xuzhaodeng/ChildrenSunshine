@@ -13,7 +13,7 @@ public interface ChildApplyDao {
 	void updateChildApply(ChildRoster childRoster);
 
 
-	List<ChildRoster> getChildRoserByOrg(@Param("orgId") int orgId ,
+	List<ChildRoster> getChildByOrg(@Param("orgId") int orgId ,
 										 @Param("orgLevel") int orgLevel);
 
 }

@@ -6,7 +6,7 @@ import com.pas.edu.dao.OrganDao;
 import com.pas.edu.entity.ApplyStatusReport;
 import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.Organ;
-import com.pas.edu.entity.Summary;
+import com.pas.edu.entity.ApplyReport;
 import com.pas.edu.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,16 +40,16 @@ public class ReportServiceImpl implements ReportService {
      * @throws Exception
      */
     @Override
-    public List<Summary> getApplyReport(int orgId) throws Exception {
+    public List<ApplyReport> getApplyReport(int orgId) throws Exception {
         //获取子机构
         List<Organ> childOrgan = organDao.getChildOrganList(orgId);
-        List<Summary> list = new ArrayList<Summary>();
+        List<ApplyReport> list = new ArrayList<ApplyReport>();
         //遍历子机构的汇总
         for (Organ organ : childOrgan) {
-            Summary summary = new Summary();
+            ApplyReport summary = new ApplyReport();
             summary.setOrgId(organ.getOrgId());
             summary.setOrgName(organ.getOrgName());
-            List<ChildRoster> childRosterList = childApplyDao.getChildRoserByOrg(organ.getOrgId(), organ.getOrgLevel());
+            List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel());
             //孤儿
             int orphanCount = 0;
             //特困儿童
@@ -136,7 +136,7 @@ public class ReportServiceImpl implements ReportService {
         report.setOrgId(orgId);
         Organ organ = organDao.getOrgan(orgId);
         //过去该机构下的所有申请列表
-        List<ChildRoster> childRosterList = childApplyDao.getChildRoserByOrg(organ.getOrgId(), organ.getOrgLevel());
+        List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel());
         //待审核
         int notAuditCount = 0;
         //审核中
