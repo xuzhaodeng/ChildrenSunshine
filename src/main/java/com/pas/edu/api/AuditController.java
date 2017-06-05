@@ -38,6 +38,8 @@ public class AuditController extends BaseController {
     @RequestMapping(value = "action", method = RequestMethod.POST)
     public Result audit(@RequestBody AuditRequest auditRequest) {
         System.out.println(auditRequest);
+        Date now = new Date();
+
         //儿童等级表存在村、镇、县、市的状态
         //每级都有（1、采集中 2、已提交/待审核 3、已驳回 4、已通过）
         //所有级别初始状态都为5
@@ -103,9 +105,8 @@ public class AuditController extends BaseController {
             }
         }
 
+        childRoster.setUpdateTime(now);
         childApplyService.updateChildApply(childRoster);
-
-        Date now = new Date();
 
         User user =  userService.getUser(auditRequest.getOperatorId());
 
@@ -127,7 +128,7 @@ public class AuditController extends BaseController {
 
     @ApiOperation(value = "审核记录列表", notes = "列出审核记录信息")
     @RequestMapping(value = "auditRecordList", method = RequestMethod.GET)
-    public Result auditRecordList(@RequestBody @NotEmpty int applyId) {
+    public Result auditRecordList(int applyId) {
         List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(applyId);
 
         Result result = new Result();
