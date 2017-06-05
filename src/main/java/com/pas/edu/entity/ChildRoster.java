@@ -75,6 +75,7 @@ public class ChildRoster {
 	
 	private Integer cityStatus; //市审核状态
 	
+	@NotEmpty(message = "用户尚未登录")
 	private Integer operateId; //操作用户ID
 	
 	private String createTime; //创建时间
