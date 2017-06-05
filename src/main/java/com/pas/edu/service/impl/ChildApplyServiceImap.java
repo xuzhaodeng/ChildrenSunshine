@@ -58,6 +58,13 @@ public class ChildApplyServiceImap implements ChildApplyService {
 		List<ChildRoster> resultLsts = cpDao.getChildApplyLsts(uid);
 		return resultLsts;
 	}
+	
+	@Override
+	public List<ChildRoster> getChildApplyLstsByOrgId(Integer orgId, Integer currPage, Integer pageSize) {
+		Page<ChildRoster> page = PageHelper.startPage(currPage * pageSize, pageSize);
+		List<ChildRoster> resultLsts = cpDao.getChildApplyLstsByOrgid(orgId);
+		return resultLsts;
+	}
 
 	@Override
 	public void delRoster(Integer uid, String childIds) {

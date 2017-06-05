@@ -88,6 +88,16 @@ public class ChildApplyController extends BaseController {
 		return result;
 	}
 	
+	@ApiOperation(value = "获取村管端困境儿童列表--根据机构ID", notes = "获取村管端困境儿童列表--根据机构Id")
+	@RequestMapping(value = "datlstsbyorgid", method = RequestMethod.GET)
+	public Result getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId, 
+			@RequestParam(value = "currPage", required = true) Integer currPage, 
+			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
+		Result result = new Result();
+		result.setData(caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize));
+		return result;
+	}
+	
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@RequestMapping(value = "deldata", method = RequestMethod.POST)
 	public Result delRoster(@RequestBody DelRosterRequest delRoster){

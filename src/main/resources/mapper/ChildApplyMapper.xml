@@ -97,6 +97,12 @@
         <include refid="selectChild"/>
         WHERE child.operate_id = #{ uid } and isdel = 1
     </select>
+    
+     <!-- 数据采集列表 - 根据机构ID获取花名册 -->
+    <select id="getChildApplyLstsByOrgid" resultType="java.util.Map">
+        <include refid="selectChild"/>
+        WHERE child.village_id = #{ villageId } and isdel = 1
+    </select>
 
     
     <!-- 采集数据删除 -->
