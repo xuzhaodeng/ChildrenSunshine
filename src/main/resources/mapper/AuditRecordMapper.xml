@@ -5,33 +5,71 @@
     namespace：必须与对应的接口全类名一致
     id:必须与对应接口的某个对应的方法名一致
  -->
-<mapper namespace="com.pas.edu.dao.OrganDao">
+<mapper namespace="com.pas.edu.dao.AuditRecordDao">
     <!--缓存配置-->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
-    <resultMap id="OrganResult" type="Organ">
-        <id column="orgId" property="orgId"/>
-        <result column="orgLevel" property="orgLevel"/>
-        <result column="parentOrgId" property="parentOrgId"/>
-        <result column="orgName" property="orgName"/>
-        <result column="orgCode" property="orgCode"/>
+    <resultMap id="AuditRecordResult" type="AuditRecord">
+        <id column="ar_id" property="id"/>
+        <result column="apply_id" property="applyId"/>
+        <result column="type" property="type"/>
+        <result column="deviant_content" property="deviantContent"/>
+        <result column="operate_id" property="operateId"/>
+        <result column="current_org_id" property="currentOrgId"/>
+        <result column="appoint_org_id" property="appointOrgId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="description" property="description"/>
     </resultMap>
     <!--查询机构-->
-    <sql id="selectOrgan">
+    <sql id="selectAuditRecord">
         SELECT
-            organ.org_id        orgId,
-            organ.org_level     orgLevel,
-            organ.org_parent_id parentOrgId,
-            organ.org_name      orgName,
-            organ.org_code      orgCode
-        FROM kjet_organization organ
+            auditRecord.ar_id	id,
+            auditRecord.apply_id	applyId,
+            auditRecord.type	type,
+            auditRecord.deviant_content	deviantContent,
+            auditRecord.operate_id	operateId,
+            auditRecord.current_org_id	currentOrgId,
+            auditRecord.appoint_org_id	appointOrgId,
+            auditRecord.create_time	createTime,
+            auditRecord.update_time	updateTime,
+            auditRecord.description	description
+        FROM kjet_approval_record auditRecord
     </sql>
+    <!-- 数据采集添加 -->
+    <insert id="createAuditRecord" useGeneratedKeys="true" keyColumn="ar_id" parameterType="AuditRecord">
+        insert into kjet_approval_record(
+            ar_id,
+            apply_id,
+            type,
+            deviant_content,
+            operate_id,
+            current_org_id,
+            appoint_org_id,
+            create_time,
+            update_time,
+            description
+        )
+        values(
+            #{ id },
+            #{ applyId },
+            #{ type },
+            #{ deviantContent },
+            #{ operateId },
+            #{ currentOrgId },
+            #{ appointOrgId },
+            #{ createTime },
+            #{ updateTime },
+            #{ description },
+            #{ auditRecord }
+        )
+    </insert>
     <!--查询子机构机构-->
-    <select id="getChildOrganList" resultMap="OrganResult">
-        <include refid="selectOrgan"/>
-        WHERE organ.org_parent_id=#{orgId}
+    <select id="getAuditRecordList" resultMap="AuditRecordResult">
+        <include refid="selectAuditRecord"/>
+        WHERE auditRecord.applyId=#{applyId}
     </select>
-    <select id="getOrgan" resultMap="OrganResult">
-        <include refid="selectOrgan"/>
-        WHERE organ.org_id=#{orgId}
+    <select id="getAuditRecord" resultMap="AuditRecordResult">
+        <include refid="selectAuditRecord"/>
+        WHERE auditRecord.ar_id=#{id}
     </select>
 </mapper>

@@ -6,8 +6,9 @@ import com.pas.edu.entity.ChildRoster;
 
 public interface ChildApplyService {
 	
-	void addChildRoster(ChildRoster childRoster); 
-	
+	void addChildRoster(ChildRoster childRoster);
+
+	ChildRoster getRosterInfoByChildId(int childId);
 	
 	void updateChildApply(ChildRoster childRoster);
 	

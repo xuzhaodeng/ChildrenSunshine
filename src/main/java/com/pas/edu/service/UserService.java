@@ -14,5 +14,9 @@ import com.pas.edu.entity.User;
 public interface UserService {
     User login(String phone,String password) throws Exception;
 
+    User getUser(int id);
+
     void modifyPwd(ModifyPwdRequest modifyPwdRequest) throws Exception;
+
+
 }
