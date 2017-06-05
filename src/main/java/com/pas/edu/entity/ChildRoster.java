@@ -1,5 +1,7 @@
 package com.pas.edu.entity;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -109,15 +111,14 @@ public class ChildRoster {
 	@ApiModelProperty("市审核状态")
 	private Integer cityStatus; //市审核状态
 	
-	@NotEmpty(message = "用户尚未登录")
 	@ApiModelProperty("村管用户ID")
 	private Integer operateId; //操作用户ID
 	
 	@ApiModelProperty("创建时间")
-	private String createTime; //创建时间
+	private Date createTime; //创建时间
 	
 	@ApiModelProperty("更新时间")
-	private String updateTime; //更新时间
+	private Date updateTime; //更新时间
 	
 	@ApiModelProperty("省份Id")
 	private Integer provinceId; //省份Id
