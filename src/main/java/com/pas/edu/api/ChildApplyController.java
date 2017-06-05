@@ -3,7 +3,6 @@ package com.pas.edu.api;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pas.edu.entity.ChildRoster;
+import com.pas.edu.entity.CompleteOrgan;
 import com.pas.edu.entity.DelRosterRequest;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ChildApplyService;
+import com.pas.edu.service.OrganService;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -34,10 +34,28 @@ public class ChildApplyController extends BaseController {
 	@Autowired
 	ChildApplyService caService;
 	
+	@Autowired
+	OrganService orginService;
+	
 	@ApiOperation(value = "花名册添加", notes = "花名册添加")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public Result addRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
         Result result = new Result();
+        CompleteOrgan co =  orginService.getCompleteOrgan(childRoster.getOperateId());
+        if(co != null){
+        	 childRoster.setVillageId(co.getVillageOrg().getOrgId());
+             childRoster.setVillageName(co.getVillageOrg().getOrgName());
+             
+             childRoster.setTownId(co.getTownOrg().getOrgId());
+             childRoster.setTownName(co.getTownOrg().getOrgName());
+             
+             childRoster.setCountyId(co.getCountyOrg().getOrgId());
+             childRoster.setCountyName(co.getCountyOrg().getOrgName());
+             
+             childRoster.setCityId(co.getCityOrg().getOrgId());
+             childRoster.setCityName(co.getCityOrg().getOrgName());
+             
+        }
         caService.addChildRoster(childRoster);
         return result;
     }

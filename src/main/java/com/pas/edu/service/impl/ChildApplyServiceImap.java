@@ -47,7 +47,14 @@ public class ChildApplyServiceImap implements ChildApplyService {
 
 	@Override
 	public void delRoster(Integer uid, String childIds) {
-		cpDao.delRoster(uid, childIds);
+		if(childIds != null){
+			String [] childIdsArr =  childIds.split(",");
+			if(childIdsArr != null && childIdsArr.length > 0){
+				for (String childid : childIdsArr) {
+					cpDao.delRoster(uid, childid);
+				}
+			}
+		}
 	}
 	
 
