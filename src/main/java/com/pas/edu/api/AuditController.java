@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -128,7 +129,7 @@ public class AuditController extends BaseController {
 
     @ApiOperation(value = "审核记录列表", notes = "列出审核记录信息")
     @RequestMapping(value = "auditRecordList", method = RequestMethod.GET)
-    public Result auditRecordList(int applyId) {
+    public Result auditRecordList(@RequestParam(value = "applyId", required = true) Integer applyId) {
         List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(applyId);
 
         Result result = new Result();
