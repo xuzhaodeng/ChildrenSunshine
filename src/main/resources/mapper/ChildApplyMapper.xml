@@ -51,6 +51,15 @@
         
         <result column="medical_happening" property="medicalHappening"/>
         <result column="medical_happening_desc" property="otherMedical"/>
+        
+        <result column="child_province_id" property="provinceId"/>
+        <result column="child_province_name" property="provinceName"/>
+        
+        <result column="child_city_id" property="cityId"/>
+        <result column="child_city_name" property="cityName"/>
+        
+        <result column="child_county_id" property="countyId"/>
+        <result column="child_county_name" property="countyName"/>
     </resultMap>
     
     <!-- 数据采集添加 -->
