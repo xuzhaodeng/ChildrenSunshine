@@ -1,5 +1,6 @@
 package com.pas.edu.service.impl;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.pas.edu.dao.ChildApplyDao;
 import com.pas.edu.entity.ChildRoster;
-import com.pas.edu.entity.User;
 import com.pas.edu.service.ChildApplyService;
 import com.pas.edu.utils.CommUtil;
 
@@ -21,9 +21,14 @@ public class ChildApplyServiceImap implements ChildApplyService {
 
 	@Override
 	public void addChildRoster(ChildRoster childRoster) {
-		childRoster.setCreateTime(CommUtil.getDateFormat());
-		childRoster.setUpdateTime(CommUtil.getDateFormat());
-		cpDao.insertChildApply(childRoster);
+		try {
+			childRoster.setCreateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
+			childRoster.setUpdateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
+			cpDao.insertChildApply(childRoster);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -32,8 +37,13 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	}
 
 	@Override
-	public void updateChildApply(ChildRoster childRoster) {
-		childRoster.setUpdateTime(CommUtil.getDateFormat());
+	public void updateChildApply(ChildRoster childRoster){
+		try {
+			childRoster.setUpdateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		cpDao.updateChildApply(childRoster);
 	}
 

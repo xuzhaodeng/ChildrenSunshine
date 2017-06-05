@@ -25,10 +25,32 @@ public class RosterController extends BaseController {
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@RequestMapping(value = "getlsts", method = RequestMethod.GET)
 	public Result getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid,
-			//@RequestParam(value = "uid", required = true) Integer uid,
+			@RequestParam(value = "orgId", required = true) Integer orgId,
+			@RequestParam(value = "level", required = true) Integer level,
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
 		Result result = new Result();
+		if(level != null){
+			switch (level) {
+			case 1: //村 -- 查看花名册
+				
+				break;
+				
+			case 2: //镇-- 查看村列表
+				
+				break;
+				
+			case 3: //县 --查看镇列表
+				
+				break;
+				
+			case 4: // 市 --查看市列表
+				
+				break;
+			default:
+				break;
+			}
+		}
 		return result;
 	}
 
