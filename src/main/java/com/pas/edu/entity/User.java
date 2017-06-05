@@ -39,7 +39,7 @@ public class User {
     @ApiModelProperty("机构代号")
     private String orgCode;
     @ApiModelProperty("上级机构id")
-    private String orgParentId;
+    private int orgParentId;
     @ApiModelProperty("机构级别：1.市 2.区县 3.镇 4.村")
     private int orgLevel;
     private TokenInfo tokenInfo;

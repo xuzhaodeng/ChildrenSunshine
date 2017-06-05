@@ -22,6 +22,11 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	}
 
 	@Override
+	public ChildRoster getRosterInfoByChildId(int childId) {
+		return cpDao.getRosterInfoByChildId(childId);
+	}
+
+	@Override
 	public void updateChildApply(ChildRoster childRoster) {
 		
 		

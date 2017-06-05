@@ -6,6 +6,8 @@ import com.pas.edu.service.AuditRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuditRecordServiceImpl implements AuditRecordService{
 
@@ -13,6 +15,11 @@ public class AuditRecordServiceImpl implements AuditRecordService{
     private AuditRecordDao auditRecordDao;
 
     public void createAuditRecord(AuditRecord auditRecord) {
-        //auditRecordDao.
+        auditRecordDao.createAuditRecord(auditRecord);
+    }
+
+    @Override
+    public List<AuditRecord> getAuditRecordList(int applyId) {
+        return auditRecordDao.getAuditRecordList(applyId);
     }
 }

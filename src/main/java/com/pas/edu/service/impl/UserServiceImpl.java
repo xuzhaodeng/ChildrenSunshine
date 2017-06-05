@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUser(int id) {
+        return userDao.getUserById(id);
+    }
+
+    @Override
     public void modifyPwd(ModifyPwdRequest modifyPwdRequest) throws Exception {
         User user = userDao.getUserById(modifyPwdRequest.getUserId());
         if (user == null)

@@ -16,4 +16,5 @@ public interface ChildApplyDao {
 	List<ChildRoster> getChildByOrg(@Param("orgId") int orgId ,
 										 @Param("orgLevel") int orgLevel);
 
+	ChildRoster getRosterInfoByChildId(@Param("childId") int childId);
 }
