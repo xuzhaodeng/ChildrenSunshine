@@ -12,10 +12,12 @@ package com.pas.edu.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -41,7 +43,6 @@ public class MyBatisConfig {
      * 创建数据源(数据源的名称：方法名可以取为XXXDataSource(),XXX为数据库名称,该名称也就是数据源的名称)
      */
     @Bean
-    @Primary
     @ConfigurationProperties(prefix = "datasource")
     public DataSource getDataSource() throws Exception {
         DruidDataSource druidDataSource = new DruidDataSource();
@@ -52,8 +53,9 @@ public class MyBatisConfig {
      * 根据数据源创建SqlSessionFactory
      */
     @Bean
-    @Primary
     public SqlSessionFactory sqlSessionFactory(DataSource ds) throws Exception {
+        //打包jar扫描bean与mapper问题解决
+        VFS.addImplClass(SpringBootVFS.class);
         SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
         fb.setDataSource(ds);//指定数据源(这个必须有，否则报错)
         //分页插件
@@ -75,7 +77,6 @@ public class MyBatisConfig {
     }
 
     @Bean
-    @Primary
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
