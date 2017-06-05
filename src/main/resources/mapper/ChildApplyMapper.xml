@@ -100,8 +100,8 @@
 
     
     <!-- 采集数据删除 -->
-    <update id="delRoster" parameterType="java.lang.String">
-    	update kjet_child_apply set isdel = 2 where child_id = #{ childid } and operate_id = #{ uid }
+    <update id="delRoster" parameterType="int">
+    	update kjet_child_apply set isdel = 2 where child_id = #{ childId } and operate_id = #{ operateId }
     </update>
 
 

@@ -41,7 +41,6 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	public List<ChildRoster> getChildApplyLsts(Integer uid, Integer currPage, Integer pageSize) {
 		Page<ChildRoster> page = PageHelper.startPage(currPage * pageSize, pageSize);
 		List<ChildRoster> resultLsts = cpDao.getChildApplyLsts(uid);
-		System.out.println("数组长度为: " + resultLsts.size());
 		return resultLsts;
 	}
 
@@ -51,7 +50,7 @@ public class ChildApplyServiceImap implements ChildApplyService {
 			String [] childIdsArr =  childIds.split(",");
 			if(childIdsArr != null && childIdsArr.length > 0){
 				for (String childid : childIdsArr) {
-					cpDao.delRoster(uid, childid);
+					cpDao.delRoster(uid, Integer.parseInt(childid));
 				}
 			}
 		}
