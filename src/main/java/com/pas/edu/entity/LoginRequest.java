@@ -1,5 +1,6 @@
 package com.pas.edu.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -12,6 +13,8 @@ import lombok.Data;
  */
 @Data
 public class LoginRequest {
+    @ApiModelProperty(value = "登录手机号")
     private String phone;
+    @ApiModelProperty(value = "密码")
     private String password;
 }

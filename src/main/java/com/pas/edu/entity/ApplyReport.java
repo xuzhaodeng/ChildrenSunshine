@@ -1,5 +1,6 @@
 package com.pas.edu.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -12,37 +13,35 @@ import lombok.Data;
  * Desc:
  */
 @Data
-public class Summary {
-    //机构ID
+public class ApplyReport {
     private int orgId;
-    //机构名称
     private String orgName;
-    //孤儿
+    @ApiModelProperty(value = "孤儿数量")
     private int orphanCount;
-    //特困儿童
+    @ApiModelProperty(value = "特困儿童数量")
     private int provertyCount;
-    //重病伤残数量
+    @ApiModelProperty(value = "重病伤残数量")
     private int disabilityCount;
-    //其他困境儿童
+    @ApiModelProperty(value = "其他困境儿童数量")
     private int otherDifficultCount;
-    //合计
+    @ApiModelProperty(value = "合计数量")
     private int total;
-    //基本保障
+    @ApiModelProperty(value = "基本保障已报数量")
     private int baseProtectCount;
     private int baseNotProtectCount;
-    //教育保障
+    @ApiModelProperty(value = "教育保障已报数量")
     private int eduProtectCount;
     private int eduNotProtectCount;
-    //基本医疗保障
+    @ApiModelProperty(value = "基本医疗保障已报数量")
     private int medicalProtectCount;
     private int medicalNotProtectCount;
-    //监护责任
+    @ApiModelProperty(value = "监护责任已报数量")
     private int custodyCount;
     private int custodyNotCount;
-    //残疾儿童福利
+    @ApiModelProperty(value = "残疾儿童福利已报数量")
     private int disabilityWelfareCount;
     private int disabilityNotWelfareCount;
-    //状态
+    @ApiModelProperty(value = "状态")
     private int status;
 
 }

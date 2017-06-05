@@ -97,9 +97,29 @@
         <include refid="selectChild"/>
         WHERE child.operate_id = #{ uid } and isdel = 1
     </select>
+
     
     <!-- 采集数据删除 -->
     <update id="delRoster" parameterType="java.lang.String">
     	update kjet_child_apply set isdel = 2 where child_id in(#{ childIds }) and operate_id = #{ uid }
     </update>
+
+
+    <select id="getChildByOrg" resultMap="childApplyMap">
+        select * from kjet_child_apply
+        WHERE
+        <if test="orgLevel==1">
+            child_city_id=#{orgId}
+        </if>
+        <if test="orgLevel==2">
+            child_county_id=#{orgId}
+        </if>
+        <if test="orgLevel==3">
+            town_id=#{orgId}
+        </if>
+        <if test="orgLevel==4">
+            village_id=#{orgId}
+        </if>
+    </select>
+
 </mapper>

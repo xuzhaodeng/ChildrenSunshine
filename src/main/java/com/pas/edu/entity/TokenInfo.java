@@ -1,5 +1,6 @@
 package com.pas.edu.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -12,6 +13,8 @@ import lombok.Data;
  */
 @Data
 public class TokenInfo {
+    @ApiModelProperty("token")
     private String token;
+    @ApiModelProperty("有效时间")
     private long expireTime;
 }

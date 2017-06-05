@@ -1,6 +1,7 @@
 package com.pas.edu.entity;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -16,17 +17,19 @@ import java.util.List;
 @Data
 public class Organ {
     //机构ID
+    @ApiModelProperty(value = "机构id")
     private int orgId;
     //机构级别  1,2,3,4
+    @ApiModelProperty(value = "机构级别 1,2,3,4")
     private int orgLevel;
-    //父机构ID
+    @ApiModelProperty(value = "父机构ID")
     private int parentOrgId;
-    //机构名
+    @ApiModelProperty(value = "机构名")
     private String orgName;
-    //机构代号
+    @ApiModelProperty(value = "机构代号")
     private String orgCode;
-    //父机构
+    @ApiModelProperty(value = "父机构")
     private Organ parentOrgan;
-    //子机构
+    @ApiModelProperty(value = "子机构list")
     private List<Organ> childOrganList;
 }
