@@ -65,6 +65,21 @@ public class ChildApplyController extends BaseController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result updateRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
         Result result = new Result();
+        CompleteOrgan co =  orginService.getCompleteOrgan(childRoster.getOperateId());
+        if(co != null){
+        	 childRoster.setVillageId(co.getVillageOrg().getOrgId());
+             childRoster.setVillageName(co.getVillageOrg().getOrgName());
+             
+             childRoster.setTownId(co.getTownOrg().getOrgId());
+             childRoster.setTownName(co.getTownOrg().getOrgName());
+             
+             childRoster.setCountyId(co.getCountyOrg().getOrgId());
+             childRoster.setCountyName(co.getCountyOrg().getOrgName());
+             
+             childRoster.setCityId(co.getCityOrg().getOrgId());
+             childRoster.setCityName(co.getCityOrg().getOrgName());
+             
+        }
         caService.updateChildApply(childRoster);
         return result;
     }
