@@ -17,14 +17,48 @@
         <result column="town_status" property="townStatus"/>
         <result column="county_status" property="countyStatus"/>
         <result column="city_status" property="cityStatus"/>
+        <result column="child_nation" property="nation"/> 
+        <result column="child_address" property="address"/> 
+        <result column="child_birthday" property="childBornTime"/> 
+        <result column="guardian_birthday" property="guaBornTime"/>
+        <result column="child_family_population" property="familyPopulation"/>
+        <result column="child_itself_reason" property="itselfReason"/>
+        <result column="child_reason" property="familyReason"/>
+        <result column="guardian_reason" property="guaReason"/>
+        
+        <result column="guardian_name" property="guaName"/>
+        <result column="guardian_phone" property="guaTelNum"/>
+        <result column="guardian_id_card" property="guaIdCard"/>
+        <result column="guardian_sex" property="guaSex"/>
+        <result column="guardian_birthday" property="guaBornTime"/>
+        <result column="guardian_child_rela" property="guaChildRela"/>
+        
+        <result column="guardian_hapening" property="guaHappening"/>
+        <result column="plight_category" property="dilemmaCategory"/>
+        <result column="other_category" property="otherDilCatDesc"/>
+        
+        
+        <result column="welfare" property="welfareHappening"/>
+        <result column="welfare_desc" property="otherWelfare"/>
+        
+        
+        <result column="basic_life" property="basicLifeHappening"/>
+        <result column="basic_life_desc" property="otherBasicLife"/>
+        
+        
+        <result column="education_happening" property="educationHappening"/>
+        <result column="education_happening_desc" property="otherEducation"/>
+        
+        <result column="medical_happening" property="medicalHappening"/>
+        <result column="medical_happening_desc" property="otherMedical"/>
     </resultMap>
     
     <!-- 数据采集添加 -->
     <insert id="insertChildApply" useGeneratedKeys="true" keyColumn="child_id" parameterType="ChildRoster">
     	insert into kjet_child_apply(child_id_card, child_head_img, child_name, child_sex, 
     	child_birthday, child_nation, child_address, child_family_population,
-    	child_itself_reason, child_reason, guardian_id_card, guardian_phone, guardian_name,
-    	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category,
+    	child_itself_reason, child_reason, guardian_reason, guardian_id_card, guardian_phone, guardian_name,
+    	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category, other_category
     	welfare, welfare_desc, basic_life, basic_life_desc, education_happening, education_happening_desc,
     	medical_happening, medical_happening_desc, village_status, town_status,
     	county_status, city_status, operate_id, create_time, update_time, child_province_id, child_province_name,
@@ -32,8 +66,8 @@
     	town_id, town_name, village_id, village_name) values(
     	#{ childIdCard }, #{ headImg }, #{ childName }, #{ childSex },
     	#{ childBornTime }, #{ nation }, #{ address }, #{ familyPopulation },
-    	#{ itselfReason }, #{ familyReason }, #{ guaIdCard }, #{ guaTelNum }, #{ guaName },
-    	#{ guaSex }, #{ guaBornTime }, #{ guaChildRela }, #{ guaHappening }, #{ dilemmaCategory },
+    	#{ itselfReason }, #{ familyReason }, #{ guaReason }, #{ guaIdCard }, #{ guaTelNum }, #{ guaName },
+    	#{ guaSex }, #{ guaBornTime }, #{ guaChildRela }, #{ guaHappening }, #{ dilemmaCategory }, #{ otherDilCatDesc },
     	#{ welfareHappening }, #{ otherWelfare }, #{ basicLifeHappening }, #{ otherBasicLife }, #{ educationHappening }, #{ otherEducation },
     	#{ medicalHappening }, #{ otherMedical }, #{ villageStatus }, #{ townStatus },
     	#{ countyStatus }, #{ cityStatus }, #{ operateId }, #{ createTime }, #{ updateTime }, #{ provinceId }, #{ provinceName },
@@ -53,6 +87,7 @@
     	child_address = #{ address },
     	child_family_population = #{ familyPopulation },
     	child_itself_reason = #{ itselfReason },
+    	guardian_reason = #{ guaReason },
     	child_reason = #{ familyReason },
     	guardian_id_card = #{ guaIdCard },
     	guardian_phone = #{ guaTelNum },
@@ -62,6 +97,7 @@
     	guardian_child_rela = #{ guaChildRela },
     	guardian_hapening = #{ guaHappening },
     	plight_category = #{ dilemmaCategory },
+    	other_category = #{ otherDilCatDesc },
     	welfare = #{ welfareHappening },
     	welfare_desc = #{ otherWelfare },
     	basic_life = #{ basicLifeHappening },
