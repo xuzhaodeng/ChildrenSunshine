@@ -10,7 +10,7 @@ public class ChildRoster {
 	
 	@ApiModelProperty("孩子ID,数据采集添加时填空")
 	private Integer childId;
-	
+	   
 	@ApiModelProperty("用户图片")
 	private String headImg; //用户图片
 	
