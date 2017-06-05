@@ -1,5 +1,6 @@
 package com.pas.edu.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -14,8 +15,12 @@ import lombok.Data;
 @Data
 public class ApplyStatusReport {
     private int orgId;
+    @ApiModelProperty(value = "未提交/待审核数量")
     private int notAuditCount;
+    @ApiModelProperty(value = "已提交/审核中数量")
     private int inAuditCount;
+    @ApiModelProperty(value = "通过数量")
     private int passCount;
+    @ApiModelProperty(value = "被驳回数量")
     private int refuseCount;
 }

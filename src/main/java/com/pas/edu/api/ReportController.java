@@ -1,6 +1,7 @@
 package com.pas.edu.api;
 
 import com.pas.edu.entity.ApplyReport;
+import com.pas.edu.entity.ApplyStatusReport;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ReportService;
@@ -44,8 +45,8 @@ public class ReportController {
     @ApiOperation(value = "机构审核状态", notes = "获取当前机构审核状态")
     @ApiImplicitParam(name = "orgId", paramType = "path", value = "机构id", required = true, dataType = "int")
     @RequestMapping(value = "applyStatus/{orgId}", method = RequestMethod.GET)
-    public BaseResult<Object> getApplyStatus(@PathVariable int orgId) throws Exception {
-        Result result = new Result();
+    public BaseResult<ApplyStatusReport> getApplyStatus(@PathVariable int orgId) throws Exception {
+        BaseResult<ApplyStatusReport> result = new BaseResult<ApplyStatusReport>();
         result.setData(reportService.getApplyStatusReport(orgId));
         return result;
     }
