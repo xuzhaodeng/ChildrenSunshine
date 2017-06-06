@@ -14,14 +14,14 @@ public class AuditRequest {
     @ApiModelProperty("申请的id")
     private int applyId;
     /**
-     * 级别(0:村；1：乡镇；2：区县；3：市)
+     * 级别(4:村；3：乡镇；2：区县；1：市)
      */
     @NotEmpty
-    @ApiModelProperty("级别(0:村；1：乡镇；2：区县；3：市)")
+    @ApiModelProperty("级别(4:村；3：乡镇；2：区县；1：市)")
     private int level;
 
     /**
-     *操作(PASS：通过；REFUSE：驳回)
+     *操作(1：通过；2：驳回)
      */
     @NotEmpty
     @ApiModelProperty("操作(1：通过；2：驳回)")
