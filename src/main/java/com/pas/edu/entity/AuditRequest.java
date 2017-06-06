@@ -12,20 +12,20 @@ public class AuditRequest {
      */
     @NotEmpty
     @ApiModelProperty("申请的id")
-    private Integer applyId;
+    private int applyId;
     /**
-     * 级别(0:村；1：乡镇；2：区县；3：市)
+     * 级别(4:村；3：乡镇；2：区县；1：市)
      */
     @NotEmpty
-    @ApiModelProperty("级别(0:村；1：乡镇；2：区县；3：市)")
-    private Integer level;
+    @ApiModelProperty("级别(4:村；3：乡镇；2：区县；1：市)")
+    private int level;
 
     /**
-     *操作(PASS：通过；REFUSE：驳回)
+     *操作(1：通过；2：驳回)
      */
     @NotEmpty
     @ApiModelProperty("操作(1：通过；2：驳回)")
-    private Integer action;
+    private int action;
 
     /**
      * 错误字段，多个错误字段用逗号分隔
@@ -44,7 +44,7 @@ public class AuditRequest {
      */
     @ApiModelProperty("操作人员id")
     @NotEmpty
-    private Integer operatorId;
+    private int operatorId;
 
     @Override
     public String toString() {
