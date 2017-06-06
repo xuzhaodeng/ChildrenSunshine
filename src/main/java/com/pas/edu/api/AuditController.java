@@ -4,6 +4,7 @@ import com.pas.edu.entity.AuditRecord;
 import com.pas.edu.entity.AuditRequest;
 import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.User;
+import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.AuditRecordService;
 import com.pas.edu.service.ChildApplyService;
@@ -168,7 +169,7 @@ public class AuditController extends BaseController {
 
     @ApiOperation(value = "审核记录列表", notes = "列出审核记录信息")
     @RequestMapping(value = "auditRecordList", method = RequestMethod.GET)
-    public Result auditRecordList(@RequestParam(value = "applyId", required = true) Integer applyId) {
+    public BaseResult<List<AuditRecord>> auditRecordList(@RequestParam(value = "applyId", required = true) Integer applyId) {
         List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(applyId);
 
         for(AuditRecord item:auditRecordList) {
@@ -177,9 +178,13 @@ public class AuditController extends BaseController {
                 item.setOperatorName(user.getName());
             }
         }
-        Result result = new Result();
-        result.setData(auditRecordList);
+        //Result result = new Result();
+        //result.setData(auditRecordList);
 
+        //return result;
+
+        BaseResult result = new BaseResult();
+        result.setData(auditRecordList);
         return result;
     }
 }
