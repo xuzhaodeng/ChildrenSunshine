@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.HistoryRosterDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    
+    <resultMap id="historyRosterMap" type="ChildRoster">
+        <id column="child_id" property="childId"/>
+        <result column="child_name" property="childName"/>
+        <result column="guardian_phone" property="guaTelNum"/>
+        <result column="village_status" property="villageStatus"/>
+        <result column="town_status" property="townStatus"/>
+        <result column="county_status" property="countyStatus"/>
+        <result column="city_status" property="cityStatus"/>
+        <result column="child_nation" property="nation"/> 
+        <result column="child_address" property="address"/> 
+        <result column="child_birthday" property="childBornTime"/> 
+        <result column="guardian_birthday" property="guaBornTime"/>
+        <result column="child_family_population" property="familyPopulation"/>
+        <result column="child_itself_reason" property="itselfReason"/>
+        <result column="child_reason" property="familyReason"/>
+        <result column="guardian_reason" property="guaReason"/>
+        
+        <result column="guardian_name" property="guaName"/>
+        <result column="guardian_phone" property="guaTelNum"/>
+        <result column="guardian_id_card" property="guaIdCard"/>
+        <result column="guardian_sex" property="guaSex"/>
+        <result column="guardian_birthday" property="guaBornTime"/>
+        <result column="guardian_child_rela" property="guaChildRela"/>
+        
+        <result column="guardian_hapening" property="guaHappening"/>
+        <result column="plight_category" property="dilemmaCategory"/>
+        <result column="other_category" property="otherDilCatDesc"/>
+        
+        
+        <result column="welfare" property="welfareHappening"/>
+        <result column="welfare_desc" property="otherWelfare"/>
+        
+        
+        <result column="basic_life" property="basicLifeHappening"/>
+        <result column="basic_life_desc" property="otherBasicLife"/>
+        
+        <result column="education_happening" property="educationHappening"/>
+        <result column="education_happening_desc" property="otherEducation"/>
+        
+        <result column="medical_happening" property="medicalHappening"/>
+        <result column="medical_happening_desc" property="otherMedical"/>
+        
+        <result column="child_province_id" property="provinceId"/>
+        <result column="child_province_name" property="provinceName"/>
+        
+        <result column="child_city_id" property="cityId"/>
+        <result column="child_city_name" property="cityName"/>
+        
+        <result column="child_county_id" property="countyId"/>
+        <result column="child_county_name" property="countyName"/>
+    </resultMap>
+    
+    <!-- 数据采集添加 -->
+    <insert id="insertHistoryRoster" useGeneratedKeys="true" keyColumn="his_id" parameterType="ChildRoster">
+    	insert into kjet_history_apply(child_id, child_id_card, child_head_img, child_name, child_sex, 
+    	child_birthday, child_nation, child_address, child_family_population,
+    	child_itself_reason, child_reason, guardian_reason, guardian_id_card, guardian_phone, guardian_name,
+    	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category, other_category
+    	welfare, welfare_desc, basic_life, basic_life_desc, education_happening, education_happening_desc,
+    	medical_happening, medical_happening_desc, village_status, town_status,
+    	county_status, city_status, operate_id, create_time, update_time, child_province_id, child_province_name,
+    	child_city_id, child_city_name, child_county_id, child_county_name,
+    	town_id, town_name, village_id, village_name) values(#{ childId },
+    	#{ childIdCard }, #{ headImg }, #{ childName }, #{ childSex },
+    	#{ childBornTime }, #{ nation }, #{ address }, #{ familyPopulation },
+    	#{ itselfReason }, #{ familyReason }, #{ guaReason }, #{ guaIdCard }, #{ guaTelNum }, #{ guaName },
+    	#{ guaSex }, #{ guaBornTime }, #{ guaChildRela }, #{ guaHappening }, #{ dilemmaCategory }, #{ otherDilCatDesc },
+    	#{ welfareHappening }, #{ otherWelfare }, #{ basicLifeHappening }, #{ otherBasicLife }, #{ educationHappening }, #{ otherEducation },
+    	#{ medicalHappening }, #{ otherMedical }, #{ villageStatus }, #{ townStatus },
+    	#{ countyStatus }, #{ cityStatus }, #{ operateId }, #{ createTime }, #{ updateTime }, #{ provinceId }, #{ provinceName },
+    	#{ cityId }, #{ cityName }, #{ countyId }, #{ countyName }, 
+    	#{ townId }, #{ townName }, #{ villageId }, #{ villageName })
+    </insert> 
+
+</mapper>
