@@ -30,26 +30,21 @@ public class RosterController extends BaseController {
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
 		Result result = new Result();
-		if(level != null){
-			switch (level) {
+		switch (level) {
 			case 1: //村 -- 查看花名册
 				
 				break;
-				
 			case 2: //镇-- 查看村列表
 				
 				break;
-				
 			case 3: //县 --查看镇列表
 				
 				break;
-				
 			case 4: // 市 --查看市列表
 				
 				break;
 			default:
 				break;
-			}
 		}
 		return result;
 	}

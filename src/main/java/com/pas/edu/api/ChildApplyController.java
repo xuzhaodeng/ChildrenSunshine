@@ -1,5 +1,7 @@
 package com.pas.edu.api;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.CompleteOrgan;
 import com.pas.edu.entity.DelRosterRequest;
+import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ChildApplyService;
 import com.pas.edu.service.OrganService;
@@ -94,30 +97,30 @@ public class ChildApplyController extends BaseController {
 	
 	@ApiOperation(value = "花名详情", notes = "获取花名册信息")
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public Result getRosterDetailed(@RequestParam(value = "childId", required = true) Integer childId) throws Exception {
-        Result result = new Result();
-        result.setData(caService.getRosterInfoByChildId(childId));
-        return result;
+	public BaseResult<ChildRoster> getRosterDetailed(@RequestParam(value = "childId", required = true) Integer childId) throws Exception {
+        BaseResult<ChildRoster> br = new BaseResult<ChildRoster>();
+        br.setData(caService.getRosterInfoByChildId(childId));
+        return br;
     }
 	
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@RequestMapping(value = "datlsts", method = RequestMethod.GET)
-	public Result getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid, 
+	public BaseResult<List<ChildRoster>> getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid, 
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
-		Result result = new Result();
-		result.setData(caService.getChildApplyLsts(uid, currPage, pageSize));
-		return result;
+		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
+		br.setData(caService.getChildApplyLsts(uid, currPage, pageSize));
+		return br;
 	}
 	
 	@ApiOperation(value = "获取村管端困境儿童列表--根据机构ID", notes = "获取村管端困境儿童列表--根据机构Id")
 	@RequestMapping(value = "datlstsbyorgid", method = RequestMethod.GET)
-	public Result getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId, 
+	public BaseResult<List<ChildRoster>> getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId, 
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
-		Result result = new Result();
-		result.setData(caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize));
-		return result;
+		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
+		br.setData(caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize));
+		return br;
 	}
 	
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
