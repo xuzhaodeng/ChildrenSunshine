@@ -20,15 +20,16 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	ChildApplyDao cpDao;
 
 	@Override
-	public void addChildRoster(ChildRoster childRoster) {
+	public Integer addChildRoster(ChildRoster childRoster) {
 		try {
 			childRoster.setCreateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
 			childRoster.setUpdateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
-			cpDao.insertChildApply(childRoster);
+			Integer rows = cpDao.insertChildApply(childRoster);
+			return childRoster.getChildId();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return 0;
 		}
+		
 	}
 
 	@Override

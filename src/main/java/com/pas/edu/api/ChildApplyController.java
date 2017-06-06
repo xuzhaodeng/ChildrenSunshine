@@ -66,7 +66,7 @@ public class ChildApplyController extends BaseController {
                   childRoster.setCityName(co.getCityOrg().getOrgName());
                   
              }
-             caService.addChildRoster(childRoster);
+             result.setData(caService.addChildRoster(childRoster));
         }
        
         return result;
