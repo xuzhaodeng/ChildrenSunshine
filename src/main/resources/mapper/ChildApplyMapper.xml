@@ -194,7 +194,7 @@
     	village_status = #{ villageStatus }, 
 		town_status = #{ townStatus },
 		county_status = #{ countyStatus },  
-		city_status = #{ cityStatus }, 
+		city_status = #{ cityStatus }
     	where child_id = #{ childId }
     </update>
     
