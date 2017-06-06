@@ -13,7 +13,6 @@ import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.CompleteOrgan;
 import com.pas.edu.entity.DelRosterRequest;
 import com.pas.edu.entity.common.Result;
-import com.pas.edu.exception.CommonException;
 import com.pas.edu.service.ChildApplyService;
 import com.pas.edu.service.OrganService;
 
