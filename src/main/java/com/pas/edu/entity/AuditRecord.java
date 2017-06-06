@@ -17,6 +17,8 @@ public class AuditRecord {
     private String deviantContent;
     @ApiModelProperty("操作用户ID")
     private Integer operateId;
+    @ApiModelProperty("操作用户姓名")
+    private String operatorName;
     @ApiModelProperty("当前审核机构id")
     private Integer currentOrgId;
     @ApiModelProperty("上级机构ID")
