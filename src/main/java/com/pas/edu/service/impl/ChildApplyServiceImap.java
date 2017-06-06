@@ -77,6 +77,11 @@ public class ChildApplyServiceImap implements ChildApplyService {
 			}
 		}
 	}
+
+	@Override
+	public Object getRosterByChildIdCard(String idCard) {
+		return cpDao.getRosterByChildIdCard(idCard);
+	}
 	
 
 }

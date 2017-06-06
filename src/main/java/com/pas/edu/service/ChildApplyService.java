@@ -23,4 +23,6 @@ public interface ChildApplyService {
 	
 	void delRoster(Integer uid, String childIds);
 	
+	Object getRosterByChildIdCard(String idCard);
+	
 }

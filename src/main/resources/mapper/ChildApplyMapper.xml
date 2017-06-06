@@ -214,6 +214,11 @@
         FROM kjet_child_apply child
     </sql>
     
+    <!-- 根据孩子身份证号码查询孩子 -->
+    <select id="getRosterByChildIdCard" parameterType="java.lang.String" resultType="java.util.Map">
+    	select * from kjet_child_apply where child_id_card = #{ idCard } and isdel = 1 
+    </select>
+    
     <!-- 根据id查询数据采集信息 --> 
     <select id="getRosterInfoByChildId" resultMap="childApplyMap">
         select * from kjet_child_apply

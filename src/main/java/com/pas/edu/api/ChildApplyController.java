@@ -13,6 +13,7 @@ import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.CompleteOrgan;
 import com.pas.edu.entity.DelRosterRequest;
 import com.pas.edu.entity.common.Result;
+import com.pas.edu.exception.CommonException;
 import com.pas.edu.service.ChildApplyService;
 import com.pas.edu.service.OrganService;
 
@@ -41,22 +42,29 @@ public class ChildApplyController extends BaseController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public Result addRoster(@RequestBody @Valid ChildRoster childRoster) throws Exception {
         Result result = new Result();
-        CompleteOrgan co =  orginService.getCompleteOrgan(childRoster.getOperateId());
-        if(co != null){
-        	 childRoster.setVillageId(co.getVillageOrg().getOrgId());
-             childRoster.setVillageName(co.getVillageOrg().getOrgName());
-             
-             childRoster.setTownId(co.getTownOrg().getOrgId());
-             childRoster.setTownName(co.getTownOrg().getOrgName());
-             
-             childRoster.setCountyId(co.getCountyOrg().getOrgId());
-             childRoster.setCountyName(co.getCountyOrg().getOrgName());
-             
-             childRoster.setCityId(co.getCityOrg().getOrgId());
-             childRoster.setCityName(co.getCityOrg().getOrgName());
-             
+        if(caService.getRosterByChildIdCard(childRoster.getChildIdCard()) != null){
+        	result.setCode(-1);
+        	result.setData(null);
+        	result.setMsg("儿童信息添加重复");
+        } else {
+        	 CompleteOrgan co =  orginService.getCompleteOrgan(childRoster.getOperateId());
+             if(co != null){
+             	 childRoster.setVillageId(co.getVillageOrg().getOrgId());
+                  childRoster.setVillageName(co.getVillageOrg().getOrgName());
+                  
+                  childRoster.setTownId(co.getTownOrg().getOrgId());
+                  childRoster.setTownName(co.getTownOrg().getOrgName());
+                  
+                  childRoster.setCountyId(co.getCountyOrg().getOrgId());
+                  childRoster.setCountyName(co.getCountyOrg().getOrgName());
+                  
+                  childRoster.setCityId(co.getCityOrg().getOrgId());
+                  childRoster.setCityName(co.getCityOrg().getOrgName());
+                  
+             }
+             caService.addChildRoster(childRoster);
         }
-        caService.addChildRoster(childRoster);
+       
         return result;
     }
 	
