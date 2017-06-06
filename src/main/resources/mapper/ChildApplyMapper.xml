@@ -190,6 +190,7 @@
     	education_happening_desc = #{ otherEducation },
     	medical_happening = #{ medicalHappening },
     	medical_happening_desc = #{ otherMedical },
+    	update_time = #{ updateTime }, 
     	village_status = #{ villageStatus }, 
 		town_status = #{ townStatus },
 		county_status = #{ countyStatus },  
