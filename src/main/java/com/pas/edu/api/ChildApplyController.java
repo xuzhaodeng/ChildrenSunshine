@@ -99,7 +99,7 @@ public class ChildApplyController extends BaseController {
 	
 	@ApiOperation(value = "花名详情", notes = "获取花名册信息")
 	@ApiImplicitParams(value = {
-			@ApiImplicitParam(paramType = "query", name = "childId", dataType = "int", required = true, value = "儿童Id")
+		@ApiImplicitParam(paramType = "query", name = "childId", dataType = "int", required = true, value = "儿童Id")
 	})
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public BaseResult<ChildRoster> getRosterDetailed(@RequestParam(value = "childId", required = true) Integer childId) throws Exception {
@@ -110,9 +110,9 @@ public class ChildApplyController extends BaseController {
 	
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@ApiImplicitParams(value = {
-			@ApiImplicitParam(paramType = "query", name = "uid", dataType = "int", required = true, value = "用户Id"),
-			@ApiImplicitParam(paramType = "query", name = "currPage", dataType = "int", required = true, value = "当前页码 从零开始"),
-			@ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", required = true, value = "分页大小")
+		@ApiImplicitParam(paramType = "query", name = "uid", dataType = "int", required = true, value = "用户Id"),
+		@ApiImplicitParam(paramType = "query", name = "currPage", dataType = "int", required = true, value = "当前页码 从零开始"),
+		@ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", required = true, value = "分页大小")
 	})
 	@RequestMapping(value = "datlsts", method = RequestMethod.GET)
 	public BaseResult<List<ChildRoster>> getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid, 
@@ -125,9 +125,9 @@ public class ChildApplyController extends BaseController {
 	
 	@ApiOperation(value = "获取村管端困境儿童列表--根据机构ID", notes = "获取村管端困境儿童列表--根据机构Id")
 	@ApiImplicitParams(value = {
-			@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "机构ID"),
-			@ApiImplicitParam(paramType = "query", name = "currPage", dataType = "int", required = true, value = "当前页码 从零开始"),
-			@ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", required = true, value = "分页大小")
+		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "机构ID"),
+		@ApiImplicitParam(paramType = "query", name = "currPage", dataType = "int", required = true, value = "当前页码 从零开始"),
+		@ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", required = true, value = "分页大小")
 	})
 	@RequestMapping(value = "datlstsbyorgid", method = RequestMethod.GET)
 	public BaseResult<List<ChildRoster>> getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId, 
