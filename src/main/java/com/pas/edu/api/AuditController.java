@@ -11,6 +11,8 @@ import com.pas.edu.service.ChildApplyService;
 import com.pas.edu.service.HistoryRosterService;
 import com.pas.edu.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,7 @@ public class AuditController extends BaseController {
     private HistoryRosterService historyRosterService;
 
     @ApiOperation(value = "提交审核", notes = "村把申请材料提交到镇进行审核")
+    @ApiImplicitParam(paramType = "query", name = "applyId", value = "申请id", required = true, dataType = "int")
     @RequestMapping(value = "submit", method = RequestMethod.POST)
     public Result submit(@RequestParam(value = "applyId", required = true) Integer applyId) {
         Date now = new Date();
@@ -68,8 +71,8 @@ public class AuditController extends BaseController {
         return new Result();
     }
 
-    @ApiOperation(value = "审核操作", notes = "对儿童登记表进行审核操作 <br/>action取值(1：同意；2：驳回)  <br/>level取值 (4：村；3：乡镇；2：区县；1：市)  <br/>wrongFields为错误字段，多个错误字段用逗号分隔")
-    @RequestMapping(value = "action", method = RequestMethod.POST)
+    @ApiOperation(value = "审核操作", notes = "对儿童登记表进行审核操作")
+    @RequestMapping(value = "audit", method = RequestMethod.POST)
     public Result audit(@RequestBody AuditRequest auditRequest) {
         System.out.println(auditRequest);
         Date now = new Date();
@@ -168,6 +171,7 @@ public class AuditController extends BaseController {
     }
 
     @ApiOperation(value = "审核记录列表", notes = "列出审核记录信息")
+    @ApiImplicitParam(paramType = "query", name = "applyId", value = "申请id", required = true, dataType = "int")
     @RequestMapping(value = "auditRecordList", method = RequestMethod.GET)
     public BaseResult<List<AuditRecord>> auditRecordList(@RequestParam(value = "applyId", required = true) Integer applyId) {
         List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(applyId);

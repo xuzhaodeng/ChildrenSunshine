@@ -14,6 +14,7 @@
         <result column="type" property="type"/>
         <result column="deviant_content" property="deviantContent"/>
         <result column="operate_id" property="operateId"/>
+        <result column="operator_name" property="operatorName"/>
         <result column="current_org_id" property="currentOrgId"/>
         <result column="appoint_org_id" property="appointOrgId"/>
         <result column="create_time" property="createTime"/>
@@ -28,6 +29,7 @@
             auditRecord.type,
             auditRecord.deviant_content,
             auditRecord.operate_id,
+            auditRecord.operator_name,
             auditRecord.current_org_id,
             auditRecord.appoint_org_id,
             auditRecord.create_time,
@@ -42,6 +44,7 @@
             type,
             deviant_content,
             operate_id,
+            operator_name,
             current_org_id,
             appoint_org_id,
             create_time,
@@ -53,6 +56,7 @@
             #{ type },
             #{ deviantContent },
             #{ operateId },
+            #{ operator_name },
             #{ currentOrgId },
             #{ appointOrgId },
             #{ createTime },
