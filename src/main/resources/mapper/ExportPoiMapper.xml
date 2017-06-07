@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.ExportPoiDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    
+    <resultMap id="exportPoiRosterMap" type="PoiChildRoster">
+        <id column="child_id" property="childId"/>
+        <result column="child_name" property="childName"/>
+        <result column="guardian_phone" property="guaTelNum"/>
+        <result column="village_status" property="villageStatus"/>
+        <result column="town_status" property="townStatus"/>
+        <result column="county_status" property="countyStatus"/>
+        <result column="city_status" property="cityStatus"/>
+        <result column="child_nation" property="nation"/> 
+        <result column="child_address" property="address"/> 
+        <result column="child_birthday" property="childBornTime"/> 
+        <result column="guardian_birthday" property="guaBornTime"/>
+        <result column="child_family_population" property="familyPopulation"/>
+        <result column="child_itself_reason" property="itselfReason"/>
+        <result column="child_reason" property="familyReason"/>
+        <result column="guardian_reason" property="guaReason"/>
+        
+        <result column="guardian_name" property="guaName"/>
+        <result column="guardian_phone" property="guaTelNum"/>
+        <result column="guardian_id_card" property="guaIdCard"/>
+        <result column="guardian_sex" property="guaSex"/>
+        <result column="guardian_birthday" property="guaBornTime"/>
+        <result column="guardian_child_rela" property="guaChildRela"/>
+        
+        <result column="guardian_hapening" property="guaHappening"/>
+        <result column="plight_category" property="dilemmaCategory"/>
+        <result column="other_category" property="otherDilCatDesc"/>
+        
+        
+        <result column="welfare" property="welfareHappening"/>
+        <result column="welfare_desc" property="otherWelfare"/>
+        
+        
+        <result column="basic_life" property="basicLifeHappening"/>
+        <result column="basic_life_desc" property="otherBasicLife"/>
+        
+        
+        <result column="education_happening" property="educationHappening"/>
+        <result column="education_happening_desc" property="otherEducation"/>
+        
+        <result column="medical_happening" property="medicalHappening"/>
+        <result column="medical_happening_desc" property="otherMedical"/>
+        
+        <result column="child_province_id" property="provinceId"/>
+        <result column="child_province_name" property="provinceName"/>
+        
+        <result column="child_city_id" property="cityId"/>
+        <result column="child_city_name" property="cityName"/>
+        
+        <result column="child_county_id" property="countyId"/>
+        <result column="child_county_name" property="countyName"/>
+        
+        <result column="name" property="writeBy"/>
+    </resultMap>
+    
+    <resultMap type="NameSheet" id="exportLstsMap">
+    	<id column="child_id" property="child_id"/>
+        <result column="child_name" property="child_name"/>
+        <result column="child_sex" property="child_sex"/>
+        
+        <result column="child_address" property="child_address"/> 
+        <result column="child_birthday" property="child_birthday"/> 
+        
+        
+        <result column="guardian_phone" property="guardian_phone"/>
+        
+        <result column="plight_category" property="plight_category"/>
+        <result column="other_category" property="otherDilCatDesc"/>
+        
+        <result column="basic_life" property="basic_life"/>
+        <result column="basic_life_desc" property="otherBasicLife"/>
+        
+        
+        <result column="education_happening" property="education_happening"/>
+        <result column="education_happening_desc" property="otherEducation"/>
+        
+        <result column="medical_happening" property="medical_happening"/>
+        <result column="medical_happening_desc" property="otherMedical"/>
+        
+        <result column="guardian_hapening" property="guardian_hapening"/>
+        <result column="welfare" property="welfare"/>
+        <result column="welfare_desc" property="otherWelfare"/>
+    </resultMap>
+    
+    <!-- 根据Id查询花名册信息 -->
+    <select id="getRosterById" parameterType="int" resultMap="exportPoiRosterMap">
+       select kca.*, ksu.name  from kjet_child_apply kca 
+       		LEFT JOIN kjet_system_user ksu ON kca.operate_id = ksu.user_id 
+       		where kca.child_id = #{ childId } and kca.isdel = 1
+    </select>
+    
+    <select id="getRosterLsts" parameterType="int" resultMap="exportLstsMap">
+    	select 
+    		child_id, child_name, child_sex, child_address, child_birthday, guardian_phone, plight_category,
+    		other_category, basic_life, basic_life_desc, education_happening, education_happening_desc, medical_happening, medical_happening_desc,
+    		guardian_hapening, welfare, welfare_desc
+    	 from kjet_child_apply where village_id = #{ villId } and isdel = 1
+    </select>
+    
+
+</mapper>
