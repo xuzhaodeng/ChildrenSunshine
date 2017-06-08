@@ -259,7 +259,7 @@
             child.city_status      cityStatus,
             child.child_sex        childSex,
             child.child_birthday    childBornTime,
-            child.child_address    address,
+            child.child_address    address
         FROM kjet_child_apply child
     </sql>
     
