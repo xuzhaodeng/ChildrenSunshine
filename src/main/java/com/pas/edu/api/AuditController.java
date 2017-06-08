@@ -175,18 +175,6 @@ public class AuditController extends BaseController {
     @RequestMapping(value = "auditRecordList", method = RequestMethod.GET)
     public BaseResult<List<AuditRecord>> auditRecordList(@RequestParam(value = "applyId", required = true) Integer applyId) {
         List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(applyId);
-
-        for(AuditRecord item:auditRecordList) {
-            User user = userService.getUser(item.getOperateId());
-            if(user!=null) {
-                item.setOperatorName(user.getName());
-            }
-        }
-        //Result result = new Result();
-        //result.setData(auditRecordList);
-
-        //return result;
-
         BaseResult result = new BaseResult();
         result.setData(auditRecordList);
         return result;

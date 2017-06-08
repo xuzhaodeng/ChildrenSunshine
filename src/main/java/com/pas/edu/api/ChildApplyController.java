@@ -1,9 +1,12 @@
 package com.pas.edu.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.pas.edu.common.DictionaryHelper;
+import com.pas.edu.service.DatadictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +44,9 @@ public class ChildApplyController extends BaseController {
 	
 	@Autowired
 	OrganService orginService;
+
+	@Autowired
+	DatadictService datadictService;
 	
 	@ApiOperation(value = "花名册添加", notes = "花名册添加")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -134,7 +140,28 @@ public class ChildApplyController extends BaseController {
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
 		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
-		br.setData(caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize));
+		List<ChildRoster> childRosterList = caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize);
+		if(childRosterList.size()>0) {
+			//监护情况、困境情况、基本生活情况、教育情况、医疗情况、福利情况
+			Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
+			Map<String,String> kjlbMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_KJLB);
+			Map<String,String> jbshqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JBSHQK);
+			Map<String,String> jyqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JYQK);
+			Map<String,String> ylqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_YLQK);
+			Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
+
+			for (ChildRoster item : childRosterList) {
+				item.setBasicLifeHappeningTitle(jbshqkMap.get(item.getBasicLifeHappening()));
+				item.setDilemmaCategoryTitle(kjlbMap.get(item.getDilemmaCategory()));
+				item.setEducationHappeningTitle(jyqkMap.get(item.getEducationHappening()));
+				item.setGuaHappeningTitle(jhqkMap.get(item.getGuaHappening()));
+				item.setWelfareHappeningTitle(flqkMap.get(item.getWelfareHappening()));
+
+				//多选
+				item.setMedicalHappeningTitle(ylqkMap.get(item.getMedicalHappening()));
+			}
+		}
+		br.setData(childRosterList);
 		return br;
 	}
 	

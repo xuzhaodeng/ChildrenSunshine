@@ -27,4 +27,34 @@ public interface DictionaryHelper {
     String INFO_DILEMMA_CATEGORY_DISABILITY = "C";
     String INFO_DILEMMA_CATEGORY_DIFFICULT = "D";
     String INFO_DILEMMA_CATEGORY_OTHER = "E";
+
+    /**
+     * 民族
+     */
+    String DATA_TYPE_MINZU = "MINZU";
+    /**
+     * 监护情况
+     */
+    String DATA_TYPE_JHQK = "JHQK";
+    /**
+     * 困境类别
+     */
+    String DATA_TYPE_KJLB = "KJLB";
+    /**
+     * 基本生活情况
+     */
+    String DATA_TYPE_JBSHQK = "JBSHQK";
+    /**
+     * 教育情况
+     */
+    String DATA_TYPE_JYQK = "JYQK";
+    /**
+     * 医疗情况
+     */
+    String DATA_TYPE_YLQK = "YLQK";
+
+    /**
+     * 福利情况
+     */
+    String DATA_TYPE_FLQK = "FLQK";
 }

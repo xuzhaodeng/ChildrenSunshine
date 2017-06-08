@@ -31,7 +31,7 @@ public class ChildRoster {
 	private String address; //地址
 	
 	@ApiModelProperty("孩子出生日期")
-	private String childBornTime; //出生时间
+	private String childBirthday; //出生时间
 	
 	@ApiModelProperty("孩子民族")
 	private String nation; //民族
@@ -66,36 +66,54 @@ public class ChildRoster {
 	@ApiModelProperty("监护人与孩子关系")
 	private String guaChildRela; //与孩子关系
 	
-	@ApiModelProperty("监护情况")
+	@ApiModelProperty("监护情况代码")
 	private String guaHappening; //监护情况
+
+	@ApiModelProperty("监护情况名称")
+	private String guaHappeningTitle; //监护情况
 	
-	@ApiModelProperty("儿童困境类别")
+	@ApiModelProperty("儿童困境类别代码")
 	private String dilemmaCategory; //困境类别
-	
+
+	@ApiModelProperty("儿童困境类别名称")
+	private String dilemmaCategoryTitle; //困境类别
+
 	@ApiModelProperty("困境类别选择0时补充信息")
 	private String otherDilCatDesc; //困境类别--其他
 	
-	@ApiModelProperty("福利情况")
+	@ApiModelProperty("福利情况code")
 	private String welfareHappening; //福利情况
-	
+
+	@ApiModelProperty("福利情况名称")
+	private String welfareHappeningTitle; //福利情况
+
 	@ApiModelProperty("选择未服务/未保障时补充信息")
 	private String otherWelfare; //其他福利描述
 	
-	@ApiModelProperty("基本生活情况")
+	@ApiModelProperty("基本生活情况代码")
 	private String basicLifeHappening; //基本生活情况
-	
+
+	@ApiModelProperty("基本生活情况名称")
+	private String basicLifeHappeningTitle; //基本生活情况
+
 	@ApiModelProperty("选择未服务/未保障时补充信息")
 	private String otherBasicLife; //其他基本生活情况
 	
-	@ApiModelProperty("教育情况")
+	@ApiModelProperty("教育情况代码")
 	private String  educationHappening; //教育情况
-	
+
+	@ApiModelProperty("教育情况名称")
+	private String  educationHappeningTitle; //教育情况
+
 	@ApiModelProperty("选择未服务/未保障时补充信息")
 	private String otherEducation; //其他教育描述
 	
-	@ApiModelProperty("医疗情况")
+	@ApiModelProperty("医疗情况代码")
 	private String medicalHappening; //医疗情况
-	
+
+	@ApiModelProperty("医疗情况名称")
+	private String medicalHappeningTitle; //医疗情况
+
 	@ApiModelProperty("选择未服务/未保障时补充信息")
 	private  String otherMedical; //其他医疗情况
 	
