@@ -31,7 +31,7 @@ public class ChildRoster {
 	private String address; //地址
 	
 	@ApiModelProperty("孩子出生日期")
-	private String childBirthday; //出生时间
+	private String childBornTime; //出生时间
 	
 	@ApiModelProperty("孩子民族")
 	private String nation; //民族
