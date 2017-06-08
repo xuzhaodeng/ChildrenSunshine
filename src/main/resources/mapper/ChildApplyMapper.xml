@@ -248,6 +248,21 @@
 		FROM kjet_child_apply child
     </sql>
     
+     <sql id="selectChild2">
+        SELECT
+            child.child_id       childId,
+            child.child_name     guaName,
+            child.guardian_phone guaTelNum,
+            child.village_status      villageStatus,
+            child.town_status     townStatus,
+            child.county_status      countyStatus,
+            child.city_status      cityStatus,
+            child.child_sex        childSex,
+            child.child_birthday    childBornTime,
+            child.child_address    address,
+        FROM kjet_child_apply child
+    </sql>
+    
     <!-- 根据孩子身份证号码查询孩子 -->
     <select id="getRosterByChildIdCard" parameterType="java.lang.String" resultType="java.util.Map">
     	select * from kjet_child_apply where child_id_card = #{ idCard } and isdel = 1 
@@ -261,7 +276,7 @@
     
     <!-- 数据采集列表 - 村 -->
     <select id="getChildApplyLsts" resultType="java.util.Map">
-        <include refid="selectChild"/>
+        <include refid="selectChild2"/>
         WHERE child.operate_id = #{ uid } and child.isdel = 1
     </select>
     
