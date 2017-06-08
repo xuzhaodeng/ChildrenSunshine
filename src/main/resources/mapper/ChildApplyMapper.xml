@@ -11,55 +11,52 @@
     
     <resultMap id="childApplyMap" type="ChildRoster">
         <id column="child_id" property="childId"/>
-        <result column="child_name" property="childName"/>
-        <result column="guardian_phone" property="guaTelNum"/>
-        <result column="village_status" property="villageStatus"/>
-        <result column="town_status" property="townStatus"/>
-        <result column="county_status" property="countyStatus"/>
-        <result column="city_status" property="cityStatus"/>
-        <result column="child_nation" property="nation"/> 
-        <result column="child_address" property="address"/> 
-        <result column="child_birthday" property="childBornTime"/> 
-        <result column="guardian_birthday" property="guaBornTime"/>
-        <result column="child_family_population" property="familyPopulation"/>
-        <result column="child_itself_reason" property="itselfReason"/>
-        <result column="child_reason" property="familyReason"/>
-        <result column="guardian_reason" property="guaReason"/>
-        
-        <result column="guardian_name" property="guaName"/>
-        <result column="guardian_phone" property="guaTelNum"/>
-        <result column="guardian_id_card" property="guaIdCard"/>
-        <result column="guardian_sex" property="guaSex"/>
-        <result column="guardian_birthday" property="guaBornTime"/>
-        <result column="guardian_child_rela" property="guaChildRela"/>
-        
-        <result column="guardian_hapening" property="guaHappening"/>
-        <result column="plight_category" property="dilemmaCategory"/>
-        <result column="other_category" property="otherDilCatDesc"/>
-        
-        
-        <result column="welfare" property="welfareHappening"/>
-        <result column="welfare_desc" property="otherWelfare"/>
-        
-        
-        <result column="basic_life" property="basicLifeHappening"/>
-        <result column="basic_life_desc" property="otherBasicLife"/>
-        
-        
-        <result column="education_happening" property="educationHappening"/>
-        <result column="education_happening_desc" property="otherEducation"/>
-        
-        <result column="medical_happening" property="medicalHappening"/>
-        <result column="medical_happening_desc" property="otherMedical"/>
-        
-        <result column="child_province_id" property="provinceId"/>
-        <result column="child_province_name" property="provinceName"/>
-        
-        <result column="child_city_id" property="cityId"/>
-        <result column="child_city_name" property="cityName"/>
-        
-        <result column="child_county_id" property="countyId"/>
-        <result column="child_county_name" property="countyName"/>
+		<result column="child_id_card" property="childIdCard"/>
+		<result column="child_head_img" property="headImg"/>
+		<result column="child_name" property="childName"/>
+		<result column="child_sex" property="childSex"/>
+		<result column="child_birthday" property="childBirthday"/>
+		<result column="child_nation" property="nation"/>
+		<result column="child_province_id" property="provinceId"/>
+		<result column="child_province_name" property="provinceName"/>
+		<result column="child_city_id" property="cityId"/>
+		<result column="child_city_name" property="cityName"/>
+		<result column="child_county_id" property="countyId"/>
+		<result column="child_county_name" property="countyName"/>
+		<result column="child_address" property="address"/>
+		<result column="child_family_population" property="familyPopulation"/>
+		<result column="child_itself_reason" property="itselfReason"/>
+		<result column="child_reason" property="familyReason"/>
+		<result column="guardian_reason" property="guaReason"/>
+		<result column="guardian_id_card" property="guaIdCard"/>
+		<result column="guardian_phone" property="guaTelNum"/>
+		<result column="guardian_name" property="guaName"/>
+		<result column="guardian_sex" property="guaSex"/>
+		<result column="guardian_birthday" property="guaBornTime"/>
+		<result column="guardian_child_rela" property="guaChildRela"/>
+		<result column="guardian_hapening" property="guaHappening"/>
+		<result column="plight_category" property="dilemmaCategory"/>
+		<result column="other_category" property="otherCategory"/>
+		<result column="welfare" property="welfareHappening"/>
+		<result column="welfare_desc" property="otherWelfare"/>
+		<result column="basic_life" property="basicLifeHappening"/>
+		<result column="basic_life_desc" property="otherBasicLife"/>
+		<result column="education_happening" property="educationHappening"/>
+		<result column="education_happening_desc" property="otherEducation"/>
+		<result column="medical_happening" property="medicalHappening"/>
+		<result column="medical_happening_desc" property="otherMedical"/>
+		<result column="village_status" property="villageStatus"/>
+		<result column="town_status" property="townStatus"/>
+		<result column="county_status" property="countyStatus"/>
+		<result column="city_status" property="cityStatus"/>
+		<result column="operate_id" property="operateId"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="description" property="description"/>
+		<result column="town_id" property="townId"/>
+		<result column="town_name" property="townName"/>
+		<result column="village_id" property="villageId"/>
+		<result column="village_name" property="villageName"/>
     </resultMap>
     
     <!-- 数据采集添加 useGeneratedKeys="true" keyColumn="child_id"  -->
@@ -200,18 +197,55 @@
     
     <!-- 数据采集查询-->
     <sql id="selectChild">
-        SELECT
-            child.child_id       childId,
-            child.child_name     guaName,
-            child.guardian_phone guaTelNum,
-            child.village_status      villageStatus,
-            child.town_status     townStatus,
-            child.county_status      countyStatus,
-            child.city_status      cityStatus,
-            child.child_sex        childSex,
-            child.child_birthday    childBornTime,
-            child.child_address    address
-        FROM kjet_child_apply child
+		SELECT child.child_id,
+			child.child_id_card,
+			child.child_head_img,
+			child.child_name,
+			child.child_sex,
+			child.child_birthday,
+			child.child_nation,
+			child.child_province_id,
+			child.child_province_name,
+			child.child_city_id,
+			child.child_city_name,
+			child.child_county_id,
+			child.child_county_name,
+			child.child_address,
+			child.child_family_population,
+			child.child_itself_reason,
+			child.child_reason,
+			child.guardian_reason,
+			child.guardian_id_card,
+			child.guardian_phone,
+			child.guardian_name,
+			child.guardian_sex,
+			child.guardian_birthday,
+			child.guardian_child_rela,
+			child.guardian_hapening,
+			child.plight_category,
+			child.other_category,
+			child.welfare,
+			child.welfare_desc,
+			child.basic_life,
+			child.basic_life_desc,
+			child.education_happening,
+			child.education_happening_desc,
+			child.medical_happening,
+			child.medical_happening_desc,
+			child.village_status,
+			child.town_status,
+			child.county_status,
+			child.city_status,
+			child.operate_id,
+			child.create_time,
+			child.update_time,
+			child.description,
+			child.town_id,
+			child.town_name,
+			child.village_id,
+			child.village_name,
+			child.isdel
+		FROM kjet_child_apply child
     </sql>
     
     <!-- 根据孩子身份证号码查询孩子 -->
@@ -232,7 +266,7 @@
     </select>
     
      <!-- 数据采集列表 - 根据机构ID获取花名册 -->
-    <select id="getChildApplyLstsByOrgid" resultType="java.util.Map">
+    <select id="getChildApplyLstsByOrgid" resultMap="childApplyMap">
         <include refid="selectChild"/>
         WHERE child.village_id = #{ villageId } and child.isdel = 1
     </select>

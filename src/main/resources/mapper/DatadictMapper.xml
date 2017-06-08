@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.DatadictDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <resultMap id="DatadictResult" type="Datadict">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="code" property="code"/>
+        <result column="pinyin_code" property="pinyinCode"/>
+        <result column="title" property="title"/>
+    </resultMap>
+    <!--查询机构-->
+    <sql id="selectDatadict">
+        SELECT
+            datadict.id,
+            datadict.type,
+            datadict.code,
+            datadict.pinyin_code,
+            datadict.title
+        FROM kjet_datadict datadict
+    </sql>
+    <!-- 数据采集添加 -->
+    <insert id="createDatadict" useGeneratedKeys="true"  keyProperty="id" parameterType="Datadict">
+        insert into kjet_datadict(
+            type,
+            code,
+            pinyin_code,
+            title
+        )
+        values(
+            #{ type },
+            #{ code },
+            #{ pinyinCode },
+            #{ title }
+        )
+    </insert>
+    <!--查询字典列表-->
+    <select id="getDatadictList" resultMap="DatadictResult">
+        <include refid="selectDatadict"/>
+        WHERE datadict.type=#{type}
+    </select>
+    <select id="getAllDatadictList" resultMap="DatadictResult">
+        <include refid="selectDatadict"/>
+    </select>
+    <select id="getDatadict" resultMap="DatadictResult">
+        <include refid="selectDatadict"/>
+        WHERE datadict.id=#{id}
+    </select>
+</mapper>

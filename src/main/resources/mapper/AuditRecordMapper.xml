@@ -73,4 +73,8 @@
         <include refid="selectAuditRecord"/>
         WHERE auditRecord.ar_id=#{id}
     </select>
+    <select id="getDatadictByCode" resultMap="AuditRecordResult">
+        <include refid="selectAuditRecord"/>
+        WHERE auditRecord.type=#{type} and auditRecord.code=#{code} limit 1
+    </select>
 </mapper>
