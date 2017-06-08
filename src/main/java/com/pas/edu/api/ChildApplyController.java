@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.pas.edu.common.DictionaryHelper;
 import com.pas.edu.service.DatadictService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -142,7 +143,7 @@ public class ChildApplyController extends BaseController {
 		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
 		List<ChildRoster> childRosterList = caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize);
 		if(childRosterList.size()>0) {
-			//监护情况、困境情况、基本生活情况、教育情况、医疗情况、福利情况
+			//监护情况、困境情况、基本生活情况(多选)、教育情况、医疗情况(多选)、福利情况(多选)
 			Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
 			Map<String,String> kjlbMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_KJLB);
 			Map<String,String> jbshqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JBSHQK);
@@ -151,14 +152,54 @@ public class ChildApplyController extends BaseController {
 			Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
 
 			for (ChildRoster item : childRosterList) {
-				item.setBasicLifeHappeningTitle(jbshqkMap.get(item.getBasicLifeHappening()));
+				String basicLifeHappening = item.getBasicLifeHappening();
+				if(StringUtils.isNotBlank(basicLifeHappening)) {
+					String value = null;
+					String[] items = basicLifeHappening.split(",");
+					for(String aaa:items) {
+						if(value==null) {
+							value = jbshqkMap.get(aaa);
+						}
+						else {
+							value = value + "," + jbshqkMap.get(aaa);
+						}
+					}
+					item.setBasicLifeHappeningTitle(value);
+				}
+
 				item.setDilemmaCategoryTitle(kjlbMap.get(item.getDilemmaCategory()));
 				item.setEducationHappeningTitle(jyqkMap.get(item.getEducationHappening()));
 				item.setGuaHappeningTitle(jhqkMap.get(item.getGuaHappening()));
-				item.setWelfareHappeningTitle(flqkMap.get(item.getWelfareHappening()));
 
-				//多选
-				item.setMedicalHappeningTitle(ylqkMap.get(item.getMedicalHappening()));
+				String welfareHappening = item.getWelfareHappening();
+				if(StringUtils.isNotBlank(welfareHappening)) {
+					String value = null;
+					String[] items = welfareHappening.split(",");
+					for(String aaa:items) {
+						if(value==null) {
+							value = flqkMap.get(aaa);
+						}
+						else {
+							value = value + "," + flqkMap.get(aaa);
+						}
+					}
+					item.setWelfareHappeningTitle(value);
+				}
+
+				String medicalHappening = item.getMedicalHappening();
+				if(StringUtils.isNotBlank(medicalHappening)) {
+					String value = null;
+					String[] items = medicalHappening.split(",");
+					for(String aaa:items) {
+						if(value==null) {
+							value = ylqkMap.get(aaa);
+						}
+						else {
+							value = value + "," + ylqkMap.get(aaa);
+						}
+					}
+					item.setMedicalHappeningTitle(value);
+				}
 			}
 		}
 		br.setData(childRosterList);
