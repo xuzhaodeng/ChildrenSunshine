@@ -15,7 +15,7 @@
 		<result column="child_head_img" property="headImg"/>
 		<result column="child_name" property="childName"/>
 		<result column="child_sex" property="childSex"/>
-		<result column="child_birthday" property="childBirthday"/>
+		<result column="child_birthday" property="childBornTime"/>
 		<result column="child_nation" property="nation"/>
 		<result column="child_province_id" property="provinceId"/>
 		<result column="child_province_name" property="provinceName"/>
