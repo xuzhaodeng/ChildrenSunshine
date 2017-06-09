@@ -1,17 +1,23 @@
 package com.pas.edu.service;
 
-import java.util.List;
+import com.pas.edu.entity.ExportExcel;
 
-import com.pas.edu.entity.NameSheet;
-import com.pas.edu.entity.PoiChildRoster;
-import com.pas.edu.entity.Summary;
+//import com.pas.edu.entity.NameSheet;
+//import com.pas.edu.entity.PoiChildRoster;
+//import com.pas.edu.entity.Summary;
 
 public interface ExportPoiService {
 	
-	PoiChildRoster getRosterById(Integer childId);
+	//PoiChildRoster getRosterById(Integer childId);
 	
-	List<NameSheet> getRosterLsts(Integer villId);
+	ExportExcel getRosterById(Integer childId);
 	
-	List<Summary> getSummaryLsts(Integer orgId);
+	//List<NameSheet> getRosterLsts(Integer villId);
+	
+	ExportExcel getRosterLsts(Integer villId);
+	
+	//List<Summary> getSummaryLsts(Integer orgId);
+	
+	ExportExcel getSummaryLsts(Integer orgId);
 
 }
