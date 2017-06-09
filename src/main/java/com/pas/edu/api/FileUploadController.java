@@ -24,8 +24,8 @@ public class FileUploadController extends BaseController{
     @Value("${uploadPath}")
     private String uploadPath;
 
-    @Value("${imagePath}")
-    private String imagePath;
+    //@Value("${imagePath}")
+    //private String imagePath;
 
     @ApiOperation(value = "上传头像", notes = "上传头像，数据为base64字符串")
     @RequestMapping(value = "audit", method = RequestMethod.POST)
@@ -80,7 +80,8 @@ public class FileUploadController extends BaseController{
             }
 
             result.setMsg("上传成功");
-            result.setData(imagePath+tempFileName);
+            //result.setData(imagePath+tempFileName);
+            result.setData(tempFileName);
             logger.debug("上传成功");
         }catch (Exception e) {
             logger.error("上传失败,"+e.getMessage());
