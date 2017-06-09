@@ -56,7 +56,7 @@
             #{ type },
             #{ deviantContent },
             #{ operateId },
-            #{ operator_name },
+            #{ operatorName },
             #{ currentOrgId },
             #{ appointOrgId },
             #{ createTime },
