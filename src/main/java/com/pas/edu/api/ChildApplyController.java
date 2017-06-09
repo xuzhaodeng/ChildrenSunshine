@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import com.pas.edu.common.DictionaryHelper;
+import com.pas.edu.entity.common.AuditStatus;
 import com.pas.edu.service.DatadictService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,10 +112,98 @@ public class ChildApplyController extends BaseController {
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public BaseResult<ChildRoster> getRosterDetailed(@RequestParam(value = "childId", required = true) Integer childId) throws Exception {
         BaseResult<ChildRoster> br = new BaseResult<ChildRoster>();
-        br.setData(caService.getRosterInfoByChildId(childId));
+		ChildRoster childRoster = caService.getRosterInfoByChildId(childId);
+
+		Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
+		Map<String,String> kjlbMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_KJLB);
+		Map<String,String> jbshqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JBSHQK);
+		Map<String,String> jyqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JYQK);
+		Map<String,String> ylqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_YLQK);
+		Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
+
+		decorateChildRoster(childRoster,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
+        br.setData(childRoster);
         return br;
     }
-	
+
+	/**
+	 * 修饰childRoster，添加状态值，监控情况、困境情况、福利情况、基本生活情况、教育情况、医疗情况
+	 * @param childRoster
+	 */
+	private void decorateChildRoster(ChildRoster childRoster,Map<String,String> jhqkMap,Map<String,String> kjlbMap,Map<String,String> jbshqkMap,Map<String,String> jyqkMap,Map<String,String> ylqkMap,Map<String,String> flqkMap) {
+		//单选
+		childRoster.setDilemmaCategoryTitle(kjlbMap.get(childRoster.getDilemmaCategory()));
+		childRoster.setEducationHappeningTitle(jyqkMap.get(childRoster.getEducationHappening()));
+		childRoster.setGuaHappeningTitle(jhqkMap.get(childRoster.getGuaHappening()));
+		childRoster.setVillageStatusTitle(AuditStatus.getStatusTitle(childRoster.getVillageStatus()));
+
+		//多选
+		String basicLifeHappening = childRoster.getBasicLifeHappening();
+		childRoster.setBasicLifeHappeningTitle(getTitleByCode(jbshqkMap, basicLifeHappening));
+
+		String welfareHappening = childRoster.getWelfareHappening();
+		childRoster.setWelfareHappeningTitle(getTitleByCode(flqkMap, welfareHappening));
+
+		String medicalHappening = childRoster.getMedicalHappening();
+		childRoster.setMedicalHappeningTitle(getTitleByCode(ylqkMap, medicalHappening));
+
+		//审核状态
+		childRoster.setTownStatusTitle(AuditStatus.getStatusTitle(childRoster.getTownStatus()));
+		childRoster.setCountyStatusTitle(AuditStatus.getStatusTitle(childRoster.getCountyStatus()));
+		childRoster.setCityStatusTitle(AuditStatus.getStatusTitle(childRoster.getCityStatus()));
+
+
+		/*
+		if(StringUtils.isNotBlank(welfareHappening)) {
+			String value = null;
+			String[] items = welfareHappening.split(",");
+			for(String aaa:items) {
+				if(value==null) {
+					value = flqkMap.get(aaa);
+				}
+				else {
+					value = value + "," + flqkMap.get(aaa);
+				}
+			}
+			childRoster.setWelfareHappeningTitle(value);
+		}
+
+		String medicalHappening = childRoster.getMedicalHappening();
+		if(StringUtils.isNotBlank(medicalHappening)) {
+			String value = null;
+			String[] items = medicalHappening.split(",");
+			for(String aaa:items) {
+				if(value==null) {
+					value = ylqkMap.get(aaa);
+				}
+				else {
+					value = value + "," + ylqkMap.get(aaa);
+				}
+			}
+			childRoster.setMedicalHappeningTitle(value);
+		}
+		*/
+	}
+
+	private String getTitleByCode(Map<String, String> jbshqkMap, String code) {
+		if(StringUtils.isNotBlank(code)) {
+			String value = null;
+			String[] items = code.split(",");
+			for(String aaa:items) {
+				if(value==null) {
+					value = jbshqkMap.get(aaa);
+				}
+				else {
+					value = value + "," + jbshqkMap.get(aaa);
+				}
+			}
+			return value;
+		}
+		else {
+			return null;
+		}
+	}
+
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@ApiImplicitParams(value = {
 		@ApiImplicitParam(paramType = "query", name = "uid", dataType = "int", required = true, value = "用户Id"),
@@ -143,7 +232,7 @@ public class ChildApplyController extends BaseController {
 		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
 		List<ChildRoster> childRosterList = caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize);
 		if(childRosterList.size()>0) {
-			//监护情况、困境情况、基本生活情况(多选)、教育情况、医疗情况(多选)、福利情况(多选)
+			//监护情况、困境情况、基本生活情况(多选)、教育情况、医疗情况(多选)、福利情况(多选)、状态
 			Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
 			Map<String,String> kjlbMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_KJLB);
 			Map<String,String> jbshqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JBSHQK);
@@ -152,54 +241,16 @@ public class ChildApplyController extends BaseController {
 			Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
 
 			for (ChildRoster item : childRosterList) {
-				String basicLifeHappening = item.getBasicLifeHappening();
-				if(StringUtils.isNotBlank(basicLifeHappening)) {
-					String value = null;
-					String[] items = basicLifeHappening.split(",");
-					for(String aaa:items) {
-						if(value==null) {
-							value = jbshqkMap.get(aaa);
-						}
-						else {
-							value = value + "," + jbshqkMap.get(aaa);
-						}
-					}
-					item.setBasicLifeHappeningTitle(value);
-				}
-
+				/*
 				item.setDilemmaCategoryTitle(kjlbMap.get(item.getDilemmaCategory()));
 				item.setEducationHappeningTitle(jyqkMap.get(item.getEducationHappening()));
 				item.setGuaHappeningTitle(jhqkMap.get(item.getGuaHappening()));
-
-				String welfareHappening = item.getWelfareHappening();
-				if(StringUtils.isNotBlank(welfareHappening)) {
-					String value = null;
-					String[] items = welfareHappening.split(",");
-					for(String aaa:items) {
-						if(value==null) {
-							value = flqkMap.get(aaa);
-						}
-						else {
-							value = value + "," + flqkMap.get(aaa);
-						}
-					}
-					item.setWelfareHappeningTitle(value);
-				}
-
-				String medicalHappening = item.getMedicalHappening();
-				if(StringUtils.isNotBlank(medicalHappening)) {
-					String value = null;
-					String[] items = medicalHappening.split(",");
-					for(String aaa:items) {
-						if(value==null) {
-							value = ylqkMap.get(aaa);
-						}
-						else {
-							value = value + "," + ylqkMap.get(aaa);
-						}
-					}
-					item.setMedicalHappeningTitle(value);
-				}
+				item.setVillageStatusTitle(AuditStatus.getStatusTitle(item.getVillageStatus()));
+				item.setTownStatusTitle(AuditStatus.getStatusTitle(item.getTownStatus()));
+				item.setCountyStatusTitle(AuditStatus.getStatusTitle(item.getCountyStatus()));
+				item.setCityStatusTitle(AuditStatus.getStatusTitle(item.getCityStatus()));
+				*/
+				decorateChildRoster(item,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
 			}
 		}
 		br.setData(childRosterList);

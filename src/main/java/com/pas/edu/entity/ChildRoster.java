@@ -119,16 +119,28 @@ public class ChildRoster {
 	
 	@ApiModelProperty("村审核状态")
 	private Integer villageStatus; //村审核状态
-	
+
+	@ApiModelProperty("村审核状态名称")
+	private String villageStatusTitle; //村审核状态
+
 	@ApiModelProperty("镇审核状态")
 	private Integer townStatus; //镇审核状态
-	
+
+	@ApiModelProperty("镇审核状态")
+	private String townStatusTitle; //镇审核状态
+
 	@ApiModelProperty("县审核状态")
 	private Integer countyStatus; //县审核状态
-	
+
+	@ApiModelProperty("县审核状态")
+	private String countyStatusTitle; //县审核状态
+
 	@ApiModelProperty("市审核状态")
 	private Integer cityStatus; //市审核状态
-	
+
+	@ApiModelProperty("市审核状态")
+	private String cityStatusTitle; //市审核状态
+
 	@ApiModelProperty("村管用户ID")
 	private Integer operateId; //操作用户ID
 	
@@ -167,5 +179,5 @@ public class ChildRoster {
 	
 	@ApiModelProperty("村名称")
 	private String villageName; //村名称
-	
+
 }
