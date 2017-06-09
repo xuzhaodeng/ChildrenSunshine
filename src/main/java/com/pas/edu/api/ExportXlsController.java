@@ -1,10 +1,9 @@
 package com.pas.edu.api;
 
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.ParseException;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pas.edu.entity.Organ;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.service.ExportPoiService;
 import com.pas.edu.service.OrganService;
-import com.pas.edu.utils.ExcelUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -36,9 +33,6 @@ public class ExportXlsController {
 	@Autowired
 	ExportPoiService epService;
 	
-	@Autowired
-	OrganService orgService;
-	
 	/**
 	 * 花名册信息导出
 	 * @return
@@ -48,14 +42,11 @@ public class ExportXlsController {
 		@ApiImplicitParam(paramType = "query", name = "rosterId", dataType = "int", required = true, value = "花名册Id")
 	})
 	@RequestMapping(value = "/rosterInfo", method = RequestMethod.GET)
-	public BaseResult<Object> exportRoster(@RequestParam(value = "rosterId", required = true) Integer rosterId){
+	public BaseResult<Object> exportRoster(@RequestParam(value = "rosterId", required = true) Integer rosterId,
+			HttpServletRequest request){
+		String path = request.getSession().getServletContext().getRealPath(File.separator);
 		BaseResult<Object> br = new BaseResult<Object>();
-		try {
-			ExcelUtil.exportDetailExcel(epService.getRosterById(rosterId), new FileOutputStream(new File("D://困境儿童信息表.xls")));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		br.setData(epService.getRosterById(rosterId));
 		return br;
 	}
 	
@@ -70,18 +61,7 @@ public class ExportXlsController {
 	@RequestMapping(value = "/rosterLsts", method = RequestMethod.GET)
 	public BaseResult<Object> exportRosterLsts(@RequestParam(value = "villId", required = true) Integer villId){
 		BaseResult<Object> br = new BaseResult<Object>();
-		try {
-			ExcelUtil.exportRoster(new FileOutputStream(new File("D://困境儿童列表.xls")), epService.getRosterLsts(villId), "xuzhao");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		br.setData(epService.getRosterLsts(villId));
 		return br;
 	}
 	
@@ -96,16 +76,7 @@ public class ExportXlsController {
 	@RequestMapping(value = "/statistical", method = RequestMethod.GET)
 	public BaseResult<Object> exportStatisticalRoster(@RequestParam(value = "orgId", required = true) Integer orgId){
 		BaseResult<Object> br = new BaseResult<Object>();
-		try {
-			Organ org = orgService.getOrganDetail(orgId);
-			ExcelUtil.exportTotalExcel(new FileOutputStream(new File("D://困境儿童统计表.xls")), org.getOrgName(), epService.getSummaryLsts(orgId));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		br.setData(epService.getSummaryLsts(orgId));
 		return br;
 	}
 
