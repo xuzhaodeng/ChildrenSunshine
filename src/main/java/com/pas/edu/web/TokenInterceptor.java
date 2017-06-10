@@ -28,7 +28,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
         //获取token
-        String token = request.getHeader("authorization");    
+        String token = request.getHeader("authorization"); //xiaoxie   
         if (StringUtils.isEmpty(token)) {
             LogUtils.logHttpRequest(request);
             throw new AuthorizationException("非法请求,请传入Authorization");
