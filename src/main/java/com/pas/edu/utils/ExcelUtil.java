@@ -831,6 +831,11 @@ public class ExcelUtil {
                  guaHappeningContent = "C:未监护（无监护人或者有监护人但不履行监护义务）";
              }
              dataRowCell10.setCellValue(guaHappeningContent);
+             
+             if(nameSheet.getWelfare() == null){
+            	 return;
+             }
+             
              String[] welfares = nameSheet.getWelfare().split(",");
              for (int k = 0; k < welfares.length; k++) {
                  String welfare = welfares[k];
