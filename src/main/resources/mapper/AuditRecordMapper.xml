@@ -68,6 +68,7 @@
     <select id="getAuditRecordList" resultMap="AuditRecordResult">
         <include refid="selectAuditRecord"/>
         WHERE auditRecord.apply_id=#{applyId}
+        ORDER BY create_time DESC
     </select>
     <select id="getAuditRecord" resultMap="AuditRecordResult">
         <include refid="selectAuditRecord"/>

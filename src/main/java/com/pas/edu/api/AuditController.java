@@ -199,6 +199,7 @@ public class AuditController extends BaseController {
         auditRecord.setDescription(auditRequest.getRemark());
         auditRecord.setDeviantContent(null);
         auditRecord.setOperateId(auditRequest.getOperatorId());
+        auditRecord.setOperatorName(user.getName());
         auditRecord.setType(auditRequest.getAction());
         //auditRecord.setUpdateTime(now);
         auditRecordService.createAuditRecord(auditRecord);
