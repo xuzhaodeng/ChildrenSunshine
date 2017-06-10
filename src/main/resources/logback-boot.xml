@@ -13,7 +13,7 @@
     </springProfile>
     <!-- 生成环境变量product-->
     <springProfile name="pro">
-        <property name="LOG_HOME" value="/usr/local/app/ydjAgent/logs"/>
+        <property name="LOG_HOME" value="applog"/>
     </springProfile>
     <property name="CONSOLE_LOG_PATTERN"
               value="%date{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | %boldYellow(%-10.20thread) | %cyan([%-40.40logger]) | %highlight(%msg%n)"/>
