@@ -295,18 +295,18 @@
 
     <select id="getChildByOrg" resultMap="childApplyMap">
         select * from kjet_child_apply
-        WHERE
+        WHERE isdel = 1
         <if test="orgLevel==1">
-            child_city_id=#{orgId}
+            and child_city_id=#{orgId} and city_status != 1
         </if>
         <if test="orgLevel==2">
-            child_county_id=#{orgId}
+            and child_county_id=#{orgId} and county_status != 1
         </if>
         <if test="orgLevel==3">
-            town_id=#{orgId}
+            and town_id=#{orgId} and town_status != 1
         </if>
         <if test="orgLevel==4">
-            village_id=#{orgId}
+            and village_id=#{orgId} and village_status != 1
         </if>
     </select>
 
