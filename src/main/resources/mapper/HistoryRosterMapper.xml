@@ -66,7 +66,7 @@
     	insert into kjet_history_apply(child_id, child_id_card, child_head_img, child_name, child_sex, 
     	child_birthday, child_nation, child_address, child_family_population,
     	child_itself_reason, child_reason, guardian_reason, guardian_id_card, guardian_phone, guardian_name,
-    	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category, other_category
+    	guardian_sex, guardian_birthday, guardian_child_rela, guardian_hapening, plight_category, other_category,
     	welfare, welfare_desc, basic_life, basic_life_desc, education_happening, education_happening_desc,
     	medical_happening, medical_happening_desc, village_status, town_status,
     	county_status, city_status, operate_id, create_time, update_time, child_province_id, child_province_name,
