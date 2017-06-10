@@ -1,5 +1,6 @@
 package com.pas.edu.api;
 
+import com.pas.edu.entity.HeadImgUploadResult;
 import com.pas.edu.entity.UploadHeadImgRequest;
 import com.pas.edu.entity.common.BaseResult;
 import io.swagger.annotations.Api;
@@ -12,6 +13,8 @@ import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Api(value = "文件上传", tags = "文件上传接口")
@@ -24,8 +27,8 @@ public class FileUploadController extends BaseController{
     @Value("${uploadPath}")
     private String uploadPath;
 
-    //@Value("${imagePath}")
-    //private String imagePath;
+    @Value("${imagePath}")
+    private String imagePath;
 
     @ApiOperation(value = "上传头像", notes = "上传头像，数据为base64字符串")
     @RequestMapping(value = "audit", method = RequestMethod.POST)
@@ -80,8 +83,10 @@ public class FileUploadController extends BaseController{
             }
 
             result.setMsg("上传成功");
-            //result.setData(imagePath+tempFileName);
-            result.setData(tempFileName);
+            HeadImgUploadResult re = new HeadImgUploadResult();
+            re.setHeadImgPath(imagePath);
+            re.setHeadImg(tempFileName);
+            result.setData(re);
             logger.debug("上传成功");
         }catch (Exception e) {
             logger.error("上传失败,"+e.getMessage());

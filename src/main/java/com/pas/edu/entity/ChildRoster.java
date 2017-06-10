@@ -13,9 +13,12 @@ public class ChildRoster {
 	@ApiModelProperty("孩子ID,数据采集添加时填空")
 	private Integer childId;
 	   
-	@ApiModelProperty("用户图片")
-	private String headImg; //用户图片
-	
+	@ApiModelProperty("用户图片路径")
+	private String headImgPath; //用户图片路径
+
+	@ApiModelProperty("用户图片文件名")
+	private String headImg; //用户图片文件名
+
 	@NotEmpty(message = "孩子姓名不能为空")
 	@ApiModelProperty("孩子名称")
 	private String childName; //孩子名称
