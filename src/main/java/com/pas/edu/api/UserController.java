@@ -1,12 +1,16 @@
 package com.pas.edu.api;
 
+import com.pas.edu.entity.ApplyStatusReport;
 import com.pas.edu.entity.LoginRequest;
 import com.pas.edu.entity.ModifyPwdRequest;
+import com.pas.edu.entity.Organ;
 import com.pas.edu.entity.TokenInfo;
 import com.pas.edu.entity.User;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.exception.CommonException;
+import com.pas.edu.service.OrganService;
+import com.pas.edu.service.ReportService;
 import com.pas.edu.service.UserService;
 import com.pas.edu.utils.JwtUtils;
 import io.swagger.annotations.Api;
@@ -33,6 +37,9 @@ import javax.validation.Valid;
 public class UserController extends BaseController {
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ReportService reportService;
 
     @ApiOperation(value = "登录", notes = "手机号，密码登录")
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -41,7 +48,12 @@ public class UserController extends BaseController {
         User user = userService.login(loginRequest.getPhone(), loginRequest.getPassword());
         //设置返回token
         TokenInfo tokenInfo = JwtUtils.createJWT(String.valueOf(user.getId()));
+       
         user.setTokenInfo(tokenInfo);
+        
+        ApplyStatusReport asr = reportService.getApplyStatusReport(user.getOrgId(), user.getOrgLevel());
+        
+        user.setApplyStatusReport(asr);
         result.setData(user);
         return result;
     }

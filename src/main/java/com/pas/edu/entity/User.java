@@ -43,4 +43,5 @@ public class User {
     @ApiModelProperty("机构级别：1.市 2.区县 3.镇 4.村")
     private int orgLevel;
     private TokenInfo tokenInfo;
+    private ApplyStatusReport applyStatusReport;
 }
