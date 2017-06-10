@@ -10,6 +10,7 @@ import com.pas.edu.entity.common.AuditStatus;
 import com.pas.edu.service.DatadictService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,9 @@ public class ChildApplyController extends BaseController {
 
 	@Autowired
 	DatadictService datadictService;
+
+	@Value("${imagePath}")
+	private String imagePath;
 	
 	@ApiOperation(value = "花名册添加", notes = "花名册添加")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -131,6 +135,11 @@ public class ChildApplyController extends BaseController {
 	 * @param childRoster
 	 */
 	private void decorateChildRoster(ChildRoster childRoster,Map<String,String> jhqkMap,Map<String,String> kjlbMap,Map<String,String> jbshqkMap,Map<String,String> jyqkMap,Map<String,String> ylqkMap,Map<String,String> flqkMap) {
+		childRoster.setHeadImgPath(imagePath);
+		String headImg = childRoster.getHeadImg();
+		headImg = StringUtils.isBlank(headImg)?"default_head.png":headImg;
+		childRoster.setHeadImg(headImg);
+
 		//单选
 		childRoster.setDilemmaCategoryTitle(kjlbMap.get(childRoster.getDilemmaCategory()));
 		childRoster.setEducationHappeningTitle(jyqkMap.get(childRoster.getEducationHappening()));
@@ -151,38 +160,6 @@ public class ChildApplyController extends BaseController {
 		childRoster.setTownStatusTitle(AuditStatus.getStatusTitle(childRoster.getTownStatus()));
 		childRoster.setCountyStatusTitle(AuditStatus.getStatusTitle(childRoster.getCountyStatus()));
 		childRoster.setCityStatusTitle(AuditStatus.getStatusTitle(childRoster.getCityStatus()));
-
-
-		/*
-		if(StringUtils.isNotBlank(welfareHappening)) {
-			String value = null;
-			String[] items = welfareHappening.split(",");
-			for(String aaa:items) {
-				if(value==null) {
-					value = flqkMap.get(aaa);
-				}
-				else {
-					value = value + "," + flqkMap.get(aaa);
-				}
-			}
-			childRoster.setWelfareHappeningTitle(value);
-		}
-
-		String medicalHappening = childRoster.getMedicalHappening();
-		if(StringUtils.isNotBlank(medicalHappening)) {
-			String value = null;
-			String[] items = medicalHappening.split(",");
-			for(String aaa:items) {
-				if(value==null) {
-					value = ylqkMap.get(aaa);
-				}
-				else {
-					value = value + "," + ylqkMap.get(aaa);
-				}
-			}
-			childRoster.setMedicalHappeningTitle(value);
-		}
-		*/
 	}
 
 	private String getTitleByCode(Map<String, String> jbshqkMap, String code) {
@@ -215,7 +192,11 @@ public class ChildApplyController extends BaseController {
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
 		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
-		br.setData(caService.getChildApplyLsts(uid, currPage, pageSize));
+		List<ChildRoster> rosterList = caService.getChildApplyLsts(uid, currPage, pageSize);
+//		for(ChildRoster item:rosterList) {
+//
+//		}
+		br.setData(rosterList);
 		return br;
 	}
 	
@@ -241,15 +222,6 @@ public class ChildApplyController extends BaseController {
 			Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
 
 			for (ChildRoster item : childRosterList) {
-				/*
-				item.setDilemmaCategoryTitle(kjlbMap.get(item.getDilemmaCategory()));
-				item.setEducationHappeningTitle(jyqkMap.get(item.getEducationHappening()));
-				item.setGuaHappeningTitle(jhqkMap.get(item.getGuaHappening()));
-				item.setVillageStatusTitle(AuditStatus.getStatusTitle(item.getVillageStatus()));
-				item.setTownStatusTitle(AuditStatus.getStatusTitle(item.getTownStatus()));
-				item.setCountyStatusTitle(AuditStatus.getStatusTitle(item.getCountyStatus()));
-				item.setCityStatusTitle(AuditStatus.getStatusTitle(item.getCityStatus()));
-				*/
 				decorateChildRoster(item,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
 			}
 		}
