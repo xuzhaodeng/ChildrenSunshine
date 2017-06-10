@@ -153,6 +153,7 @@ public class ExportPoiServiceImpl implements ExportPoiService {
                 }
             }
             summary.setOrphanCount(orphanCount);
+            summary.setTotal(total);
             summary.setProvertyCount(provertyCount);
             summary.setDisabilityCount(disabilityCount);
             summary.setOtherDifficultCount(total - orphanCount - provertyCount - disabilityCount);

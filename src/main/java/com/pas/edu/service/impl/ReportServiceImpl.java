@@ -59,6 +59,7 @@ public class ReportServiceImpl implements ReportService {
             //其他困境儿童
             int otherCount = 0;
             int total = childRosterList.size();
+            summary.setTotal(total);
             //基本保障
             int baseProtectCount = 0;
             int baseNotProtectCount = 0;
@@ -100,6 +101,7 @@ public class ReportServiceImpl implements ReportService {
                 }
             }
             summary.setOrphanCount(orphanCount);
+           
             summary.setProvertyCount(provertyCount);
             summary.setDisabilityCount(disabilityCount);
             summary.setOtherDifficultCount(total - orphanCount - provertyCount - disabilityCount);
