@@ -283,7 +283,7 @@
      <!-- 数据采集列表 - 根据机构ID获取花名册 -->
     <select id="getChildApplyLstsByOrgid" resultMap="childApplyMap">
         <include refid="selectChild"/>
-        WHERE child.village_id = #{ villageId } and child.village_status <> 1 and child.isdel = 1
+        WHERE child.village_id = #{ villageId } and child.village_status != 1 and child.isdel = 1
     </select>
 
     
