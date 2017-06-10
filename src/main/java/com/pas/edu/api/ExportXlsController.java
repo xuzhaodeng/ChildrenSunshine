@@ -71,12 +71,14 @@ public class ExportXlsController {
 	 */
 	@ApiOperation(value = "花名册统计报表导出", notes = "花名册统计报表导出")
 	@ApiImplicitParams(value = {
-		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "导出结构ID")
+		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "导出结构ID"),
+		@ApiImplicitParam(paramType = "query", name = "currLevel", dataType = "int", required = true, value = "当前登录级别 1、市 2、县 3、镇")
 	})
 	@RequestMapping(value = "/statistical", method = RequestMethod.GET)
-	public BaseResult<Object> exportStatisticalRoster(@RequestParam(value = "orgId", required = true) Integer orgId){
+	public BaseResult<Object> exportStatisticalRoster(@RequestParam(value = "orgId", required = true) Integer orgId,
+			@RequestParam(value = "currLevel", required = true) Integer currLevel){
 		BaseResult<Object> br = new BaseResult<Object>();
-		br.setData(epService.getSummaryLsts(orgId));
+		br.setData(epService.getSummaryLsts(orgId, currLevel));
 		return br;
 	}
 

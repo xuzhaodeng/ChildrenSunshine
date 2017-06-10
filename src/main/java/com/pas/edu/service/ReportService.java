@@ -15,7 +15,7 @@ import java.util.List;
  * Desc:
  */
 public interface ReportService {
-    List<ApplyReport> getApplyReport(int orgId) throws Exception;
+    List<ApplyReport> getApplyReport(int orgId, int currLevel) throws Exception;
 
-    ApplyStatusReport getApplyStatusReport(int orgId) throws Exception;
+    ApplyStatusReport getApplyStatusReport(int orgId, int currLevel) throws Exception;
 }

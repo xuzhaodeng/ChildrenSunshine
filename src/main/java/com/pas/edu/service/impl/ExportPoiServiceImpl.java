@@ -91,7 +91,7 @@ public class ExportPoiServiceImpl implements ExportPoiService {
 	}
 
 	@Override
-	public ExportExcel getSummaryLsts(Integer orgId) {
+	public ExportExcel getSummaryLsts(Integer orgId, Integer currLevel) {
 		String dateName = fmt.format(new Date());
 		String fileName = path + dateName + "." + execlSuffix;
 		//获取子机构
@@ -102,7 +102,7 @@ public class ExportPoiServiceImpl implements ExportPoiService {
             Summary summary = new Summary();
             summary.setOrgId(organ.getOrgId());
             summary.setOrgName(organ.getOrgName());
-            List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel());
+            List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel(), currLevel);
             //孤儿
             int orphanCount = 0;
             //特困儿童

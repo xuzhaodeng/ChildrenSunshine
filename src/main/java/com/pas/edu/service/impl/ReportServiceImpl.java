@@ -40,7 +40,7 @@ public class ReportServiceImpl implements ReportService {
      * @throws Exception
      */
     @Override
-    public List<ApplyReport> getApplyReport(int orgId) throws Exception {
+    public List<ApplyReport> getApplyReport(int orgId, int currLevel) throws Exception {
         //获取子机构
         List<Organ> childOrgan = organDao.getChildOrganList(orgId);
         List<ApplyReport> list = new ArrayList<ApplyReport>();
@@ -49,7 +49,7 @@ public class ReportServiceImpl implements ReportService {
             ApplyReport summary = new ApplyReport();
             summary.setOrgId(organ.getOrgId());
             summary.setOrgName(organ.getOrgName());
-            List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel());
+            List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel(), currLevel);
             //孤儿
             int orphanCount = 0;
             //特困儿童
@@ -131,12 +131,12 @@ public class ReportServiceImpl implements ReportService {
      * @throws Exception
      */
     @Override
-    public ApplyStatusReport getApplyStatusReport(int orgId) throws Exception {
+    public ApplyStatusReport getApplyStatusReport(int orgId, int currLevel) throws Exception {
         ApplyStatusReport report = new ApplyStatusReport();
         report.setOrgId(orgId);
         Organ organ = organDao.getOrgan(orgId);
         //过去该机构下的所有申请列表
-        List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel());
+        List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel(), currLevel);
         //待审核
         int notAuditCount = 0;
         //审核中

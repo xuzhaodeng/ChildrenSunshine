@@ -27,7 +27,7 @@ public interface ChildApplyDao {
 	Object getRosterByChildIdCard(@Param("idCard") String idCard);
 
 
-	List<ChildRoster> getChildByOrg(@Param("orgId") int orgId, @Param("orgLevel") int orgLevel);
+	List<ChildRoster> getChildByOrg(@Param("orgId") int orgId, @Param("orgLevel") int orgLevel, @Param("currLevel") int currLevel);
 
 	ChildRoster getRosterInfoByChildId(@Param("childId") int childId);
 }

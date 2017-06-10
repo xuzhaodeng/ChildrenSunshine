@@ -18,6 +18,6 @@ public interface ExportPoiService {
 	
 	//List<Summary> getSummaryLsts(Integer orgId);
 	
-	ExportExcel getSummaryLsts(Integer orgId);
+	ExportExcel getSummaryLsts(Integer orgId, Integer currLevel);
 
 }

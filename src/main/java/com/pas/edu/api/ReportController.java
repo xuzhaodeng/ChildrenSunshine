@@ -7,11 +7,13 @@ import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ReportService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,21 +35,29 @@ public class ReportController {
     ReportService reportService;
 
     @ApiOperation(value = "儿童统计报表", notes = "获取子机构下儿童信息的统计")
-    @ApiImplicitParam(name = "orgId", paramType = "path", value = "机构id", required = true, dataType = "int")
-    @RequestMapping(value = "applyReportList/{orgId}", method = RequestMethod.GET)
-    public BaseResult<List<ApplyReport>> applyReportList(@PathVariable int orgId) throws Exception {
+	@ApiImplicitParams(value = {
+		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "机构ID"),
+		@ApiImplicitParam(paramType = "query", name = "currLevel", dataType = "int", required = true, value = "当前登录级别 1、市 2、县 3、镇")
+	})
+    @RequestMapping(value = "applyReportList", method = RequestMethod.GET)
+    public BaseResult<List<ApplyReport>> applyReportList(@RequestParam(value = "orgId", required = true) Integer orgId, 
+			@RequestParam(value = "currLevel", required = true) Integer currLevel) throws Exception {
         BaseResult<List<ApplyReport>> result = new BaseResult<List<ApplyReport>>();
-        result.setData(reportService.getApplyReport(orgId));
+        result.setData(reportService.getApplyReport(orgId, currLevel));
         return result;
     }
 
 
     @ApiOperation(value = "机构审核状态", notes = "获取当前机构审核状态")
-    @ApiImplicitParam(name = "orgId", paramType = "path", value = "机构id", required = true, dataType = "int")
-    @RequestMapping(value = "applyStatus/{orgId}", method = RequestMethod.GET)
-    public BaseResult<ApplyStatusReport> getApplyStatus(@PathVariable int orgId) throws Exception {
+	@ApiImplicitParams(value = {
+		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "机构ID"),
+		@ApiImplicitParam(paramType = "query", name = "currLevel", dataType = "int", required = true, value = "当前登录级别 1、市 2、县 3、镇")
+	})
+    @RequestMapping(value = "applyStatus", method = RequestMethod.GET)
+    public BaseResult<ApplyStatusReport> getApplyStatus(@RequestParam(value = "orgId", required = true) Integer orgId, 
+			@RequestParam(value = "currLevel", required = true) Integer currLevel) throws Exception {
         BaseResult<ApplyStatusReport> result = new BaseResult<ApplyStatusReport>();
-        result.setData(reportService.getApplyStatusReport(orgId));
+        result.setData(reportService.getApplyStatusReport(orgId, currLevel));
         return result;
     }
 }
