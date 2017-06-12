@@ -19,7 +19,7 @@ public interface ChildApplyDao {
 	
 	List<ChildRoster> getChildApplyLsts(@Param("uid") Integer uid);
 	
-	List<ChildRoster> getChildApplyLstsByOrgid(@Param("villageId") Integer villageId);
+	List<ChildRoster> getChildApplyLstsByOrgid(@Param("villageId") Integer villageId, @Param("loginOrgLevel") Integer loginOrgLevel);
 	
 	
 	void delRoster(@Param("operateId") Integer uid, @Param("childId") Integer childId);

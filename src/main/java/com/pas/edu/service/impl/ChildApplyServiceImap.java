@@ -3,6 +3,10 @@ package com.pas.edu.service.impl;
 import java.text.ParseException;
 import java.util.List;
 
+import com.pas.edu.dao.OrganDao;
+import com.pas.edu.dao.UserDao;
+import com.pas.edu.entity.Organ;
+import com.pas.edu.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,10 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	
 	@Autowired
 	ChildApplyDao cpDao;
+	@Autowired
+	OrganDao organDao;
+	@Autowired
+	UserDao userDao;
 
 	@Override
 	public Integer addChildRoster(ChildRoster childRoster) {
@@ -61,9 +69,12 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	}
 	
 	@Override
-	public List<ChildRoster> getChildApplyLstsByOrgId(Integer orgId, Integer currPage, Integer pageSize) {
+	public List<ChildRoster> getChildApplyLstsByOrgId(Integer orgId, Integer loginUserId, Integer currPage, Integer pageSize) {
+		User user = userDao.getUserById(loginUserId);
+		Organ organ = organDao.getOrgan(user.getOrgId());
 		Page<ChildRoster> page = PageHelper.startPage(currPage * pageSize, pageSize);
-		List<ChildRoster> resultLsts = cpDao.getChildApplyLstsByOrgid(orgId);
+
+		List<ChildRoster> resultLsts = cpDao.getChildApplyLstsByOrgid(orgId,organ.getOrgLevel());
 		return resultLsts;
 	}
 

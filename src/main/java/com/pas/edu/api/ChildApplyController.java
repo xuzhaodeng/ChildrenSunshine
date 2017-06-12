@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import com.pas.edu.common.DictionaryHelper;
+import com.pas.edu.entity.Organ;
 import com.pas.edu.entity.common.AuditStatus;
 import com.pas.edu.service.DatadictService;
 import org.apache.commons.lang3.StringUtils;
@@ -203,15 +204,25 @@ public class ChildApplyController extends BaseController {
 	@ApiOperation(value = "获取村管端困境儿童列表--根据机构ID", notes = "获取村管端困境儿童列表--根据机构Id")
 	@ApiImplicitParams(value = {
 		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "机构ID"),
+		@ApiImplicitParam(paramType = "query", name = "loginUserId", dataType = "int", required = false, value = "当前登录用户ID"),
 		@ApiImplicitParam(paramType = "query", name = "currPage", dataType = "int", required = true, value = "当前页码 从零开始"),
 		@ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", required = true, value = "分页大小")
 	})
 	@RequestMapping(value = "datlstsbyorgid", method = RequestMethod.GET)
-	public BaseResult<List<ChildRoster>> getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId, 
+	public BaseResult<List<ChildRoster>> getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId,
+			@RequestParam(value = "loginUserId", required = false) Integer loginUserId,
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
 		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
-		List<ChildRoster> childRosterList = caService.getChildApplyLstsByOrgId(orgId, currPage, pageSize);
+		Organ organ = orginService.getOrganDetail(orgId);
+		if(organ==null) {
+			BaseResult result = new BaseResult();
+			result.setCode(-1);
+			result.setMsg("organ参数不正确");
+			return result;
+		}
+
+		List<ChildRoster> childRosterList = caService.getChildApplyLstsByOrgId(orgId, loginUserId, currPage, pageSize);
 		if(childRosterList.size()>0) {
 			//监护情况、困境情况、基本生活情况(多选)、教育情况、医疗情况(多选)、福利情况(多选)、状态
 			Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
