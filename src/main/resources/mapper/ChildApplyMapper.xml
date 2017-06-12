@@ -284,6 +284,18 @@
     <select id="getChildApplyLstsByOrgid" resultMap="childApplyMap">
         <include refid="selectChild"/>
         WHERE child.village_id = #{ villageId } and child.village_status != 1 and child.isdel = 1
+		<!-- 市级查看 town_status,county_status,city_status -->
+		<if test="loginOrgLevel == 1">
+			and child.city_status!=1
+		</if>
+		<!-- 县级查看 town_status,county_status,city_status -->
+		<if test="loginOrgLevel == 2">
+			and child.county_status!=1
+		</if>
+		<!-- 镇级查看 town_status,county_status,city_status -->
+		<if test="loginOrgLevel == 3">
+			and child.town_status!=1
+		</if>
     </select>
 
     
