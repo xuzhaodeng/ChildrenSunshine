@@ -56,12 +56,14 @@ public class ExportXlsController {
 	 */
 	@ApiOperation(value = "花名册列表导出", notes = "花名册列表导出")
 	@ApiImplicitParams(value = {
-		@ApiImplicitParam(paramType = "query", name = "villId", dataType = "int", required = true, value = "导出村ID")
+		@ApiImplicitParam(paramType = "query", name = "villId", dataType = "int", required = true, value = "导出村ID"),
+		@ApiImplicitParam(paramType = "query", name = "currLevel", dataType = "int", required = false, value = "当前登录级别 1、市 2、县 3、镇")
 	})
 	@RequestMapping(value = "/rosterLsts", method = RequestMethod.GET)
-	public BaseResult<Object> exportRosterLsts(@RequestParam(value = "villId", required = true) Integer villId){
+	public BaseResult<Object> exportRosterLsts(@RequestParam(value = "villId", required = true) Integer villId,
+			@RequestParam(value = "currLevel", required = false) Integer currLevel){
 		BaseResult<Object> br = new BaseResult<Object>();
-		br.setData(epService.getRosterLsts(villId));
+		br.setData(epService.getRosterLsts(villId, currLevel));
 		return br;
 	}
 	
