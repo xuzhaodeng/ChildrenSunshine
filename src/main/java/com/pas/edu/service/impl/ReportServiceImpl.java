@@ -152,25 +152,27 @@ public class ReportServiceImpl implements ReportService {
             // TODO: 2017/6/3 根据机构级别获取当前机构的状态信息
             switch (organ.getOrgLevel()) {
                 case 1:
-                    status = childRoster.getVillageStatus();
+                	 status = childRoster.getCityStatus();
                     break;
                 case 2:
-                    status = childRoster.getTownStatus();
+                	status = childRoster.getCountyStatus();
                     break;
                 case 3:
-                    status = childRoster.getCountyStatus();
+                	 status = childRoster.getTownStatus();
                     break;
                 case 4:
-                    status = childRoster.getCityStatus();
+                	status = childRoster.getVillageStatus();
                     break;
             }
-            if (status == DictionaryHelper.APPLY_NOT_AUDIT) {
+            if (status == 2) {
                 notAuditCount++;
-            } else if (status == DictionaryHelper.APPLY_IN_AUDIT) {
+            } else if (status == 3) {
                 inAuditCount++;
-            } else if (status == DictionaryHelper.APPLY_PASS) {
-                passCount++;
-            } else {
+            } else if (status == 4) {
+            	refuseCount++;
+            } else if (status == 5) {
+            	passCount++;
+            }  else {
                 refuseCount++;
             }
         }
