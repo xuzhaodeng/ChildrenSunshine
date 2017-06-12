@@ -14,7 +14,7 @@ public interface ExportPoiService {
 	
 	//List<NameSheet> getRosterLsts(Integer villId);
 	
-	ExportExcel getRosterLsts(Integer villId);
+	ExportExcel getRosterLsts(Integer villId, Integer currLevel);
 	
 	//List<Summary> getSummaryLsts(Integer orgId);
 	

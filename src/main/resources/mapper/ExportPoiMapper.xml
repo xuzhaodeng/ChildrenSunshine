@@ -106,6 +106,15 @@
     		other_category, basic_life, basic_life_desc, education_happening, education_happening_desc, medical_happening, medical_happening_desc,
     		guardian_hapening, welfare, welfare_desc
     	 from kjet_child_apply where village_id = #{ villId } and isdel = 1
+    	 <if test="currLevel == 1"> <!-- 市 -->
+    	 	and city_status != 1
+    	 </if>
+    	  <if test="currLevel == 2"> <!-- 县 -->
+    	  	 and county_status != 1
+    	 </if>
+    	  <if test="currLevel == 3"> <!-- 镇 -->
+    	  	and town_status != 1
+    	 </if>
     </select>
     
 

@@ -75,11 +75,11 @@ public class ExportPoiServiceImpl implements ExportPoiService {
 	}
 
 	@Override
-	public ExportExcel getRosterLsts(Integer villId) {
+	public ExportExcel getRosterLsts(Integer villId, Integer currLevel) {
 		String dateName = fmt.format(new Date());
 		String fileName = path + dateName + "." + execlSuffix;
 		Organ org = organDao.getOrgan(villId);
-		List<NameSheet> nsLsts =  exportDao.getRosterLsts(villId); //new FileOutputStream(new File("D://困境儿童列表.xls"))
+		List<NameSheet> nsLsts =  exportDao.getRosterLsts(villId, currLevel); //new FileOutputStream(new File("D://困境儿童列表.xls"))
 		try {
 			ExcelUtil.exportRoster(new FileOutputStream(new File(fileName)), nsLsts, org.getOrgName());
 		} catch (ParseException e) {

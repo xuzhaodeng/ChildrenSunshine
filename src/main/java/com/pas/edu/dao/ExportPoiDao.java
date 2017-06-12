@@ -11,5 +11,5 @@ public interface ExportPoiDao {
 	
 	PoiChildRoster getRosterById(@Param("childId") Integer childId);
 	
-	List<NameSheet> getRosterLsts(@Param("villId") Integer villId);
+	List<NameSheet> getRosterLsts(@Param("villId") Integer villId, @Param("currLevel") Integer currLevel);
 }
