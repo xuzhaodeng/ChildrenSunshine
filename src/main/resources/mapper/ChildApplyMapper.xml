@@ -307,7 +307,7 @@
 
     <select id="getChildByOrg" resultMap="childApplyMap">
         select * from kjet_child_apply
-        WHERE isdel = 1
+        WHERE isdel = 1 and village_status != 1
         <if test="currLevel == 1"> <!-- 市级查看 -->
         	<if test="orgLevel==1">
 	            and child_city_id=#{orgId}

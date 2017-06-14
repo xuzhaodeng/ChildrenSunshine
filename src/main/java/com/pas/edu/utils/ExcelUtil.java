@@ -725,53 +725,58 @@ public class ExcelUtil {
              dataRowCell5.setCellValue(nameSheet.getChild_address());
              String plight_category = nameSheet.getPlight_category();
              String dilemmaContent = "";
-             if (plight_category == null)
-                 return;
-             if (plight_category.equals("A")) {
-                 dilemmaContent = "A:孤儿";
-             } else if (plight_category.equals("B")) {
-                 dilemmaContent = "B:特困儿童";
-             } else if (plight_category.equals("C")) {
-                 dilemmaContent = "C:重病重残儿童";
-             } else if (plight_category.equals("D")) {
-                 dilemmaContent = "D:贫困家庭儿童";
-             } else if (plight_category.equals("E-1")) {
-                 dilemmaContent = "E-1:其他-打拐解救儿童";
-             } else if (plight_category.equals("E-2")) {
-                 dilemmaContent = "E-2:其他-服刑人员子女";
-             } else if (plight_category.equals("E-3")) {
-                 dilemmaContent = "E-3:其他-强制隔离戒毒人员子女";
-             } else if (plight_category.equals("E-4")) {
-                 dilemmaContent = "E-4:受虐儿童";
-             } else if (plight_category.equals("E-5")) {
-                 dilemmaContent = "E-5:被恶意弃养儿童";
-             } else if (plight_category.equals("E-6")) {
-                 dilemmaContent = "E-6:其他情况";
+             if (plight_category == null) {
+            	 dilemmaContent = "";
+             } else {
+            	 if (plight_category.equals("A")) {
+                     dilemmaContent = "A:孤儿";
+                 } else if (plight_category.equals("B")) {
+                     dilemmaContent = "B:特困儿童";
+                 } else if (plight_category.equals("C")) {
+                     dilemmaContent = "C:重病重残儿童";
+                 } else if (plight_category.equals("D")) {
+                     dilemmaContent = "D:贫困家庭儿童";
+                 } else if (plight_category.equals("E-1")) {
+                     dilemmaContent = "E-1:其他-打拐解救儿童";
+                 } else if (plight_category.equals("E-2")) {
+                     dilemmaContent = "E-2:其他-服刑人员子女";
+                 } else if (plight_category.equals("E-3")) {
+                     dilemmaContent = "E-3:其他-强制隔离戒毒人员子女";
+                 } else if (plight_category.equals("E-4")) {
+                     dilemmaContent = "E-4:受虐儿童";
+                 } else if (plight_category.equals("E-5")) {
+                     dilemmaContent = "E-5:被恶意弃养儿童";
+                 } else if (plight_category.equals("E-6")) {
+                     dilemmaContent = "E-6:其他情况";
+                 }
              }
+            
              dataRowCell6.setCellValue(dilemmaContent);
              String[] baseLifes = nameSheet.getBasic_life().split(",");
              StringBuilder sb = new StringBuilder();
              for (int j = 0;j<baseLifes.length;j++){
                  String basicLife = baseLifes[j];
                  String basicContent = "";
-                 if (basicLife == null)
-                     return;
-                 if (basicLife.equals("A")) {
-                     basicContent = "A:孤儿保障";
-                 } else if (basicLife.equals("B")) {
-                     basicContent = "B:特困救助";
-                 } else if (basicLife.equals("C")) {
-                     basicContent = "C:低保救助";
-                 } else if (basicLife.equals("D")) {
-                     basicContent = "D:临时救助";
-                 } else if (basicLife.equals("0")) {
-                     basicContent = nameSheet.getOtherBasicLife();
+                 if (basicLife == null){
+                	 basicContent = "";
+                 } else {
+                	 if (basicLife.equals("A")) {
+                         basicContent = "A:孤儿保障";
+                     } else if (basicLife.equals("B")) {
+                         basicContent = "B:特困救助";
+                     } else if (basicLife.equals("C")) {
+                         basicContent = "C:低保救助";
+                     } else if (basicLife.equals("D")) {
+                         basicContent = "D:临时救助";
+                     } else if (basicLife.equals("0")) {
+                         basicContent = nameSheet.getOtherBasicLife();
 
-                 } else if (basicLife.equals("E")) {
-                     basicContent = "E:残疾人两项补贴";
-                 } else if (basicLife.equals("F")) {
-                     basicContent = "F:其他形式生活保障";
+                     } else if (basicLife.equals("E")) {
+                         basicContent = "E:残疾人两项补贴";
+                     } else if (basicLife.equals("F")) {
+                         basicContent = "F:其他形式生活保障";
 
+                     }
                  }
                  sb.append(basicContent).append("\n");
              }
@@ -779,21 +784,24 @@ public class ExcelUtil {
              sb.delete(0,sb.length());
              String education_happening = nameSheet.getEducation_happening();
              String educationContent = "";
-             if (education_happening == null)
-                 return;
-             if (education_happening.equals("A")) {
-                 educationContent = "A:学前阶段保障";
-             } else if (education_happening.equals("B")) {
-                 educationContent = "B:义务教育两免一补";
-             } else if (education_happening.equals("C")) {
-                 educationContent = "C:高中、中职教育资助";
-             } else if (education_happening.equals("D")) {
-                 educationContent = "D:辍学";
-             } else if (education_happening.equals("E")) {
-                 educationContent = "E:未入学";
-             } else if (education_happening.equals("0")) {
-                 educationContent = nameSheet.getOtherEducation();
+             if (education_happening == null){
+            	 educationContent = "";
+             } else {
+            	  if (education_happening.equals("A")) {
+                      educationContent = "A:学前阶段保障";
+                  } else if (education_happening.equals("B")) {
+                      educationContent = "B:义务教育两免一补";
+                  } else if (education_happening.equals("C")) {
+                      educationContent = "C:高中、中职教育资助";
+                  } else if (education_happening.equals("D")) {
+                      educationContent = "D:辍学";
+                  } else if (education_happening.equals("E")) {
+                      educationContent = "E:未入学";
+                  } else if (education_happening.equals("0")) {
+                      educationContent = nameSheet.getOtherEducation();
+                  }
              }
+           
              dataRowCell8.setCellValue(educationContent);
              String[] medicals = nameSheet.getMedical_happening().split(",");
              for (int n = 0;n< medicals.length;n++){
@@ -832,28 +840,27 @@ public class ExcelUtil {
              }
              dataRowCell10.setCellValue(guaHappeningContent);
              
-             if(nameSheet.getWelfare() == null){
-            	 return;
-             }
-             
-             String[] welfares = nameSheet.getWelfare().split(",");
-             for (int k = 0; k < welfares.length; k++) {
-                 String welfare = welfares[k];
-                 String welfareContent = "";
+             if(nameSheet.getWelfare() != null){
+            	   String[] welfares = nameSheet.getWelfare().split(",");
+                   for (int k = 0; k < welfares.length; k++) {
+                       String welfare = welfares[k];
+                       String welfareContent = "";
 
-                 if (welfare.equals("A")) {
-                     welfareContent = "A:纳入明天计划";
-                 } else if (welfare.equals("B")) {
-                     welfareContent = "B:免费配置康复器具";
-                 } else if (welfare.equals("C")) {
-                     welfareContent = "C:免费接受康复训练";
-                 } else if (welfare.equals("D")) {
-                     welfareContent = "D:接受福利机构替代照料、养育辅导、康复训练等服务";
-                 } else if (welfare.equals("0")) {
-                     welfareContent = nameSheet.getOtherWelfare();
-                 }
-                 sb.append(welfareContent).append("\n");
+                       if (welfare.equals("A")) {
+                           welfareContent = "A:纳入明天计划";
+                       } else if (welfare.equals("B")) {
+                           welfareContent = "B:免费配置康复器具";
+                       } else if (welfare.equals("C")) {
+                           welfareContent = "C:免费接受康复训练";
+                       } else if (welfare.equals("D")) {
+                           welfareContent = "D:接受福利机构替代照料、养育辅导、康复训练等服务";
+                       } else if (welfare.equals("0")) {
+                           welfareContent = nameSheet.getOtherWelfare();
+                       }
+                       sb.append(welfareContent).append("\n");
+                   }
              }
+          
              dataRowCell11.setCellValue(sb.toString());
              sb.delete(0,sb.length());
 
