@@ -12,17 +12,14 @@ import com.pas.edu.service.HistoryRosterService;
 import com.pas.edu.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -47,9 +44,8 @@ public class AuditController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(AuditController.class);
 
     @ApiOperation(value = "提交审核", notes = "村把申请材料提交到镇进行审核")
-    @ApiImplicitParam(paramType = "query", name = "applyId", value = "申请id", required = true, dataType = "int")
     @RequestMapping(value = "submit", method = RequestMethod.POST)
-    public Result submit(@RequestParam(value = "applyId", required = true) Integer applyId) {
+    public Result submit(@RequestBody SubmitAudit submitAudit) {
         Date now = new Date();
 
         //儿童等级表存在村、镇、县、市的状态
@@ -57,11 +53,18 @@ public class AuditController extends BaseController {
         //所有级别初始状态都为1
 
         //ChildRoster childRoster = null;
-        ChildRoster childRoster = childApplyService.getRosterInfoByChildId(applyId);
+        ChildRoster childRoster = childApplyService.getRosterInfoByChildId(submitAudit.getApplyId());
         if(childRoster==null) {
             Result result = new Result();
             result.setCode(-1);
             result.setMsg("applyId参数不正确，找不到对应的儿童登记表");
+            return result;
+        }
+        int villageStatus = childRoster.getVillageStatus();
+        if(villageStatus!=1 && villageStatus!=4) {
+            Result result = new Result();
+            result.setCode(-1);
+            result.setMsg("当前登记表状态不是采集中或被驳回，不允许重复提交审核");
             return result;
         }
 
@@ -222,3 +225,11 @@ public class AuditController extends BaseController {
         return result;
     }
 }
+
+@Data
+class SubmitAudit{
+    @NotEmpty
+    @ApiModelProperty("申请的id")
+    Integer applyId;
+}
+

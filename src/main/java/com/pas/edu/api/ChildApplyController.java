@@ -204,13 +204,13 @@ public class ChildApplyController extends BaseController {
 	@ApiOperation(value = "获取村管端困境儿童列表--根据机构ID", notes = "获取村管端困境儿童列表--根据机构Id")
 	@ApiImplicitParams(value = {
 		@ApiImplicitParam(paramType = "query", name = "orgId", dataType = "int", required = true, value = "机构ID"),
-		@ApiImplicitParam(paramType = "query", name = "loginUserId", dataType = "int", required = false, value = "当前登录用户ID"),
+		@ApiImplicitParam(paramType = "query", name = "loginUserId", dataType = "int", required = true, value = "当前登录用户ID"),
 		@ApiImplicitParam(paramType = "query", name = "currPage", dataType = "int", required = true, value = "当前页码 从零开始"),
 		@ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", required = true, value = "分页大小")
 	})
 	@RequestMapping(value = "datlstsbyorgid", method = RequestMethod.GET)
 	public BaseResult<List<ChildRoster>> getRosterLstsByOrgId(@RequestParam(value = "orgId", required = true) Integer orgId,
-			@RequestParam(value = "loginUserId", required = false) Integer loginUserId,
+			@RequestParam(value = "loginUserId", required = true) Integer loginUserId,
 			@RequestParam(value = "currPage", required = true) Integer currPage, 
 			@RequestParam(value = "pageSize", required = true) Integer pageSize) throws Exception{
 		BaseResult<List<ChildRoster>> br = new BaseResult<List<ChildRoster>>();
