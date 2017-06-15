@@ -6,8 +6,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import com.pas.edu.common.DictionaryHelper;
-import com.pas.edu.entity.Organ;
+import com.pas.edu.entity.*;
 import com.pas.edu.entity.common.AuditStatus;
+import com.pas.edu.service.AuditRecordService;
 import com.pas.edu.service.DatadictService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pas.edu.entity.ChildRoster;
-import com.pas.edu.entity.CompleteOrgan;
-import com.pas.edu.entity.DelRosterRequest;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.service.ChildApplyService;
@@ -51,6 +49,9 @@ public class ChildApplyController extends BaseController {
 
 	@Autowired
 	DatadictService datadictService;
+
+	@Autowired
+	private AuditRecordService auditRecordService;
 
 	@Value("${imagePath}")
 	private String imagePath;
@@ -125,6 +126,9 @@ public class ChildApplyController extends BaseController {
 		Map<String,String> jyqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JYQK);
 		Map<String,String> ylqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_YLQK);
 		Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
+
+		List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(childId);
+		childRoster.setAuditRecords(auditRecordList);
 
 		decorateChildRoster(childRoster,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
         br.setData(childRoster);

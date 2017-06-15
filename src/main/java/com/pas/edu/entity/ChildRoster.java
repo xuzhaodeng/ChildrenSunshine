@@ -1,6 +1,7 @@
 package com.pas.edu.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -183,4 +184,6 @@ public class ChildRoster {
 	@ApiModelProperty("村名称")
 	private String villageName; //村名称
 
+	@ApiModelProperty("审核记录")
+	private List<AuditRecord> auditRecords;
 }
