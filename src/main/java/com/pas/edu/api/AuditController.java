@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,6 +93,12 @@ public class AuditController extends BaseController {
             Result result = new Result();
             result.setCode(-1);
             result.setMsg("action参数不正确");
+            return result;
+        }
+        if(auditRequest.getAction()==2 && StringUtils.isBlank(auditRequest.getRemark())) {
+            Result result = new Result();
+            result.setCode(-1);
+            result.setMsg("驳回操作时，必须填写驳回的理由");
             return result;
         }
 
