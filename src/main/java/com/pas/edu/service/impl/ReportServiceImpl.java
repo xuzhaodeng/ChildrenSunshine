@@ -165,9 +165,9 @@ public class ReportServiceImpl implements ReportService {
                     break;
             }
             if (status == 2) {
-                notAuditCount++;
+            	 inAuditCount++;
             } else if (status == 3) {
-                inAuditCount++;
+                notAuditCount++;
             } else if (status == 4) {
             	refuseCount++;
             } else if (status == 5) {
