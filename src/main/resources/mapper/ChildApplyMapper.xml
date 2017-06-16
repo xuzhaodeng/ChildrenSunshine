@@ -106,7 +106,8 @@
     			town_id, 
     			town_name, 
     			village_id, 
-    			village_name
+    			village_name,
+    			guardian_hapening_desc
     	) values(
     			#{ childIdCard }, 
     			#{ headImg }, 
@@ -152,7 +153,8 @@
 		    	#{ townId }, 
 		    	#{ townName }, 
 		    	#{ villageId }, 
-		    	#{ villageName }
+		    	#{ villageName },
+		    	#{ guaHappeningDesc }
 		)
     </insert> 
     
@@ -191,7 +193,8 @@
     	village_status = #{ villageStatus }, 
 		town_status = #{ townStatus },
 		county_status = #{ countyStatus },  
-		city_status = #{ cityStatus }
+		city_status = #{ cityStatus },
+		guardian_hapening_desc = #{ guaHappeningDesc }
     	where child_id = #{ childId }
     </update>
     

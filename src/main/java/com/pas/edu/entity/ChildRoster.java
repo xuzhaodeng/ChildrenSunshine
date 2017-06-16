@@ -72,6 +72,9 @@ public class ChildRoster {
 	
 	@ApiModelProperty("监护情况代码")
 	private String guaHappening; //监护情况
+	
+	@ApiModelProperty("监护情况选择0描述信息")
+	private String guaHappeningDesc; //监护情况
 
 	@ApiModelProperty("监护情况名称")
 	private String guaHappeningTitle; //监护情况
