@@ -57,6 +57,7 @@
 		<result column="town_name" property="townName"/>
 		<result column="village_id" property="villageId"/>
 		<result column="village_name" property="villageName"/>
+		<result column="guardian_hapening_desc" property="guaHappeningDesc"/>
     </resultMap>
     
     <!-- 数据采集添加 useGeneratedKeys="true" keyColumn="child_id"  -->
