@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.SafeguardRecordDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <resultMap id="SafeguardRecordResult" type="SafeguardRecord">
+        <id column="safeguard_id" property="safeguardId"/>
+        <result column="child_id" property="childId"/>
+        <result column="rule_cycle" property="ruleCycle"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="village_status" property="villageStatus"/>
+        <result column="town_status" property="townStatus"/>
+        <result column="county_status" property="countyStatus"/>
+        <result column="city_status" property="cityStatus"/>
+        <result column="guarantee_status" property="guaranteeStatus"/>
+        <result column="guarantee_status_desc" property="guaranteeStatusDesc"/>
+        <result column="guard_happening" property="guardHappening"/>
+
+
+        <result column="guard_happening_desc" property="guardHappeningDesc"/>
+        <result column="welfare_happening" property="welfareHappening"/>
+        <result column="welfare_happening_desc" property="welfareHappeningDesc"/>
+        <result column="life_happening" property="lifeHappening"/>
+        <result column="life_happening_desc" property="lifeHappeningDesc"/>
+        <result column="education_happening" property="educationHappening"/>
+        <result column="education_happening_desc" property="educationHappeningDesc"/>
+        <result column="medical_happening" property="medicalHappening"/>
+        <result column="medical_happening_desc" property="medicalHappeningDesc"/>
+
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <sql id="selectSafeguardRecord">
+        SELECT
+            safeguardRecord.safeguard_id
+            safeguardRecord.child_id
+            safeguardRecord.rule_cycle
+            safeguardRecord.creator_id
+            safeguardRecord.village_status
+            safeguardRecord.town_status
+            safeguardRecord.county_status
+            safeguardRecord.city_status
+            safeguardRecord.guarantee_status
+            safeguardRecord.guarantee_status_desc
+            safeguardRecord.guard_happening
+            safeguardRecord.guard_happening_desc
+            safeguardRecord.welfare_happening
+            safeguardRecord.welfare_happening_desc
+            safeguardRecord.life_happening
+            safeguardRecord.life_happening_desc
+            safeguardRecord.education_happening
+            safeguardRecord.education_happening_desc
+            safeguardRecord.medical_happening
+            safeguardRecord.medical_happening_desc
+            safeguardRecord.create_time
+            safeguardRecord.update_time
+            safeguardRecord.description
+        FROM kjet_safeguard_record safeguardRecord
+    </sql>
+
+    <insert id="createSafeguardRecord" useGeneratedKeys="true" keyColumn="safeguard_id" parameterType="SafeguardRecord">
+        insert into kjet_safeguard_record(
+            child_id,
+            rule_cycle,
+            creator_id,
+            village_status,
+            town_status,
+            county_status,
+            city_status,
+            guarantee_status,
+            guarantee_status_desc,
+            guard_happening,
+            guard_happening_desc,
+            welfare_happening,
+            welfare_happening_desc,
+            life_happening,
+            life_happening_desc,
+            education_happening,
+            education_happening_desc,
+            medical_happening,
+            medical_happening_desc,
+            create_time,
+            update_time,
+            description
+        )
+        values(
+            #{ childId },
+            #{ ruleCycle },
+            #{ creatorId },
+            #{ villageStatus },
+            #{ townStatus },
+            #{ countyStatus },
+            #{ cityStatus },
+            #{ guaranteeStatus },
+            #{ guaranteeStatusDesc },
+            #{ guardHappening },
+            #{ guardHappeningDesc },
+            #{ welfareHappening },
+            #{ welfareHappeningDesc },
+            #{ lifeHappening },
+            #{ lifeHappeningDesc },
+            #{ educationHappening },
+            #{ educationHappeningDesc },
+            #{ medicalHappening },
+            #{ medicalHappeningDesc },
+            #{ createTime },
+            #{ updateTime },
+            #{ description }
+        )
+    </insert>
+
+    <update id="updateSafeguardRecord" parameterType="SafeguardRecord">
+        UPDATE kjet_safeguard_record SET
+            child_id = #{child_id},
+            rule_cycle = #{rule_cycle},
+            creator_id = #{creator_id},
+            village_status = #{village_status0},
+            town_status = #{town_status0},
+            county_status = #{county_status0},
+            city_status = #{city_status0},
+            guarantee_status = #{guarantee_status1},
+            guarantee_status_desc = #{guarantee_status_desc},
+            guard_happening = #{guard_happening1},
+            guard_happening_desc = #{guard_happening_desc},
+            welfare_happening = #{welfare_happening1},
+            welfare_happening_desc = #{welfare_happening_desc},
+            life_happening = #{life_happening1},
+            life_happening_desc = #{life_happening_desc},
+            education_happening = #{education_happening1},
+            education_happening_desc = #{education_happening_desc},
+            medical_happening = #{medical_happening1},
+            medical_happening_desc = #{medical_happening_desc},
+            create_time = #{create_time},
+            update_time = #{update_time},
+            description = #{description}
+        WHERE safeguard_id = #{safeguard_id};
+    </update>
+
+    <select id="getSafeguardRecord" resultMap="SafeguardRecordResult">
+        <include refid="selectSafeguardRecord"/>
+        WHERE safeguardRecord.safeguardId=#{safeguardId}
+    </select>
+</mapper>
