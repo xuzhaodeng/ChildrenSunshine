@@ -1,7 +1,9 @@
 package com.pas.edu.dao;
 
-/**
- * Created by THINK on 2017/6/16.
- */
-public class SafeguardRecordDao {
+import com.pas.edu.entity.SafeguardRecord;
+import org.apache.ibatis.annotations.Param;
+
+public interface SafeguardRecordDao {
+    SafeguardRecord getSafeguardRecord(@Param("safeguardId") int safeguardId);
+    void createSafeguardRecord(SafeguardRecord safeguardRecord);
 }
