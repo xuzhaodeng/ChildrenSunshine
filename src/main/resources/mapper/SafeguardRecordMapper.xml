@@ -21,8 +21,6 @@
         <result column="guarantee_status" property="guaranteeStatus"/>
         <result column="guarantee_status_desc" property="guaranteeStatusDesc"/>
         <result column="guard_happening" property="guardHappening"/>
-
-
         <result column="guard_happening_desc" property="guardHappeningDesc"/>
         <result column="welfare_happening" property="welfareHappening"/>
         <result column="welfare_happening_desc" property="welfareHappeningDesc"/>
@@ -32,7 +30,6 @@
         <result column="education_happening_desc" property="educationHappeningDesc"/>
         <result column="medical_happening" property="medicalHappening"/>
         <result column="medical_happening_desc" property="medicalHappeningDesc"/>
-
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="description" property="description"/>
@@ -119,29 +116,29 @@
 
     <update id="updateSafeguardRecord" parameterType="SafeguardRecord">
         UPDATE kjet_safeguard_record SET
-            child_id = #{child_id},
-            rule_cycle = #{rule_cycle},
-            creator_id = #{creator_id},
-            village_status = #{village_status0},
-            town_status = #{town_status0},
-            county_status = #{county_status0},
-            city_status = #{city_status0},
-            guarantee_status = #{guarantee_status1},
-            guarantee_status_desc = #{guarantee_status_desc},
-            guard_happening = #{guard_happening1},
-            guard_happening_desc = #{guard_happening_desc},
-            welfare_happening = #{welfare_happening1},
-            welfare_happening_desc = #{welfare_happening_desc},
-            life_happening = #{life_happening1},
-            life_happening_desc = #{life_happening_desc},
-            education_happening = #{education_happening1},
-            education_happening_desc = #{education_happening_desc},
-            medical_happening = #{medical_happening1},
-            medical_happening_desc = #{medical_happening_desc},
-            create_time = #{create_time},
-            update_time = #{update_time},
+            child_id = #{childId},
+            rule_cycle = #{ruleCycle},
+            creator_id = #{creatorId},
+            village_status = #{villageStatus},
+            town_status = #{townStatus},
+            county_status = #{countyStatus},
+            city_status = #{cityStatus},
+            guarantee_status = #{guaranteeStatus},
+            guarantee_status_desc = #{guaranteeStatusDesc},
+            guard_happening = #{guardHappening1},
+            guard_happening_desc = #{guardHappeningDesc},
+            welfare_happening = #{welfareHappening},
+            welfare_happening_desc = #{welfareHappeningDesc},
+            life_happening = #{lifeHappening},
+            life_happening_desc = #{lifeHappeningDesc},
+            education_happening = #{educationHappening},
+            education_happening_desc = #{educationHappeningDesc},
+            medical_happening = #{medicalHappening1},
+            medical_happening_desc = #{medicalHappeningDesc},
+            create_time = #{createTime},
+            update_time = #{updateTime},
             description = #{description}
-        WHERE safeguard_id = #{safeguard_id};
+        WHERE safeguard_id = #{safeguardId};
     </update>
 
     <select id="getSafeguardRecord" resultMap="SafeguardRecordResult">
