@@ -52,5 +52,7 @@ public class SafeguardRecord {
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
     @ApiModelProperty(value = "保障记录描述")
-    private int description;
+    private String description;
+    @ApiModelProperty(value = "孩子信息")
+    private ChildRoster childRoster;
 }

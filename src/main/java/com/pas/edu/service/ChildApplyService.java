@@ -12,10 +12,6 @@ public interface ChildApplyService {
 	
 	void updateChildApply(ChildRoster childRoster);
 	
-	
-	ChildRoster getRosterInfoByChildId(Integer childId);
-	
-	
 	List<ChildRoster> getChildApplyLsts(Integer uid, Integer page, Integer pageSize);
 	
 	List<ChildRoster> getChildApplyLstsByOrgId(Integer orgId, Integer loginUserId, Integer currPage, Integer pageSize);

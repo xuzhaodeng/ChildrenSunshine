@@ -37,28 +37,28 @@
 
     <sql id="selectSafeguardRecord">
         SELECT
-            safeguardRecord.safeguard_id
-            safeguardRecord.child_id
-            safeguardRecord.rule_cycle
-            safeguardRecord.creator_id
-            safeguardRecord.village_status
-            safeguardRecord.town_status
-            safeguardRecord.county_status
-            safeguardRecord.city_status
-            safeguardRecord.guarantee_status
-            safeguardRecord.guarantee_status_desc
-            safeguardRecord.guard_happening
-            safeguardRecord.guard_happening_desc
-            safeguardRecord.welfare_happening
-            safeguardRecord.welfare_happening_desc
-            safeguardRecord.life_happening
-            safeguardRecord.life_happening_desc
-            safeguardRecord.education_happening
-            safeguardRecord.education_happening_desc
-            safeguardRecord.medical_happening
-            safeguardRecord.medical_happening_desc
-            safeguardRecord.create_time
-            safeguardRecord.update_time
+            safeguardRecord.safeguard_id,
+            safeguardRecord.child_id,
+            safeguardRecord.rule_cycle,
+            safeguardRecord.creator_id,
+            safeguardRecord.village_status,
+            safeguardRecord.town_status,
+            safeguardRecord.county_status,
+            safeguardRecord.city_status,
+            safeguardRecord.guarantee_status,
+            safeguardRecord.guarantee_status_desc,
+            safeguardRecord.guard_happening,
+            safeguardRecord.guard_happening_desc,
+            safeguardRecord.welfare_happening,
+            safeguardRecord.welfare_happening_desc,
+            safeguardRecord.life_happening,
+            safeguardRecord.life_happening_desc,
+            safeguardRecord.education_happening,
+            safeguardRecord.education_happening_desc,
+            safeguardRecord.medical_happening,
+            safeguardRecord.medical_happening_desc,
+            safeguardRecord.create_time,
+            safeguardRecord.update_time,
             safeguardRecord.description
         FROM kjet_safeguard_record safeguardRecord
     </sql>
@@ -125,7 +125,7 @@
             city_status = #{cityStatus},
             guarantee_status = #{guaranteeStatus},
             guarantee_status_desc = #{guaranteeStatusDesc},
-            guard_happening = #{guardHappening1},
+            guard_happening = #{guardHappening},
             guard_happening_desc = #{guardHappeningDesc},
             welfare_happening = #{welfareHappening},
             welfare_happening_desc = #{welfareHappeningDesc},
@@ -133,7 +133,7 @@
             life_happening_desc = #{lifeHappeningDesc},
             education_happening = #{educationHappening},
             education_happening_desc = #{educationHappeningDesc},
-            medical_happening = #{medicalHappening1},
+            medical_happening = #{medicalHappening},
             medical_happening_desc = #{medicalHappeningDesc},
             create_time = #{createTime},
             update_time = #{updateTime},
@@ -143,6 +143,13 @@
 
     <select id="getSafeguardRecord" resultMap="SafeguardRecordResult">
         <include refid="selectSafeguardRecord"/>
-        WHERE safeguardRecord.safeguardId=#{safeguardId}
+        WHERE safeguardRecord.safeguard_id=#{safeguardId}
+    </select>
+
+    <select id="findSafeguardRecordList" resultMap="SafeguardRecordResult">
+        <include refid="selectSafeguardRecord"/>
+        JOIN kjet_child_apply child on child.child_id = safeguardRecord.child_id
+        WHERE child.village_id=#{villageId}
+        ORDER BY safeguardRecord.create_time DESC
     </select>
 </mapper>

@@ -6,6 +6,8 @@ import com.pas.edu.service.SafeguardRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SafeguardRecordServiceImpl implements SafeguardRecordService{
 
@@ -17,7 +19,17 @@ public class SafeguardRecordServiceImpl implements SafeguardRecordService{
     }
 
     @Override
+    public void updateSafeguardRecord(SafeguardRecord safeguardRecord) {
+        safeguardRecordDao.updateSafeguardRecord(safeguardRecord);
+    }
+
+    @Override
     public SafeguardRecord getSafeguardRecord(int safeguardRecord) {
         return safeguardRecordDao.getSafeguardRecord(safeguardRecord);
+    }
+
+    @Override
+    public List<SafeguardRecord> findSafeguardRecordList(Integer orgId) {
+        return safeguardRecordDao.findSafeguardRecordList(orgId);
     }
 }
