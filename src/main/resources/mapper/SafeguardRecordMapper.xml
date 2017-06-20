@@ -14,6 +14,8 @@
         <result column="child_id" property="childId"/>
         <result column="rule_cycle" property="ruleCycle"/>
         <result column="creator_id" property="creatorId"/>
+        <result column="org_id" property="orgId"/>
+        <result column="org_level" property="orgLevel"/>
         <result column="village_status" property="villageStatus"/>
         <result column="town_status" property="townStatus"/>
         <result column="county_status" property="countyStatus"/>
@@ -41,6 +43,8 @@
             safeguardRecord.child_id,
             safeguardRecord.rule_cycle,
             safeguardRecord.creator_id,
+            safeguardRecord.org_id,
+            safeguardRecord.org_level,
             safeguardRecord.village_status,
             safeguardRecord.town_status,
             safeguardRecord.county_status,
@@ -68,6 +72,8 @@
             child_id,
             rule_cycle,
             creator_id,
+            org_id,
+            org_level,
             village_status,
             town_status,
             county_status,
@@ -92,6 +98,8 @@
             #{ childId },
             #{ ruleCycle },
             #{ creatorId },
+            #{ orgId },
+            #{ orgLevel },
             #{ villageStatus },
             #{ townStatus },
             #{ countyStatus },
@@ -119,6 +127,8 @@
             child_id = #{childId},
             rule_cycle = #{ruleCycle},
             creator_id = #{creatorId},
+            org_id = #{orgId},
+            org_level = #{orgLevel},
             village_status = #{villageStatus},
             town_status = #{townStatus},
             county_status = #{countyStatus},
