@@ -1,6 +1,5 @@
 package com.pas.edu.api;
 
-import com.pas.edu.entity.AuditRecord;
 import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.SafeguardRecord;
 import com.pas.edu.entity.common.BaseResult;
@@ -41,10 +40,10 @@ public class SafeguardRecordController extends BaseController{
 
     @ApiOperation(value = "添加保障评估记录", notes = "添加保障评估记录")
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public BaseResult save(@RequestBody SafeguardRecord safeguardRecord) {
+    public BaseResult<SafeguardRecord> save(@RequestBody SafeguardRecord safeguardRecord) {
         BaseResult result = new BaseResult();
         safeguardRecordService.createSafeguardRecord(safeguardRecord);
-        result.setData(safeguardRecord.getSafeguardId());
+        result.setData(safeguardRecord);
         return result;
     }
 
