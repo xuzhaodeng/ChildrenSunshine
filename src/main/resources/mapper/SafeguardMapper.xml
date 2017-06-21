@@ -85,31 +85,23 @@
         )
     </insert>
 
-    <update id="updateSafeguardRecord" parameterType="Safegrard">
+    <update id="updateSafeguard" parameterType="Safegrard">
         UPDATE kjet_safeguard_record SET
-            child_id = #{childId},
-            rule_cycle = #{ruleCycle},
-            creator_id = #{creatorId},
-            village_status = #{villageStatus},
-            town_status = #{townStatus},
-            county_status = #{countyStatus},
-            city_status = #{cityStatus},
-            guarantee_status = #{guaranteeStatus},
-            guarantee_status_desc = #{guaranteeStatusDesc},
-            guard_happening = #{guardHappening},
-            guard_happening_desc = #{guardHappeningDesc},
-            welfare_happening = #{welfareHappening},
-            welfare_happening_desc = #{welfareHappeningDesc},
-            life_happening = #{lifeHappening},
-            life_happening_desc = #{lifeHappeningDesc},
-            education_happening = #{educationHappening},
-            education_happening_desc = #{educationHappeningDesc},
-            medical_happening = #{medicalHappening},
-            medical_happening_desc = #{medicalHappeningDesc},
-            create_time = #{createTime},
-            update_time = #{updateTime},
-            description = #{description}
-        WHERE safeguard_id = #{safeguardId};
+            guarantee_status = #{ guaranteeStatus },
+            guarantee_status_desc = #{ guaranteeStatusDesc },
+            guard_happening = #{ guardHappening },
+            guard_happening_desc = #{ guardHappeningDesc },
+            welfare_happening = #{ welfareHappening },
+            welfare_happening_desc = #{ welfareHappeningDesc },
+            life_happening = #{ lifeHappening },
+            life_happening_desc = #{ lifeHappeningDesc },
+            education_happening = #{ educationHappening },
+            education_happening_desc = #{ educationHappeningDesc },
+            medical_happening = #{ medicalHappening },
+            medical_happening_desc = #{ medicalHappeningDesc },
+            update_time = #{ updateTime },
+            description = #{ description }
+        WHERE safeguard_id = #{ safeguardId } and creator_id = #{ creatorId };
     </update>
     
     <!-- 查询审核通过的困境儿童列表 -->
@@ -131,6 +123,21 @@
 		sr.village_status villageStatus
 	  from kjet_child_apply ca LEFT JOIN kjet_safeguard_record sr 
 		ON ca.child_id = sr.child_id where ca.operate_id = #{ uid } and ca.isdel = 1 and ca.village_status = 5
+		and SUBSTRING(DATE_FORMAT(sr.create_time, '%Y-%m-%d'), 1, 7) = #{ currTime }
+    </select>
+    
+    <!-- 查询本月保障评估记录 -->
+    <select id="getSafeuardByChildId" resultType="java.util.HashMap">
+       select 
+        sr.safeguard_id safeguardId, 
+       	sr.education_happening educationHappening, 
+		sr.guard_happening guardHappening, 
+		sr.life_happening lifeHappening, 
+		sr.welfare_happening welfareHappening, 
+		sr.medical_happening medicalHappening, 
+		sr.village_status villageStatus
+	  from kjet_safeguard_record sr 
+		where sr.child_id = #{ childId } 
 		and SUBSTRING(DATE_FORMAT(sr.create_time, '%Y-%m-%d'), 1, 7) = #{ currTime }
     </select>
 

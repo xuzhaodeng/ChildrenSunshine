@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pas.edu.entity.Safegrard;
 import com.pas.edu.entity.SafeguardInfo;
 import com.pas.edu.entity.SafeguardList;
+import com.pas.edu.entity.SafeguardSet;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.service.SafeguardService;
 
@@ -49,6 +50,14 @@ public class SafeguardController {
 		return br;
 	}
 	
+	@ApiOperation(value = "更新保障评估记录接口", notes = "更新保障评估记录接口")
+	@RequestMapping(value = "datupd", method = RequestMethod.POST)
+	public BaseResult<Object> updSafeguard(@RequestBody Safegrard safegrard){
+		BaseResult<Object> br = new BaseResult<Object>();
+		br.setData(sfService.updateSafeuard(safegrard));
+		return br;
+	}
+	
 	@ApiOperation(value = "评估保障记录详细接口", notes = "评估保障记录详细接口")
 	@ApiImplicitParams(value = {
 		@ApiImplicitParam(paramType = "query", name = "sfId", dataType = "int", required = true, value = "保障评估记录ID")
@@ -61,15 +70,10 @@ public class SafeguardController {
 	}
 	
 	@ApiOperation(value = "设置保障评估为已经保障", notes = "设置保障评估为已经保障")
-	@ApiImplicitParams(value = {
-		@ApiImplicitParam(paramType = "query", name = "sfId", dataType = "int", required = true, value = "保障评估记录ID"),
-		@ApiImplicitParam(paramType = "query", name = "uid", dataType = "int", required = true, value = "操作用户ID")
-	})
 	@RequestMapping(value = "setAlrSafe", method = RequestMethod.POST)
-	public BaseResult<Object> setSafeguardToHave(@RequestParam(value = "sfId", required = true) Integer sfId,
-			@RequestParam(value = "uid", required = true) Integer uid){
+	public BaseResult<Object> setSafeguardToHave(@RequestBody SafeguardSet safe){
 		BaseResult<Object> br = new BaseResult<Object>();
-		Integer rows =  sfService.setSafAlrCommit(sfId, uid);
+		Integer rows =  sfService.setSafAlrCommit(safe.getSfId(), safe.getUid());
 		if(rows > 0){
 			br.setData(rows);
 			return br;
