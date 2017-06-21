@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+<mapper namespace="com.pas.edu.dao.SafeguardDao">
+    <!--缓存配置-->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <resultMap id="safeguardMap" type="SafeguardInfo">
+        <id column="safeguard_id" property="safeguardId"/>
+        <result column="child_id" property="childId"/>
+        <result column="rule_cycle" property="ruleCycle"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="village_status" property="villageStatus"/>
+        <result column="town_status" property="townStatus"/>
+        <result column="county_status" property="countyStatus"/>
+        <result column="city_status" property="cityStatus"/>
+        <result column="guarantee_status" property="guaranteeStatus"/>
+        <result column="guarantee_status_desc" property="guaranteeStatusDesc"/>
+        <result column="guard_happening" property="guardHappening"/>
+        <result column="guard_happening_desc" property="guardHappeningDesc"/>
+        <result column="welfare_happening" property="welfareHappening"/>
+        <result column="welfare_happening_desc" property="welfareHappeningDesc"/>
+        <result column="life_happening" property="lifeHappening"/>
+        <result column="life_happening_desc" property="lifeHappeningDesc"/>
+        <result column="education_happening" property="educationHappening"/>
+        <result column="education_happening_desc" property="educationHappeningDesc"/>
+        <result column="medical_happening" property="medicalHappening"/>
+        <result column="medical_happening_desc" property="medicalHappeningDesc"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <insert id="insertSafeguard" useGeneratedKeys="true" keyProperty="safeguardId" parameterType="Safegrard">
+        insert into kjet_safeguard_record(
+            child_id,
+            rule_cycle,
+            creator_id,
+            village_status,
+            town_status,
+            county_status,
+            city_status,
+            guarantee_status,
+            guarantee_status_desc,
+            guard_happening,
+            guard_happening_desc,
+            welfare_happening,
+            welfare_happening_desc,
+            life_happening,
+            life_happening_desc,
+            education_happening,
+            education_happening_desc,
+            medical_happening,
+            medical_happening_desc,
+            create_time,
+            update_time,
+            description
+        ) values (
+            #{ childId },
+            #{ ruleCycle },
+            #{ creatorId },
+            #{ villageStatus },
+            #{ townStatus },
+            #{ countyStatus },
+            #{ cityStatus },
+            #{ guaranteeStatus },
+            #{ guaranteeStatusDesc },
+            #{ guardHappening },
+            #{ guardHappeningDesc },
+            #{ welfareHappening },
+            #{ welfareHappeningDesc },
+            #{ lifeHappening },
+            #{ lifeHappeningDesc },
+            #{ educationHappening },
+            #{ educationHappeningDesc },
+            #{ medicalHappening },
+            #{ medicalHappeningDesc },
+            #{ createTime },
+            #{ updateTime },
+            #{ description }
+        )
+    </insert>
+
+    <update id="updateSafeguardRecord" parameterType="Safegrard">
+        UPDATE kjet_safeguard_record SET
+            child_id = #{childId},
+            rule_cycle = #{ruleCycle},
+            creator_id = #{creatorId},
+            village_status = #{villageStatus},
+            town_status = #{townStatus},
+            county_status = #{countyStatus},
+            city_status = #{cityStatus},
+            guarantee_status = #{guaranteeStatus},
+            guarantee_status_desc = #{guaranteeStatusDesc},
+            guard_happening = #{guardHappening},
+            guard_happening_desc = #{guardHappeningDesc},
+            welfare_happening = #{welfareHappening},
+            welfare_happening_desc = #{welfareHappeningDesc},
+            life_happening = #{lifeHappening},
+            life_happening_desc = #{lifeHappeningDesc},
+            education_happening = #{educationHappening},
+            education_happening_desc = #{educationHappeningDesc},
+            medical_happening = #{medicalHappening},
+            medical_happening_desc = #{medicalHappeningDesc},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            description = #{description}
+        WHERE safeguard_id = #{safeguardId};
+    </update>
+    
+    <!-- 查询审核通过的困境儿童列表 -->
+    <select id="getByChildLst" resultType="java.util.HashMap">
+    	select child_id, child_name from kjet_child_apply where operate_id = #{ uid } and isdel = 1 and village_status = 5
+    </select>
+
+	<!-- 查询本月保障评估记录 -->
+    <select id="getSafeuardLst" resultType="java.util.HashMap">
+       select 
+        sr.safeguard_id safeguardId,
+       	ca.child_id childId, 
+       	ca.child_name childName, 
+       	sr.education_happening educationHappening, 
+		sr.guard_happening guardHappening, 
+		sr.life_happening lifeHappening, 
+		sr.welfare_happening welfareHappening, 
+		sr.medical_happening medicalHappening, 
+		sr.village_status villageStatus
+	  from kjet_child_apply ca LEFT JOIN kjet_safeguard_record sr 
+		ON ca.child_id = sr.child_id where ca.operate_id = #{ uid } and ca.isdel = 1 and ca.village_status = 5
+		and SUBSTRING(DATE_FORMAT(sr.create_time, '%Y-%m-%d'), 1, 7) = #{ currTime }
+    </select>
+
+	<!-- 获取保障评价记录详细 -->
+    <select id="getSafeguardInfo" resultMap="safeguardMap">
+       select * from kjet_safeguard_record where safeguard_id = #{ sfId }
+    </select>
+    
+    <!-- 设置保障评估为已提交 -->
+    <update id="setSafAlrCommit">
+    	update kjet_safeguard_record set 
+    	village_status = 1, 
+        town_status = 2,
+        county_status = 2,
+        city_status = 2,
+        update_time = #{ updTime }
+    	where safeguard_id = #{ sfId } and creator_id = #{ uid }
+    </update>
+</mapper>
