@@ -21,6 +21,8 @@ public interface SafeguardDao {
 	
 	public Integer updateSafeguard(Safegrard sfinfo);
 	
+	public List<Map<String, Object>> getSafeuardByChildId(@Param("childId") Integer childId, @Param("currTime") String currTime);
+	
 	public Integer setSafAlrCommit(@Param("sfId") Integer sfId, @Param("uid") Integer uid, @Param("updTime") Date updTime);
 
 }

@@ -125,6 +125,21 @@
 		ON ca.child_id = sr.child_id where ca.operate_id = #{ uid } and ca.isdel = 1 and ca.village_status = 5
 		and SUBSTRING(DATE_FORMAT(sr.create_time, '%Y-%m-%d'), 1, 7) = #{ currTime }
     </select>
+    
+    <!-- 查询本月保障评估记录 -->
+    <select id="getSafeuardByChildId" resultType="java.util.HashMap">
+       select 
+        sr.safeguard_id safeguardId, 
+       	sr.education_happening educationHappening, 
+		sr.guard_happening guardHappening, 
+		sr.life_happening lifeHappening, 
+		sr.welfare_happening welfareHappening, 
+		sr.medical_happening medicalHappening, 
+		sr.village_status villageStatus
+	  from kjet_safeguard_record sr 
+		where sr.child_id = #{ childId } 
+		and SUBSTRING(DATE_FORMAT(sr.create_time, '%Y-%m-%d'), 1, 7) = #{ currTime }
+    </select>
 
 	<!-- 获取保障评价记录详细 -->
     <select id="getSafeguardInfo" resultMap="safeguardMap">
