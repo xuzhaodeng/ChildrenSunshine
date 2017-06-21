@@ -49,6 +49,14 @@ public class SafeguardController {
 		return br;
 	}
 	
+	@ApiOperation(value = "更新保障评估记录接口", notes = "更新保障评估记录接口")
+	@RequestMapping(value = "datupd", method = RequestMethod.POST)
+	public BaseResult<Object> updSafeguard(@RequestBody Safegrard safegrard){
+		BaseResult<Object> br = new BaseResult<Object>();
+		br.setData(sfService.updateSafeuard(safegrard));
+		return br;
+	}
+	
 	@ApiOperation(value = "评估保障记录详细接口", notes = "评估保障记录详细接口")
 	@ApiImplicitParams(value = {
 		@ApiImplicitParam(paramType = "query", name = "sfId", dataType = "int", required = true, value = "保障评估记录ID")

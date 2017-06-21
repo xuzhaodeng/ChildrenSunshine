@@ -19,6 +19,8 @@ public interface SafeguardDao {
 	
 	public Integer insertSafeguard(Safegrard sfinfo);
 	
+	public Integer updateSafeguard(Safegrard sfinfo);
+	
 	public Integer setSafAlrCommit(@Param("sfId") Integer sfId, @Param("uid") Integer uid, @Param("updTime") Date updTime);
 
 }

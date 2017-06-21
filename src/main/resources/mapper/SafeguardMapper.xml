@@ -85,31 +85,23 @@
         )
     </insert>
 
-    <update id="updateSafeguardRecord" parameterType="Safegrard">
+    <update id="updateSafeguard" parameterType="Safegrard">
         UPDATE kjet_safeguard_record SET
-            child_id = #{childId},
-            rule_cycle = #{ruleCycle},
-            creator_id = #{creatorId},
-            village_status = #{villageStatus},
-            town_status = #{townStatus},
-            county_status = #{countyStatus},
-            city_status = #{cityStatus},
-            guarantee_status = #{guaranteeStatus},
-            guarantee_status_desc = #{guaranteeStatusDesc},
-            guard_happening = #{guardHappening},
-            guard_happening_desc = #{guardHappeningDesc},
-            welfare_happening = #{welfareHappening},
-            welfare_happening_desc = #{welfareHappeningDesc},
-            life_happening = #{lifeHappening},
-            life_happening_desc = #{lifeHappeningDesc},
-            education_happening = #{educationHappening},
-            education_happening_desc = #{educationHappeningDesc},
-            medical_happening = #{medicalHappening},
-            medical_happening_desc = #{medicalHappeningDesc},
-            create_time = #{createTime},
-            update_time = #{updateTime},
-            description = #{description}
-        WHERE safeguard_id = #{safeguardId};
+            guarantee_status = #{ guaranteeStatus },
+            guarantee_status_desc = #{ guaranteeStatusDesc },
+            guard_happening = #{ guardHappening },
+            guard_happening_desc = #{ guardHappeningDesc },
+            welfare_happening = #{ welfareHappening },
+            welfare_happening_desc = #{ welfareHappeningDesc },
+            life_happening = #{ lifeHappening },
+            life_happening_desc = #{ lifeHappeningDesc },
+            education_happening = #{ educationHappening },
+            education_happening_desc = #{ educationHappeningDesc },
+            medical_happening = #{ medicalHappening },
+            medical_happening_desc = #{ medicalHappeningDesc },
+            update_time = #{ updateTime },
+            description = #{ description }
+        WHERE safeguard_id = #{ safeguardId } and creator_id = #{ creatorId };
     </update>
     
     <!-- 查询审核通过的困境儿童列表 -->

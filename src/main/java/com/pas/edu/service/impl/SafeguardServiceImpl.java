@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.pas.edu.dao.ChildApplyDao;
 import com.pas.edu.dao.SafeguardDao;
+import com.pas.edu.entity.ChildRoster;
 import com.pas.edu.entity.Safegrard;
 import com.pas.edu.entity.SafeguardInfo;
 import com.pas.edu.entity.SafeguardList;
@@ -25,6 +27,9 @@ public class SafeguardServiceImpl implements SafeguardService {
 	
 	@Autowired
 	ChildApplyDao cpDao;
+	
+	@Value("${imagePath}")
+	private String imagePath;
 
 	@Override
 	public List<SafeguardList> getSafeuardLst(Integer uid, String searchTime) {
@@ -77,10 +82,6 @@ public class SafeguardServiceImpl implements SafeguardService {
 		}
 		return result;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println();
-	}
 
 	@Override
 	public Integer insertSafeuard(Safegrard sfinfo) {
@@ -91,25 +92,32 @@ public class SafeguardServiceImpl implements SafeguardService {
 			sfinfo.setUpdateTime(currDate);
 			sfinfo.setCityStatus(0);
 			sfinfo.setCountyStatus(0);
-			sfinfo.setTownStatus(0);;
-			sfinfo.setVillageStatus(2);;
+			sfinfo.setTownStatus(0);
+			sfinfo.setVillageStatus(2);
 			sfId = sfdao.insertSafeguard(sfinfo);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return sfId;
+		return sfId > 0 ? sfinfo.getSafeguardId() : 0;
 	}
 
 	@Override
 	public Integer updateSafeuard(Safegrard sfinfo) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			sfinfo.setUpdateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sfdao.updateSafeguard(sfinfo);
 	}
 
 	@Override
 	public SafeguardInfo getSafeguardInfo(Integer sfId) {
 		SafeguardInfo sfInfo = sfdao.getSafeguardInfo(sfId);
-		sfInfo.setChildRoster(cpDao.getRosterInfoByChildId(sfInfo.getChildId()));
+		ChildRoster cr = cpDao.getRosterInfoByChildId(sfInfo.getChildId());
+		cr.setHeadImgPath(imagePath);
+		sfInfo.setChildRoster(cr);
 		return sfInfo;
 	}
 
