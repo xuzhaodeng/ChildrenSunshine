@@ -1,5 +1,6 @@
 package com.pas.edu.utils;
 
+import com.pas.edu.entity.SafeguardReport;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -196,6 +197,7 @@ public class ExcelUtil {
     }
 
     /**
+     * 写是否已保障单元格
      * @param row           行
      * @param column        列
      * @param haveSafeguard 是否已经保障
@@ -210,6 +212,21 @@ public class ExcelUtil {
         row.getCell(column).setCellStyle(cellStyle);
     }
 
+    /**
+     * 写是否已落实单元格
+     * @param row           行
+     * @param column        列
+     * @param haveImplement 是否已经落实
+     * @param cellStyle     单元格格式
+     */
+    public static void setNextCellConten2(HSSFRow row, int column, boolean haveImplement, CellStyle cellStyle) {
+        if (!haveImplement) {
+            row.createCell(column).setCellValue("未落实");
+        } else {
+            row.createCell(column).setCellValue("已落实");
+        }
+        row.getCell(column).setCellStyle(cellStyle);
+    }
 
     /**
      * 导出具体儿童信息
@@ -886,6 +903,165 @@ public class ExcelUtil {
 
          //workbook.write(new FileOutputStream(new File("C:/Users/tyson/Desktop/困境儿童统计表.xls")));
          workbook.write(fos);
+    }
+
+    /**
+     * 导出评估保障统计报表
+     * @param fos 文件流
+     * @param safeguardReports 导出的数据
+     * @param organization 填报单位
+     * @throws ParseException
+     * @throws IOException
+     */
+    public static void exportSafeguardReports(FileOutputStream fos, List<SafeguardReport> safeguardReports, String organization) throws ParseException, IOException {
+        // 声明一个工作薄
+        HSSFWorkbook workbook = new HSSFWorkbook();//缓存
+//        workbook.setCompressTempFiles(true);
+        //表头样式
+        CellStyle titleStyle = workbook.createCellStyle();
+        titleStyle.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+        titleStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  //设置垂直居中
+        Font titleFont = workbook.createFont();
+        titleFont.setFontHeightInPoints((short) 12);  //字体大小
+        titleFont.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);  //字体状态正常
+        titleStyle.setFont(titleFont);
+        titleStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+        titleStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+        titleStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+        titleStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+
+        // 生成一个(带标题)表格
+        HSSFSheet sheet = workbook.createSheet();
+
+        HSSFRow titleRow = (HSSFRow) sheet.createRow(0);//表头 rowIndex=0
+
+        HSSFCell titleCell = titleRow.createCell(0);
+        titleRow.getCell(0).setCellStyle(titleStyle);
+        titleCell.setCellValue("填报单位：" + organization + "                                                                                                                 填报日期：" + TimeUtils.timestamp2DateString(System.currentTimeMillis()));
+        titleRow.setHeight((short) 600);  //行高
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 15));  //合并
+
+
+        // 列头样式
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);//前景色样式
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());//前景色颜色 灰色X17
+        headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        headerStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);  //设置垂直居中
+        headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+        headerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+        headerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+        headerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+        Font headFont = workbook.createFont();
+        headFont.setFontHeightInPoints((short) 10);  //字体大小
+        headFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  //字体状态正常
+        headerStyle.setFont(headFont);
+
+
+        HSSFRow headRow = sheet.createRow(1);
+        headRow.setHeight((short) 400);
+        //第一列
+        setCellContent(sheet, headRow, "县（市、区）", 0, headerStyle);
+        //第二列
+        setCellContent(sheet, headRow, "孤儿", 1, headerStyle);
+        //第三列
+        setCellContent(sheet, headRow, "特困儿童", 2, headerStyle);
+        //第四列
+        setCellContent(sheet, headRow, "重病重残儿童", 3, headerStyle);
+        //第四列
+        setCellContent(sheet, headRow, "其他困境儿童", 4, headerStyle);
+        setCellContent(sheet, headRow, "合计", 5, headerStyle);
+
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 6, 7));
+        headRow.createCell(6).setCellValue("基本生活保障");
+        headRow.getCell(6).setCellStyle(headerStyle);
+
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 8, 9));
+        headRow.createCell(8).setCellValue("教育保障");
+        headRow.getCell(8).setCellStyle(headerStyle);
+
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 10, 11));
+        headRow.createCell(10).setCellValue("基本医疗保障");
+        headRow.getCell(10).setCellStyle(headerStyle);
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 12, 13));
+        headRow.createCell(12).setCellValue("落实监护责任");
+        headRow.getCell(12).setCellStyle(headerStyle);
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 14, 15));
+        headRow.createCell(14).setCellValue("残疾儿童福利服务");
+        headRow.getCell(14).setCellStyle(headerStyle);
+
+        HSSFRow thirdRow = sheet.createRow(2);
+        setNextCellConten2(thirdRow, 6, true, headerStyle);
+        setNextCellConten2(thirdRow, 7, false, headerStyle);
+        setNextCellConten2(thirdRow, 8, true, headerStyle);
+        setNextCellConten2(thirdRow, 9, false, headerStyle);
+        setNextCellConten2(thirdRow, 10, true, headerStyle);
+        setNextCellConten2(thirdRow, 11, false, headerStyle);
+        setNextCellConten2(thirdRow, 12, true, headerStyle);
+        setNextCellConten2(thirdRow, 13, false, headerStyle);
+        setNextCellConten2(thirdRow, 14, true, headerStyle);
+        setNextCellConten2(thirdRow, 15, false, headerStyle);
+        /**以上全是表头信息*/
+
+
+        //根据有多少个市区县，建立多少行
+        for (int i = 0; i < safeguardReports.size(); i++) {
+            HSSFRow contentRow = sheet.createRow(i + 3);
+            SafeguardReport safeguardReport = safeguardReports.get(i);
+            CellStyle contentStyle = workbook.createCellStyle();
+            contentStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+            contentStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+            contentStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+            contentStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+
+            contentRow.createCell(0).setCellValue(safeguardReport.getOrgName());
+            contentRow.createCell(1).setCellValue(safeguardReport.getOrphanCount());
+            contentRow.createCell(2).setCellValue(safeguardReport.getProvertyCount());
+            contentRow.createCell(3).setCellValue(safeguardReport.getDisabilityCount());
+            contentRow.createCell(4).setCellValue(safeguardReport.getOtherDifficultCount());
+            contentRow.createCell(5).setCellValue(safeguardReport.getTotal());
+            contentRow.createCell(6).setCellValue(safeguardReport.getBaseProtectCount());
+            contentRow.createCell(7).setCellValue(safeguardReport.getBaseNotProtectCount());
+            contentRow.createCell(8).setCellValue(safeguardReport.getEduProtectCount());
+            contentRow.createCell(9).setCellValue(safeguardReport.getEduNotProtectCount());
+            contentRow.createCell(10).setCellValue(safeguardReport.getMedicalProtectCount());
+            contentRow.createCell(11).setCellValue(safeguardReport.getMedicalNotProtectCount());
+            contentRow.createCell(12).setCellValue(safeguardReport.getCustodyCount());
+            contentRow.createCell(13).setCellValue(safeguardReport.getCustodyNotCount());
+            contentRow.createCell(14).setCellValue(safeguardReport.getDisabilityWelfareCount());
+            contentRow.createCell(15).setCellValue(safeguardReport.getDisabilityNotWelfareCount());
+        }
+
+        /**下面全是备注信息*/
+        HSSFRow attentionRow = sheet.createRow(safeguardReports.size() + 3);
+        CellStyle attentionRowStyle = workbook.createCellStyle();
+        HSSFFont attentionRowFont = workbook.createFont();
+        //注意事项的单元格格式
+        attentionRowFont.setFontHeightInPoints((short) 10);  //字体大小
+        attentionRowFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  //字体加粗
+        attentionRowStyle.setFont(attentionRowFont);
+        attentionRowStyle.setWrapText(true);  //自动换行
+        attentionRowStyle.setAlignment(CellStyle.ALIGN_LEFT);
+        attentionRowStyle.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+        attentionRowStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+        attentionRowStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+        attentionRowStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+        attentionRowStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+
+        sheet.addMergedRegion(new CellRangeAddress(safeguardReports.size() + 3, safeguardReports.size() + 3, 0, 15));
+        attentionRow.setHeight((short) 500);
+        attentionRow.createCell(0).setCellValue("注：统计单位：人，已保人数指在某一保障方面享受一种或多种保障措施的困境儿童人数，未保数指某一保障方面未享受任何保障措施的人数，即未保障、未服务、未监护的人数。");
+        attentionRow.getCell(0).setCellStyle(attentionRowStyle);
+
+        HSSFRow lastRow = sheet.createRow(safeguardReports.size() + 4);
+        sheet.addMergedRegion(new CellRangeAddress(safeguardReports.size() + 4, safeguardReports.size() + 4, 0, 15));
+        lastRow.setHeight((short) 400);
+        lastRow.createCell(0).setCellValue("填报人：" + organization + "                               联系方式：" + organization + "                           民政部负责人：" + organization);
+        lastRow.getCell(0).setCellStyle(attentionRowStyle);
+
+
+//        workbook.write(new FileOutputStream(new File("C:/Users/tyson/Desktop/困境儿童统计表.xls")));
+        workbook.write(fos);
     }
 
     private static void setCellData(HSSFCell cell, String content, CellStyle cellStyle) {

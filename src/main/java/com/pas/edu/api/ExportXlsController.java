@@ -2,9 +2,12 @@ package com.pas.edu.api;
 
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.pas.edu.entity.SafeguardReport;
+import com.pas.edu.service.SafeguardRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +35,8 @@ public class ExportXlsController {
 	
 	@Autowired
 	ExportPoiService epService;
+	@Autowired
+	private SafeguardRecordService safeguardRecordService;
 	
 	/**
 	 * 花名册信息导出
@@ -84,4 +89,21 @@ public class ExportXlsController {
 		return br;
 	}
 
+	@ApiOperation(value = "花名册列表导出", notes = "花名册列表导出")
+	@ApiImplicitParams(value = {
+			@ApiImplicitParam(paramType = "query", name = "villId", dataType = "int", required = true, value = "导出村ID"),
+			@ApiImplicitParam(paramType = "query", name = "currLevel", dataType = "int", required = false, value = "当前登录级别 1、市 2、县 3、镇")
+	})
+
+	/**
+	 * 导出评估保障统计报表
+	 */
+	@RequestMapping(value = "/exportSafeguardReports", method = RequestMethod.GET)
+	public BaseResult<Object> exportSafeguardReports(@RequestParam(value = "villId", required = true) Integer orgId,
+													 @RequestParam(value = "beginTime", required = false) String beginTime, @RequestParam(value = "endTime", required = false) String endTime){
+		BaseResult<Object> br = new BaseResult<Object>();
+		List<SafeguardReport> safeguardReports = safeguardRecordService.getSafeguardReport(orgId, beginTime, endTime);
+		br.setData(epService.getExportSafeguardReports(orgId, safeguardReports));
+		return br;
+	}
 }
