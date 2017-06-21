@@ -165,6 +165,37 @@
         <include refid="selectSafeguardRecord"/>
         JOIN kjet_child_apply child on child.child_id = safeguardRecord.child_id
         WHERE child.village_id=#{villageId}
+        <if test="beginTime!=null">
+            safeguardRecord.create_time >= #{beginTime}
+        </if>
+        <if test="endTime!=null">
+            <![CDATA[safeguardRecord.create_time <= #{endTime}]]>
+        </if>
         ORDER BY safeguardRecord.create_time DESC
+    </select>
+
+    <select id="findSafeguardRecordListByOrg" resultMap="SafeguardRecordResult">
+        <include refid="selectSafeguardRecord"/>
+        LEFT JOIN kjet_child_apply child on child.child_id = safeguardRecord.child_id
+        WHERE 1=1
+        <if test="beginTime!=null">
+            and safeguardRecord.create_time >= #{beginTime}
+        </if>
+        <if test="endTime!=null">
+            and <![CDATA[safeguardRecord.create_time <= #{endTime}]]>
+        </if>
+
+        <if test="orgLevel==1">
+            and child.child_city_id=#{orgId}
+        </if>
+        <if test="orgLevel==2">
+            and child.child_county_id=#{orgId}
+        </if>
+        <if test="orgLevel==3">
+            and child.town_id=#{orgId}
+        </if>
+        <if test="orgLevel==4">
+            and child.village_id=#{orgId}
+        </if>
     </select>
 </mapper>
