@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pas.edu.dao.MybatisBaseDao;
 import com.pas.edu.entity.common.Result;
 
 import io.swagger.annotations.Api;
@@ -25,9 +24,6 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("api/roster")
 public class RosterController extends BaseController {
-	
-	@Autowired
-	MybatisBaseDao mbDao;
 	
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@RequestMapping(value = "getlsts", method = RequestMethod.GET)
@@ -60,8 +56,6 @@ public class RosterController extends BaseController {
 	@RequestMapping(value = "gettest", method = RequestMethod.GET)
 	public Result getRosterLsts(@RequestParam(value = "uid", required = true) Integer uid) throws Exception{
 		Result result = new Result();
-		List<Object> obj = mbDao.selectList(72, "com.pas.edu.dao.ChildApplyDao.getRosterInfoByChildId");
-		result.setData(obj);
 		return result;
 	}
 
