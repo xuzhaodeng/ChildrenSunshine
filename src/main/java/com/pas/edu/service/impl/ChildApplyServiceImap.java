@@ -150,4 +150,13 @@ public class ChildApplyServiceImap implements ChildApplyService {
 			return null;
 		}
 	}
+
+	@Override
+	public int getNotRefuseNum(int orgId, String beginTime, String endTime) {
+		return cpDao.getNotRefuseNum(orgId,beginTime,endTime);
+	}
+	@Override
+	public int getAllApplyNum(int orgId, String beginTime, String endTime) {
+		return getAllApplyNum(orgId,beginTime,endTime);
+	}
 }
