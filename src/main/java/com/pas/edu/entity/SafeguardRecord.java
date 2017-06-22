@@ -15,12 +15,6 @@ public class SafeguardRecord {
     private String ruleCycle;
     @ApiModelProperty(value = "创建用户ID")
     private int creatorId;
-    @ApiModelProperty(value = "回访机构id")
-    private int visitOrgId;
-    @ApiModelProperty(value = "机构id")
-    private int orgId;
-    @ApiModelProperty(value = "机构级别(4:村；3：乡镇；2：区县；1：市)")
-    private int orgLevel;
     @ApiModelProperty(value = "村状态 1、未提交 2、已提交")
     private int villageStatus;
     @ApiModelProperty(value = "镇核查状态 1已核查 2、未核查")
