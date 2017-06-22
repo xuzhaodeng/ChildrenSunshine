@@ -2,14 +2,14 @@ package com.pas.edu.service.impl;
 
 import com.pas.edu.dao.OrganDao;
 import com.pas.edu.dao.UserDao;
-import com.pas.edu.entity.ModifyPwdRequest;
-import com.pas.edu.entity.Organ;
-import com.pas.edu.entity.User;
-import com.pas.edu.entity.UserEdit;
+import com.pas.edu.entity.*;
 import com.pas.edu.exception.CommonException;
 import com.pas.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * Author : eric
@@ -84,5 +84,16 @@ public class UserServiceImpl implements UserService {
             throw new CommonException("所属机构不存在!");
         }
         userDao.update(userEdit);
+    }
+
+    @Override
+    public void modifyUserStatus(List<UserStatus> userStatusList) throws Exception {
+        if (CollectionUtils.isEmpty(userStatusList)) {
+            throw new CommonException("请传入需要修改的数据");
+        }
+        //修改状态
+        for (UserStatus userStatus : userStatusList) {
+            userDao.updateStatus(userStatus);
+        }
     }
 }

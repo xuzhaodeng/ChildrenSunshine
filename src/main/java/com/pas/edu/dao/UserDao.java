@@ -2,6 +2,7 @@ package com.pas.edu.dao;
 
 import com.pas.edu.entity.User;
 import com.pas.edu.entity.UserEdit;
+import com.pas.edu.entity.UserStatus;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,4 +32,6 @@ public interface UserDao {
     List<User> getUserList(@Param("notDel") boolean notDel);
 
     void update(UserEdit userEdit);
+
+    void updateStatus(UserStatus userStatus);
 }

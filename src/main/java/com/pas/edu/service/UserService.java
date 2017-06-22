@@ -3,6 +3,9 @@ package com.pas.edu.service;
 import com.pas.edu.entity.ModifyPwdRequest;
 import com.pas.edu.entity.User;
 import com.pas.edu.entity.UserEdit;
+import com.pas.edu.entity.UserStatus;
+
+import java.util.List;
 
 /**
  * Author : eric
@@ -23,4 +26,6 @@ public interface UserService {
     int add(UserEdit userEdit) throws Exception;
 
     void edit(UserEdit userEdit)throws Exception;
+
+    void modifyUserStatus(List<UserStatus> userStatusList)throws Exception;
 }
