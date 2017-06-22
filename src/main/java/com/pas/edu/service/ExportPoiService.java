@@ -1,6 +1,7 @@
 package com.pas.edu.service;
 
 import com.pas.edu.entity.ExportExcel;
+import com.pas.edu.entity.SafeguardRecord;
 import com.pas.edu.entity.SafeguardReport;
 
 import java.util.List;
@@ -30,4 +31,12 @@ public interface ExportPoiService {
 	 * @return
 	 */
 	ExportExcel getExportSafeguardReports(int orgId, List<SafeguardReport> safeguardReports);
+
+	/**
+	 * 导出评估保障列表
+	 * @param orgId
+	 * @param safeguardRecordList
+	 * @return
+	 */
+	ExportExcel getExportSafeguardList(int orgId, List<SafeguardRecord> safeguardRecordList);
 }

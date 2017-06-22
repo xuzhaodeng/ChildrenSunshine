@@ -55,52 +55,6 @@ public class SafeguardRecordController extends BaseController{
         return result;
     }
 
-    /*
-    @ApiOperation(value = "添加保障评估记录", notes = "添加保障评估记录")
-    @RequestMapping(value = "save", method = RequestMethod.POST)
-    public BaseResult<SafeguardRecord> save(@RequestBody SafeguardRecord safeguardRecord) {
-        BaseResult result = new BaseResult();
-        safeguardRecordService.createSafeguardRecord(safeguardRecord);
-        result.setData(safeguardRecord);
-        return result;
-    }
-    */
-
-    /*
-    @ApiOperation(value = "更新保障评估记录", notes = "更新保障评估记录")
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public BaseResult update(@RequestBody SafeguardRecord safeguardRecord) {
-        BaseResult result = new BaseResult();
-        SafeguardRecord old = safeguardRecordService.getSafeguardRecord(safeguardRecord.getSafeguardId());
-        //old.setChildRoster();
-        //old.setChildId();
-        //old.setCityStatus();
-        //old.setCountyStatus();
-        //old.setCreateTime();
-        //old.setCreatorId();
-        old.setDescription(safeguardRecord.getDescription());
-        old.setEducationHappening(safeguardRecord.getEducationHappening());
-        old.setEducationHappeningDesc(safeguardRecord.getEducationHappeningDesc());
-        old.setGuaranteeStatus(safeguardRecord.getGuaranteeStatus());
-        old.setGuaranteeStatusDesc(safeguardRecord.getGuaranteeStatusDesc());
-        old.setGuardHappening(safeguardRecord.getGuardHappening());
-        old.setGuardHappeningDesc(safeguardRecord.getGuardHappeningDesc());
-        old.setLifeHappening(safeguardRecord.getLifeHappening());
-        old.setLifeHappeningDesc(safeguardRecord.getLifeHappeningDesc());
-        old.setMedicalHappening(safeguardRecord.getMedicalHappening());
-        old.setMedicalHappeningDesc(safeguardRecord.getMedicalHappeningDesc());
-        //old.setRuleCycle();
-        //old.setTownStatus();
-        old.setUpdateTime(new Date());
-        //old.setVillageStatus();
-        old.setWelfareHappening(safeguardRecord.getWelfareHappening());
-        old.setWelfareHappeningDesc(safeguardRecord.getWelfareHappeningDesc());
-
-        safeguardRecordService.updateSafeguardRecord(old);
-        return result;
-    }
-    */
-
     @ApiOperation(value = "保障评估记录详情", notes = "保障评估记录详情")
     @ApiImplicitParam(paramType = "query", name = "safeguardId", value = "保障评估记录id", required = true, dataType = "int")
     @RequestMapping(value = "detail", method = RequestMethod.GET)

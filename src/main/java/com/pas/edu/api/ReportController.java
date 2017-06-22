@@ -60,4 +60,6 @@ public class ReportController {
         result.setData(reportService.getApplyStatusReport(orgId, currLevel));
         return result;
     }
+
+    //public BaseResult accuracy
 }
