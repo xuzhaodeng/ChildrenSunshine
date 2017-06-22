@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * Author : eric
  * CreateDate : 2017/5/31  10:30
@@ -38,13 +40,22 @@ public class OrganController extends BaseController {
     }
 
 
-    @ApiOperation(value = "机构", notes = "完整的机构信息")
+/*    @ApiOperation(value = "机构", notes = "完整的机构信息")
     @ApiImplicitParam(name = "id", paramType = "path", value = "机构id", required = true, dataType = "int")
     @RequestMapping(value = "test/{id}", method = RequestMethod.GET)
     public Result test(@PathVariable int id) throws Exception {
         Result result = new Result();
         CompleteOrgan organ = organService.getCompleteOrgan(id);
         result.setData(organ);
+        return result;
+    }*/
+
+    @ApiOperation(value = "新增机构", notes = "新增机构")
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public Result add(@RequestBody @Valid OrganEditRequest organEditRequest) throws Exception {
+        Result result = new Result();
+        long id = organService.addOrgan(organEditRequest);
+        result.setData(id);
         return result;
     }
 }

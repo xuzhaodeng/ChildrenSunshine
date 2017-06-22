@@ -22,7 +22,7 @@
         <result column="guarantee_status_desc" property="guaranteeStatusDesc"/>
         <result column="guard_happening" property="guardHappening"/>
         <result column="guard_happening_desc" property="guardHappeningDesc"/>
-        <result column="welfare_happening" property="welfareHappening"/>
+        <result column="welfare_happening" pllroperty="welfareHappening"/>
         <result column="welfare_happening_desc" property="welfareHappeningDesc"/>
         <result column="life_happening" property="lifeHappening"/>
         <result column="life_happening_desc" property="lifeHappeningDesc"/>
@@ -105,8 +105,12 @@
     </update>
     
     <!-- 查询审核通过的困境儿童列表 -->
-    <select id="getByChildLst" resultType="java.util.HashMap">
-    	select child_id, child_name from kjet_child_apply where operate_id = #{ uid } and isdel = 1 and village_status = 5
+    <select id="getByChildLst" useCache="false" resultType="java.util.HashMap">
+    	select 
+    		child_id, 
+    		child_name,
+    		
+    	from kjet_child_apply where operate_id = #{ uid } and isdel = 1 and village_status = 5
     </select>
 
 	<!-- 查询本月保障评估记录 -->

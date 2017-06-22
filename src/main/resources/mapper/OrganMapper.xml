@@ -34,4 +34,15 @@
         <include refid="selectOrgan"/>
         WHERE organ.org_id=#{orgId}
     </select>
+
+    <select id="getOrganByNameOrCode" resultMap="OrganResult">
+        <include refid="selectOrgan"/>
+        WHERE org_name=#{orgName}
+        OR org_code=#{orgCode}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="orgId">
+        INSERT INTO kjet_organization (org_level, org_parent_id, org_name, org_code, operate_id, create_time, update_time)
+        VALUES (#{orgLevel}, #{parentOrgId}, #{orgName}, #{orgCode}, #{operateUserId}, now(), now())
+    </insert>
 </mapper>

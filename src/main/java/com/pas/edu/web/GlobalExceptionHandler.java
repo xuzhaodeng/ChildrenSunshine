@@ -3,6 +3,7 @@ package com.pas.edu.web;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.entity.common.ResultCode;
 import com.pas.edu.exception.AuthorizationException;
+import com.pas.edu.exception.CommonException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,15 @@ public class GlobalExceptionHandler {
         result.setMsg(ex.getMessage());
         return result;
     }
+
+    @ExceptionHandler(CommonException.class)
+    @ResponseBody
+    public Result handleCommonExceptionException(CommonException ex) {
+        Result result = new Result(ResultCode.FAILED);
+        result.setMsg(ex.getMessage());
+        return result;
+    }
+
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

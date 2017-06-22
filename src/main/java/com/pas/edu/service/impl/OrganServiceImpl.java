@@ -1,13 +1,17 @@
 package com.pas.edu.service.impl;
 
+import com.pas.edu.common.UserHelper;
 import com.pas.edu.dao.OrganDao;
 import com.pas.edu.dao.UserDao;
 import com.pas.edu.entity.CompleteOrgan;
 import com.pas.edu.entity.Organ;
+import com.pas.edu.entity.OrganEditRequest;
 import com.pas.edu.entity.User;
 import com.pas.edu.exception.CommonException;
 import com.pas.edu.service.OrganService;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -24,6 +28,8 @@ import java.util.List;
  */
 @Service
 public class OrganServiceImpl implements OrganService {
+    private static final Logger logger = LoggerFactory.getLogger(OrganServiceImpl.class);
+
     @Autowired
     OrganDao organDao;
 
@@ -75,6 +81,45 @@ public class OrganServiceImpl implements OrganService {
         completeOrgan.setCountyOrg(countyOrgan);
         completeOrgan.setCityOrg(cityOrgan);
         return completeOrgan;
+    }
+
+    /**
+     * 添加机构
+     *
+     * @param organEditRequest
+     * @throws Exception
+     */
+    @Override
+    public long addOrgan(OrganEditRequest organEditRequest) throws Exception {
+        User user = userDao.getUserById(organEditRequest.getOperateUserId());
+        if (user == null) {
+            throw new CommonException("操作用户不在");
+        }
+        if (user.getOrgLevel() != UserHelper.LEVEL_CITY) {
+            throw new CommonException("非市级别权限，无法添加机构");
+        }
+        if (user.getOrgLevel() >= organEditRequest.getOrgLevel()) {
+            throw new CommonException("机构级别错误");
+        }
+        //查询机构名称和机构号是否重复
+        Organ organ = organDao.getOrganByNameOrCode(
+                organEditRequest.getOrgName(),
+                organEditRequest.getOrgCode());
+        if (organ != null) {
+            if (organEditRequest.getOrgName().equals(organ.getOrgName())) {
+                throw new CommonException("机构名称重复");
+            }
+            if (organEditRequest.getOrgCode().equals(organ.getOrgCode())) {
+                throw new CommonException("机构号重复");
+            }
+        }
+        //查询父机构是否存在
+        if (organDao.getOrgan(organEditRequest.getParentOrgId()) == null) {
+            throw new CommonException("父机构不存在");
+        }
+        organDao.add(organEditRequest);
+        //返回orgId
+        return organEditRequest.getOrgId();
     }
 
     /**

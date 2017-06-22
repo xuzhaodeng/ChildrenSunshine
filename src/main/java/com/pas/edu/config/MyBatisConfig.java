@@ -80,4 +80,5 @@ public class MyBatisConfig {
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
+    
 }

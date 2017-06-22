@@ -1,11 +1,6 @@
 package com.pas.edu.api;
 
-import com.pas.edu.entity.ApplyStatusReport;
-import com.pas.edu.entity.LoginRequest;
-import com.pas.edu.entity.ModifyPwdRequest;
-import com.pas.edu.entity.Organ;
-import com.pas.edu.entity.TokenInfo;
-import com.pas.edu.entity.User;
+import com.pas.edu.entity.*;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.exception.CommonException;
@@ -37,7 +32,7 @@ import javax.validation.Valid;
 public class UserController extends BaseController {
     @Autowired
     UserService userService;
-    
+
     @Autowired
     ReportService reportService;
 
@@ -48,17 +43,17 @@ public class UserController extends BaseController {
         User user = userService.login(loginRequest.getPhone(), loginRequest.getPassword());
         //设置返回token
         TokenInfo tokenInfo = JwtUtils.createJWT(String.valueOf(user.getId()));
-       
+
         user.setTokenInfo(tokenInfo);
-        
+
         ApplyStatusReport asr = reportService.getApplyStatusReport(user.getOrgId(), user.getOrgLevel());
-        
+
         user.setApplyStatusReport(asr);
         result.setData(user);
         return result;
     }
 
-    @ApiOperation(value = "修改密码", notes = "")
+    @ApiOperation(value = "修改密码", notes = "修改密码")
     @RequestMapping(value = "modifyPwd", method = RequestMethod.POST)
     public Result modifyPwd(@RequestBody @Valid ModifyPwdRequest modifyPwdRequest) throws Exception {
         Result result = new Result();
@@ -66,6 +61,24 @@ public class UserController extends BaseController {
             throw new CommonException("两次数据密码不一致");
         }
         userService.modifyPwd(modifyPwdRequest);
+        return result;
+    }
+
+
+    @ApiOperation(value = "新增用户", notes = "新增用户")
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public Result add(@RequestBody @Valid UserEdit userEdit) throws Exception {
+        Result result = new Result();
+        int id = userService.add(userEdit);
+        result.setData(id);
+        return result;
+    }
+
+    @ApiOperation(value = "编辑", notes = "编辑用户")
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public Result edit(@RequestBody @Valid UserEdit userEdit) throws Exception {
+        Result result = new Result();
+        userService.edit(userEdit);
         return result;
     }
 }

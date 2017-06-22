@@ -29,13 +29,6 @@ public class ChildrenSunshineApplicationTests {
     OrganService organService;
 
     @Test
-    public void queryUser() {
-        Page<User> page = PageHelper.startPage(0, 3);
-        userDao.getUserAll();
-        System.out.println("===>" + page.getResult());
-    }
-
-    @Test
     public void queryUserId() {
         User user = userDao.getUserById(2);
         System.out.println("===>" + user);

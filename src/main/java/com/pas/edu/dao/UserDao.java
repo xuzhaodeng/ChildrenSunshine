@@ -1,6 +1,7 @@
 package com.pas.edu.dao;
 
 import com.pas.edu.entity.User;
+import com.pas.edu.entity.UserEdit;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,10 +19,16 @@ import java.util.List;
 public interface UserDao {
     User getUserByPhone(@Param("phone") String phone);
 
-    List<User> getUserAll();
-
     User getUserById(@Param("userId") int userId);
 
+    User getUserByPhoneOrIdCard(@Param("phone") String phone,
+                                @Param("idCard") String idCard);
     void updatePwd(@Param("userId") int userId, @Param("password") String password);
 
+    int add(UserEdit userEdit);
+
+    //查询所有的用户，不包括已删除用户
+    List<User> getUserList(@Param("notDel") boolean notDel);
+
+    void update(UserEdit userEdit);
 }
