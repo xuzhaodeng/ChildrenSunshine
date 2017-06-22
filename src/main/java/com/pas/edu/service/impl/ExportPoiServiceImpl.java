@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.pas.edu.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,6 @@ import com.pas.edu.common.DictionaryHelper;
 import com.pas.edu.dao.ChildApplyDao;
 import com.pas.edu.dao.ExportPoiDao;
 import com.pas.edu.dao.OrganDao;
-import com.pas.edu.entity.ChildRoster;
-import com.pas.edu.entity.ExportExcel;
-import com.pas.edu.entity.NameSheet;
-import com.pas.edu.entity.Organ;
-import com.pas.edu.entity.PoiChildRoster;
-import com.pas.edu.entity.Summary;
 import com.pas.edu.service.ExportPoiService;
 import com.pas.edu.utils.ExcelUtil;
 
@@ -89,6 +84,21 @@ public class ExportPoiServiceImpl implements ExportPoiService {
 		}
 		return new ExportExcel(fileUrl + "/" + dateName + "." + execlSuffix , rosLstName);
 	}
+
+    @Override
+    public ExportExcel getExportSafeguardReports(int orgId, List<SafeguardReport> safeguardReports) {
+        String dateName = fmt.format(new Date());
+        String fileName = path + dateName + "." + execlSuffix;
+        Organ org = organDao.getOrgan(orgId);
+        try {
+            ExcelUtil.exportSafeguardReports(new FileOutputStream(new File(fileName)), safeguardReports, org.getOrgName());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ExportExcel(fileUrl + "/" + dateName + "." + execlSuffix , rosLstName);
+    }
 
 	@Override
 	public ExportExcel getSummaryLsts(Integer orgId, Integer currLevel) {

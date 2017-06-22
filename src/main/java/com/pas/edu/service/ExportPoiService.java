@@ -1,6 +1,9 @@
 package com.pas.edu.service;
 
 import com.pas.edu.entity.ExportExcel;
+import com.pas.edu.entity.SafeguardReport;
+
+import java.util.List;
 
 //import com.pas.edu.entity.NameSheet;
 //import com.pas.edu.entity.PoiChildRoster;
@@ -20,4 +23,11 @@ public interface ExportPoiService {
 	
 	ExportExcel getSummaryLsts(Integer orgId, Integer currLevel);
 
+	/**
+	 * 导出评估保障统计报表
+	 * @param orgId
+	 * @param safeguardReports
+	 * @return
+	 */
+	ExportExcel getExportSafeguardReports(int orgId, List<SafeguardReport> safeguardReports);
 }
