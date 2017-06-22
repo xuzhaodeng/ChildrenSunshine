@@ -1,8 +1,11 @@
 package com.pas.edu.service.impl;
 
+import com.pas.edu.dao.OrganDao;
 import com.pas.edu.dao.UserDao;
 import com.pas.edu.entity.ModifyPwdRequest;
+import com.pas.edu.entity.Organ;
 import com.pas.edu.entity.User;
+import com.pas.edu.entity.UserEdit;
 import com.pas.edu.exception.CommonException;
 import com.pas.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    OrganDao organDao;
 
     @Override
     public User login(String phone, String password) throws Exception {
@@ -49,5 +55,34 @@ public class UserServiceImpl implements UserService {
         userDao.updatePwd(modifyPwdRequest.getUserId(), modifyPwdRequest.getNewPwd());
     }
 
+    @Override
+    public int add(UserEdit userEdit) throws Exception {
+        User user = userDao.getUserByPhone(userEdit.getPhone());
+        if (user != null) {
+            throw new CommonException("登录手机号已存在!");
+        }
+        if (organDao.getOrgan(userEdit.getOrgId()) == null) {
+            throw new CommonException("所属机构不存在!");
+        }
+        userEdit.setValid(1);
+        userDao.add(userEdit);
+        return userEdit.getId();
+    }
 
+    @Override
+    public void edit(UserEdit userEdit) throws Exception {
+        User user = userDao.getUserById(userEdit.getId());
+        if (user == null) {
+            throw new CommonException("用户不存在!");
+        }
+        //判断修改后的登录手机号是否已经存在
+        User exitUser = userDao.getUserByPhone(userEdit.getPhone());
+        if (exitUser != null && !exitUser.getPhone().equals(user.getPhone())) {
+            throw new CommonException("登录手机号已存在!");
+        }
+        if (organDao.getOrgan(userEdit.getOrgId()) == null) {
+            throw new CommonException("所属机构不存在!");
+        }
+        userDao.update(userEdit);
+    }
 }

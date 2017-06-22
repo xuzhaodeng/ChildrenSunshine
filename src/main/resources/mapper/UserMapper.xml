@@ -34,25 +34,59 @@
             LEFT JOIN kjet_organization orgs
                 ON users.org_id = orgs.org_id
     </sql>
-    <sql id="getUser">
-        SELECT users.*
-        FROM kjet_system_user users
-    </sql>
+    <!--通过登录手机号查找用户-->
     <select id="getUserByPhone" resultMap="UserResult">
         <include refid="getUserWithOrgInfo"/>
         WHERE users.phone = #{phone}
+        and users.valid!=3
     </select>
-    <select id="getUserAll" resultMap="UserResult">
+    <!--查找所有的用户-->
+    <select id="getUserList" resultMap="UserResult">
         <include refid="getUserWithOrgInfo"/>
+        <if test="notDel">
+            WHERE users.valid!=3
+        </if>
     </select>
+    <!--通过用户id查找-->
     <select id="getUserById" resultMap="UserResult">
         <include refid="getUserWithOrgInfo"/>
         WHERE users.user_id = #{userId}
+        and users.valid!=3
     </select>
-
+    <select id="getUserByPhoneOrIdCard" resultMap="UserResult">
+        <include refid="getUserWithOrgInfo"/>
+        WHERE
+        users.valid!=3
+        <if test="idCard!=null and idCard!=''">
+            and users.id_card = #{idCard}
+        </if>
+        <if test="phone!=null and phone!=''">
+            and users.phone = #{phone}
+        </if>
+    </select>
+    <!--修改密码-->
     <update id="updatePwd">
         UPDATE kjet_system_user
         SET password = #{password}
         WHERE user_id = #{userId}
+    </update>
+    <!--新增用户-->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kjet_system_user (org_id, name, phone, id_card, password, head_img, description, valid, create_time, update_time)
+        VALUES
+            (#{orgId}, #{name}, #{phone}, #{idCard}, #{password}, #{headImg}, #{desc}, #{valid}, now(), now())
+    </insert>
+
+    <update id="update">
+        UPDATE kjet_system_user
+        SET
+            org_id      = #{orgId},
+            name        = #{name},
+            phone       = #{phone},
+            id_card     = #{idCard},
+            head_img    = #{headImg},
+            description = #{desc},
+            update_time = now()
+        WHERE user_id = #{id}
     </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.pas.edu.service;
 
 import com.pas.edu.entity.ModifyPwdRequest;
 import com.pas.edu.entity.User;
+import com.pas.edu.entity.UserEdit;
 
 /**
  * Author : eric
@@ -19,4 +20,7 @@ public interface UserService {
     void modifyPwd(ModifyPwdRequest modifyPwdRequest) throws Exception;
 
 
+    int add(UserEdit userEdit) throws Exception;
+
+    void edit(UserEdit userEdit)throws Exception;
 }

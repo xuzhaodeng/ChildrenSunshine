@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CommonException.class)
     @ResponseBody
     public Result handleCommonExceptionException(CommonException ex) {
-        Result result = new Result(ResultCode.REQUEST_ERROR);
+        Result result = new Result(ResultCode.FAILED);
         result.setMsg(ex.getMessage());
         return result;
     }
