@@ -89,19 +89,39 @@ public class SafeguardRecordServiceImpl implements SafeguardRecordService{
                 } else if (DictionaryHelper.INFO_DILEMMA_CATEGORY_DISABILITY.equals(dilemmaCategory)) {
                     disabilityCount++;
                 }
-                if ("2".equals(childRoster.getGuaHappening())) {
+
+                if (safeguardRecord.getGuardHappening()==1) {
+                    custodyCount++;
+                }
+                else if (safeguardRecord.getGuardHappening()==2) {
                     custodyNotCount++;
                 }
-                if ("2".equals(safeguardRecord.getEducationHappening())) {
+
+                if (safeguardRecord.getEducationHappening()==1) {
+                    eduProtectCount++;
+                }
+                else if (safeguardRecord.getEducationHappening()==2) {
                     eduNotProtectCount++;
                 }
-                if ("2".equals(safeguardRecord.getMedicalHappening())) {
+
+                if (safeguardRecord.getMedicalHappening()==1) {
+                    medicalProtectCount++;
+                }
+                else if (safeguardRecord.getMedicalHappening()==2) {
                     medicalNotProtectCount++;
                 }
-                if ("2".equals(safeguardRecord.getLifeHappening())) {
+
+                if (safeguardRecord.getLifeHappening()==1) {
+                    baseProtectCount++;
+                }
+                else if (safeguardRecord.getLifeHappening()==2) {
                     baseNotProtectCount++;
                 }
-                if ("2".equals(safeguardRecord.getWelfareHappening())) {
+
+                if (safeguardRecord.getWelfareHappening()==1) {
+                    disabilityWelfareCount++;
+                }
+                else if (safeguardRecord.getWelfareHappening()==2) {
                     disabilityNotWelfareCount++;
                 }
             }
@@ -110,20 +130,20 @@ public class SafeguardRecordServiceImpl implements SafeguardRecordService{
             summary.setProvertyCount(provertyCount);
             summary.setDisabilityCount(disabilityCount);
             summary.setOtherDifficultCount(total - orphanCount - provertyCount - disabilityCount);
-            //
-            summary.setBaseProtectCount(total - baseNotProtectCount);
+
+            summary.setBaseProtectCount(baseProtectCount);
             summary.setBaseNotProtectCount(baseNotProtectCount);
-//
-            summary.setEduProtectCount(total - eduNotProtectCount);
+
+            summary.setEduProtectCount(eduProtectCount);
             summary.setEduNotProtectCount(eduNotProtectCount);
-//
-            summary.setMedicalProtectCount(total - medicalNotProtectCount);
+
+            summary.setMedicalProtectCount(medicalProtectCount);
             summary.setMedicalNotProtectCount(medicalNotProtectCount);
-//
-            summary.setCustodyCount(total - custodyNotCount);
+
+            summary.setCustodyCount(custodyCount);
             summary.setCustodyNotCount(custodyNotCount);
-            //
-            summary.setDisabilityWelfareCount(total - disabilityNotWelfareCount);
+
+            summary.setDisabilityWelfareCount(disabilityWelfareCount);
             summary.setDisabilityNotWelfareCount(disabilityNotWelfareCount);
             list.add(summary);
         }

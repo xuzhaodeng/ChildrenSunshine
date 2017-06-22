@@ -91,15 +91,16 @@ public class ExportXlsController {
 
 	@ApiOperation(value = "花名册列表导出", notes = "花名册列表导出")
 	@ApiImplicitParams(value = {
-			@ApiImplicitParam(paramType = "query", name = "villId", dataType = "int", required = true, value = "导出村ID"),
-			@ApiImplicitParam(paramType = "query", name = "currLevel", dataType = "int", required = false, value = "当前登录级别 1、市 2、县 3、镇")
+			@ApiImplicitParam(paramType = "query", name = "orgId", value = "机构id", required = true, dataType = "int"),
+			@ApiImplicitParam(paramType = "query", name = "beginTime", value = "开始时间", required = false, dataType = "String"),
+			@ApiImplicitParam(paramType = "query", name = "endTime", value = "结束时间", required = false, dataType = "String")
 	})
 
 	/**
 	 * 导出评估保障统计报表
 	 */
 	@RequestMapping(value = "/exportSafeguardReports", method = RequestMethod.GET)
-	public BaseResult<Object> exportSafeguardReports(@RequestParam(value = "villId", required = true) Integer orgId,
+	public BaseResult<Object> exportSafeguardReports(@RequestParam(value = "orgId", required = true) Integer orgId,
 													 @RequestParam(value = "beginTime", required = false) String beginTime, @RequestParam(value = "endTime", required = false) String endTime){
 		BaseResult<Object> br = new BaseResult<Object>();
 		List<SafeguardReport> safeguardReports = safeguardRecordService.getSafeguardReport(orgId, beginTime, endTime);
