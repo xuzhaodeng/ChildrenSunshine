@@ -67,9 +67,10 @@ public class ChildApplyServiceImap implements ChildApplyService {
 	public List<ChildRoster> getChildApplyLstsByOrgId(Integer orgId, Integer loginUserId, Integer currPage, Integer pageSize) {
 		User user = userDao.getUserById(loginUserId);
 		Organ organ = organDao.getOrgan(user.getOrgId());
+		Organ org = organDao.getOrgan(orgId);
 		Page<ChildRoster> page = PageHelper.startPage(currPage * pageSize, pageSize);
 
-		List<ChildRoster> resultLsts = cpDao.getChildApplyLstsByOrgid(orgId,organ.getOrgLevel());
+		List<ChildRoster> resultLsts = cpDao.getChildApplyLstsByOrgid(orgId, org.getOrgLevel(), organ.getOrgLevel());
 		return resultLsts;
 	}
 

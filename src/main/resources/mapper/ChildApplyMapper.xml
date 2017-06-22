@@ -287,19 +287,70 @@
      <!-- 数据采集列表 - 根据机构ID获取花名册 -->
     <select id="getChildApplyLstsByOrgid" resultMap="childApplyMap">
         <include refid="selectChild"/>
-        WHERE child.village_id = #{ villageId } and child.village_status != 1 and child.isdel = 1
-		<!-- 市级查看 town_status,county_status,city_status -->
-		<if test="loginOrgLevel == 1">
-			and child.city_status!=1
-		</if>
-		<!-- 县级查看 town_status,county_status,city_status -->
-		<if test="loginOrgLevel == 2">
-			and child.county_status!=1
-		</if>
-		<!-- 镇级查看 town_status,county_status,city_status -->
-		<if test="loginOrgLevel == 3">
-			and child.town_status!=1
-		</if>
+        WHERE child.village_status != 1 and child.isdel = 1
+        <if test="level == 1">
+        	and child.child_city_id = #{ orgId }
+        	<!-- 市级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 1">
+				and child.city_status!=1
+			</if>
+			<!-- 县级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 2">
+				and child.county_status!=1
+			</if>
+			<!-- 镇级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 3">
+				and child.town_status!=1
+			</if>
+        </if>
+        
+        <if test="level == 2">
+        	and child.child_county_id = #{ orgId }
+        	<!-- 市级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 1">
+				and child.city_status!=1
+			</if>
+			<!-- 县级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 2">
+				and child.county_status!=1
+			</if>
+			<!-- 镇级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 3">
+				and child.town_status!=1
+			</if>
+        </if>
+        
+        <if test="level == 3">
+        	and child.town_id = #{ orgId }
+        	<!-- 市级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 1">
+				and child.city_status!=1
+			</if>
+			<!-- 县级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 2">
+				and child.county_status!=1
+			</if>
+			<!-- 镇级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 3">
+				and child.town_status!=1
+			</if>
+        </if>
+        
+        <if test="level == 4">
+        	and child.village_id = #{ orgId }
+        	<!-- 市级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 1">
+				and child.city_status!=1
+			</if>
+			<!-- 县级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 2">
+				and child.county_status!=1
+			</if>
+			<!-- 镇级查看 town_status,county_status,city_status -->
+			<if test="userLevel == 3">
+				and child.town_status!=1
+			</if>
+        </if>
     </select>
 
     
