@@ -75,4 +75,34 @@ public class Safegrard {
     
     @ApiModelProperty(value = "保障记录描述")
     private String description;
+    
+    @ApiModelProperty("省份Id")
+	private Integer provinceId; //省份Id
+	
+	@ApiModelProperty("省份名称")
+	private String provinceName; //省份名称
+	
+	@ApiModelProperty("市ID")
+	private Integer cityId; //市id
+	
+	@ApiModelProperty("市名称")
+	private String cityName; //市名称
+	
+	@ApiModelProperty("县ID")
+	private Integer countyId; //县ID
+	
+	@ApiModelProperty("县名称")
+	private String countyName; //县名称
+	
+	@ApiModelProperty("镇ID")
+	private Integer townId; //镇id
+	
+	@ApiModelProperty("镇名称")
+	private String townName; //镇名称
+	
+	@ApiModelProperty("村ID")
+	private Integer villageId; //村ID
+	
+	@ApiModelProperty("村名称")
+	private String villageName; //村名称
 }

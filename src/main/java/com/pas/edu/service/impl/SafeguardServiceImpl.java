@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import com.pas.edu.dao.ChildApplyDao;
 import com.pas.edu.dao.SafeguardDao;
 import com.pas.edu.entity.ChildRoster;
+import com.pas.edu.entity.CompleteOrgan;
 import com.pas.edu.entity.Safegrard;
 import com.pas.edu.entity.SafeguardInfo;
 import com.pas.edu.entity.SafeguardList;
+import com.pas.edu.service.OrganService;
 import com.pas.edu.service.SafeguardService;
 import com.pas.edu.utils.CommUtil;
 
@@ -27,6 +29,9 @@ public class SafeguardServiceImpl implements SafeguardService {
 	
 	@Autowired
 	ChildApplyDao cpDao;
+	
+	@Autowired
+	OrganService orginService;
 	
 	@Value("${imagePath}")
 	private String imagePath;
@@ -91,8 +96,24 @@ public class SafeguardServiceImpl implements SafeguardService {
 			sfinfo.setCountyStatus(0);
 			sfinfo.setTownStatus(0);
 			sfinfo.setVillageStatus(2);
+			
+			 CompleteOrgan co =  orginService.getCompleteOrgan(sfinfo.getCreatorId());
+             if(co != null){
+            	 sfinfo.setVillageId(co.getVillageOrg().getOrgId());
+            	 sfinfo.setVillageName(co.getVillageOrg().getOrgName());
+                  
+            	 sfinfo.setTownId(co.getTownOrg().getOrgId());
+            	 sfinfo.setTownName(co.getTownOrg().getOrgName());
+                  
+            	 sfinfo.setCountyId(co.getCountyOrg().getOrgId());
+            	 sfinfo.setCountyName(co.getCountyOrg().getOrgName());
+                  
+            	 sfinfo.setCityId(co.getCityOrg().getOrgId());
+            	 sfinfo.setCityName(co.getCityOrg().getOrgName());
+                  
+             }
 			sfId = sfdao.insertSafeguard(sfinfo);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sfId > 0 ? sfinfo.getSafeguardId() : 0;
@@ -101,8 +122,23 @@ public class SafeguardServiceImpl implements SafeguardService {
 	@Override
 	public Integer updateSafeuard(Safegrard sfinfo) {
 		try {
+			 CompleteOrgan co =  orginService.getCompleteOrgan(sfinfo.getCreatorId());
+             if(co != null){
+            	 sfinfo.setVillageId(co.getVillageOrg().getOrgId());
+            	 sfinfo.setVillageName(co.getVillageOrg().getOrgName());
+                  
+            	 sfinfo.setTownId(co.getTownOrg().getOrgId());
+            	 sfinfo.setTownName(co.getTownOrg().getOrgName());
+                  
+            	 sfinfo.setCountyId(co.getCountyOrg().getOrgId());
+            	 sfinfo.setCountyName(co.getCountyOrg().getOrgName());
+                  
+            	 sfinfo.setCityId(co.getCityOrg().getOrgId());
+            	 sfinfo.setCityName(co.getCityOrg().getOrgName());
+                  
+             }
 			sfinfo.setUpdateTime(CommUtil.getDateFormat(CommUtil.getDateFormat()));
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

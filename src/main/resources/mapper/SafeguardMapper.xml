@@ -58,7 +58,17 @@
             medical_happening_desc,
             create_time,
             update_time,
-            description
+            description,
+            province_id,
+			province_name,
+			city_id,
+			city_name,
+			county_id,
+			county_name,
+			town_id,
+			town_name,
+			village_id,
+			village_name
         ) values (
             #{ childId },
             #{ ruleCycle },
@@ -81,7 +91,17 @@
             #{ medicalHappeningDesc },
             #{ createTime },
             #{ updateTime },
-            #{ description }
+            #{ description },
+            #{ provinceId },
+            #{ provinceName },
+            #{ cityId },
+            #{ cityName },
+            #{ countyId },
+            #{ countyName },
+            #{ townId },
+            #{ townName },
+            #{ villageId },
+            #{ villageName }
         )
     </insert>
 
@@ -108,8 +128,7 @@
     <select id="getByChildLst" useCache="false" resultType="java.util.HashMap">
     	select 
     		child_id, 
-    		child_name,
-    		
+    		child_name
     	from kjet_child_apply where operate_id = #{ uid } and isdel = 1 and village_status = 5
     </select>
 
