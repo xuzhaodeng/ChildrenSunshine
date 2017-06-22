@@ -46,7 +46,7 @@
         <include refid="getUserWithOrgInfo"/>
     </select>
     <select id="getUserById" resultMap="UserResult">
-        <include refid="getUser"/>
+        <include refid="getUserWithOrgInfo"/>
         WHERE users.user_id = #{userId}
     </select>
 
