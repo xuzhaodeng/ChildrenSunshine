@@ -89,4 +89,12 @@
             update_time = now()
         WHERE user_id = #{id}
     </update>
+    <!--更新用户状态-->
+    <update id="updateStatus">
+        UPDATE kjet_system_user
+        SET
+            valid = #{valid}
+        WHERE user_id = #{userId}
+
+    </update>
 </mapper>
