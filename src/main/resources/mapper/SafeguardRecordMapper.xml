@@ -165,11 +165,12 @@
         <include refid="selectSafeguardRecord"/>
         JOIN kjet_child_apply child on child.child_id = safeguardRecord.child_id
         WHERE child.village_id=#{villageId}
+        AND safeguardRecord.village_status=1
         <if test="beginTime!=null">
-            safeguardRecord.create_time >= #{beginTime}
+            AND safeguardRecord.create_time >= #{beginTime}
         </if>
         <if test="endTime!=null">
-            <![CDATA[safeguardRecord.create_time <= #{endTime}]]>
+            AND <![CDATA[safeguardRecord.create_time <= #{endTime}]]>
         </if>
         ORDER BY safeguardRecord.create_time DESC
     </select>
