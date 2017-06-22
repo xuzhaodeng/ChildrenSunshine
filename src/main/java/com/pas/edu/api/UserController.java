@@ -4,7 +4,6 @@ import com.pas.edu.entity.*;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
 import com.pas.edu.exception.CommonException;
-import com.pas.edu.service.OrganService;
 import com.pas.edu.service.ReportService;
 import com.pas.edu.service.UserService;
 import com.pas.edu.utils.JwtUtils;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Author : eric
@@ -79,6 +79,14 @@ public class UserController extends BaseController {
     public Result edit(@RequestBody @Valid UserEdit userEdit) throws Exception {
         Result result = new Result();
         userService.edit(userEdit);
+        return result;
+    }
+
+    @ApiOperation(value = "用户账号状态修改", notes = "用户账号状态修改：删除/禁用/启动")
+    @RequestMapping(value = "valid", method = RequestMethod.POST)
+    public Result valid(@RequestBody List<UserStatus> userStatusList) throws Exception {
+        Result result = new Result();
+        userService.modifyUserStatus(userStatusList);
         return result;
     }
 }
