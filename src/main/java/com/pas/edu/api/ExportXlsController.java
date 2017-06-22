@@ -3,11 +3,15 @@ package com.pas.edu.api;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.pas.edu.common.DictionaryHelper;
+import com.pas.edu.entity.ChildRoster;
+import com.pas.edu.entity.SafeguardRecord;
 import com.pas.edu.entity.SafeguardReport;
-import com.pas.edu.service.SafeguardRecordService;
+import com.pas.edu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pas.edu.entity.common.BaseResult;
-import com.pas.edu.service.ExportPoiService;
-import com.pas.edu.service.OrganService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -37,7 +39,11 @@ public class ExportXlsController {
 	ExportPoiService epService;
 	@Autowired
 	private SafeguardRecordService safeguardRecordService;
-	
+	@Autowired
+	private ChildApplyService childApplyService;
+	@Autowired
+	private DatadictService datadictService;
+
 	/**
 	 * 花名册信息导出
 	 * @return
@@ -105,6 +111,31 @@ public class ExportXlsController {
 		BaseResult<Object> br = new BaseResult<Object>();
 		List<SafeguardReport> safeguardReports = safeguardRecordService.getSafeguardReport(orgId, beginTime, endTime);
 		br.setData(epService.getExportSafeguardReports(orgId, safeguardReports));
+		return br;
+	}
+
+	/**
+	 * 导出评估保障统计报表
+	 */
+	@RequestMapping(value = "/exportSafeguardLists", method = RequestMethod.GET)
+	public BaseResult<Object> exportSafeguardLists(@RequestParam(value = "orgId", required = true) Integer orgId,
+													 @RequestParam(value = "beginTime", required = false) String beginTime, @RequestParam(value = "endTime", required = false) String endTime){
+		BaseResult<Object> br = new BaseResult<Object>();
+		Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
+		Map<String,String> kjlbMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_KJLB);
+		Map<String,String> jbshqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JBSHQK);
+		Map<String,String> jyqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JYQK);
+		Map<String,String> ylqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_YLQK);
+		Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
+
+		List<SafeguardRecord> safeguardRecordList = safeguardRecordService.findSafeguardRecordList(orgId, beginTime, endTime);
+		for(SafeguardRecord safeguardRecord:safeguardRecordList) {
+			ChildRoster childRoster = childApplyService.getRosterInfoByChildId(safeguardRecord.getChildId());
+			childApplyService.decorateChildRoster(childRoster,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
+			safeguardRecord.setChildRoster(childRoster);
+		}
+		br.setData(epService.getExportSafeguardList(orgId, safeguardRecordList));
+
 		return br;
 	}
 }

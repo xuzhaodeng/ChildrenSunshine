@@ -130,61 +130,10 @@ public class ChildApplyController extends BaseController {
 		List<AuditRecord> auditRecordList = auditRecordService.getAuditRecordList(childId);
 		childRoster.setAuditRecords(auditRecordList);
 
-		decorateChildRoster(childRoster,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
+		caService.decorateChildRoster(childRoster,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
         br.setData(childRoster);
         return br;
     }
-
-	/**
-	 * 修饰childRoster，添加状态值，监控情况、困境情况、福利情况、基本生活情况、教育情况、医疗情况
-	 * @param childRoster
-	 */
-	private void decorateChildRoster(ChildRoster childRoster,Map<String,String> jhqkMap,Map<String,String> kjlbMap,Map<String,String> jbshqkMap,Map<String,String> jyqkMap,Map<String,String> ylqkMap,Map<String,String> flqkMap) {
-		childRoster.setHeadImgPath(imagePath);
-		String headImg = childRoster.getHeadImg();
-		headImg = StringUtils.isBlank(headImg)?"default_head.png":headImg;
-		childRoster.setHeadImg(headImg);
-
-		//单选
-		childRoster.setDilemmaCategoryTitle(kjlbMap.get(childRoster.getDilemmaCategory()));
-		childRoster.setEducationHappeningTitle(jyqkMap.get(childRoster.getEducationHappening()));
-		childRoster.setGuaHappeningTitle(jhqkMap.get(childRoster.getGuaHappening()));
-		childRoster.setVillageStatusTitle(AuditStatus.getStatusTitle(childRoster.getVillageStatus()));
-
-		//多选
-		String basicLifeHappening = childRoster.getBasicLifeHappening();
-		childRoster.setBasicLifeHappeningTitle(getTitleByCode(jbshqkMap, basicLifeHappening));
-
-		String welfareHappening = childRoster.getWelfareHappening();
-		childRoster.setWelfareHappeningTitle(getTitleByCode(flqkMap, welfareHappening));
-
-		String medicalHappening = childRoster.getMedicalHappening();
-		childRoster.setMedicalHappeningTitle(getTitleByCode(ylqkMap, medicalHappening));
-
-		//审核状态
-		childRoster.setTownStatusTitle(AuditStatus.getStatusTitle(childRoster.getTownStatus()));
-		childRoster.setCountyStatusTitle(AuditStatus.getStatusTitle(childRoster.getCountyStatus()));
-		childRoster.setCityStatusTitle(AuditStatus.getStatusTitle(childRoster.getCityStatus()));
-	}
-
-	private String getTitleByCode(Map<String, String> jbshqkMap, String code) {
-		if(StringUtils.isNotBlank(code)) {
-			String value = null;
-			String[] items = code.split(",");
-			for(String aaa:items) {
-				if(value==null) {
-					value = jbshqkMap.get(aaa);
-				}
-				else {
-					value = value + "," + jbshqkMap.get(aaa);
-				}
-			}
-			return value;
-		}
-		else {
-			return null;
-		}
-	}
 
 	@ApiOperation(value = "获取村管端困境儿童列表", notes = "获取村管端困境儿童列表")
 	@ApiImplicitParams(value = {
@@ -237,7 +186,7 @@ public class ChildApplyController extends BaseController {
 			Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
 
 			for (ChildRoster item : childRosterList) {
-				decorateChildRoster(item,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
+				caService.decorateChildRoster(item,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
 			}
 		}
 		br.setData(childRosterList);

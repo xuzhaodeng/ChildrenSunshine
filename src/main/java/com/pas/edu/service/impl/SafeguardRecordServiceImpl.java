@@ -53,7 +53,6 @@ public class SafeguardRecordServiceImpl implements SafeguardRecordService{
             summary.setOrgName(organ.getOrgName());
 
             List<SafeguardRecord> safeguardRecordList = safeguardRecordDao.findSafeguardRecordListByOrg(organ.getOrgId(),organ.getOrgLevel(), beginTime, endTime);
-            //List<ChildRoster> childRosterList = childApplyDao.getChildByOrg(organ.getOrgId(), organ.getOrgLevel(), currLevel);
             //孤儿
             int orphanCount = 0;
             //特困儿童

@@ -100,6 +100,21 @@ public class ExportPoiServiceImpl implements ExportPoiService {
         return new ExportExcel(fileUrl + "/" + dateName + "." + execlSuffix , rosLstName);
     }
 
+    @Override
+    public ExportExcel getExportSafeguardList(int orgId, List<SafeguardRecord> safeguardRecordList) {
+        String dateName = fmt.format(new Date());
+        String fileName = path + dateName + "." + execlSuffix;
+        Organ org = organDao.getOrgan(orgId);
+        try {
+            ExcelUtil.exportSafeguardList(new FileOutputStream(new File(fileName)), safeguardRecordList, org.getOrgName());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ExportExcel(fileUrl + "/" + dateName + "." + execlSuffix , rosLstName);
+    }
+
 	@Override
 	public ExportExcel getSummaryLsts(Integer orgId, Integer currLevel) {
 		String dateName = fmt.format(new Date());
