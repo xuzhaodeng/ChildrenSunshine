@@ -22,7 +22,7 @@
         <result column="guarantee_status_desc" property="guaranteeStatusDesc"/>
         <result column="guard_happening" property="guardHappening"/>
         <result column="guard_happening_desc" property="guardHappeningDesc"/>
-        <result column="welfare_happening" pllroperty="welfareHappening"/>
+        <result column="welfare_happening" property="welfareHappening"/>
         <result column="welfare_happening_desc" property="welfareHappeningDesc"/>
         <result column="life_happening" property="lifeHappening"/>
         <result column="life_happening_desc" property="lifeHappeningDesc"/>
