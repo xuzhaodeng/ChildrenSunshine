@@ -5,9 +5,7 @@ import com.pas.edu.entity.ApplyStatusReport;
 import com.pas.edu.entity.Organ;
 import com.pas.edu.entity.common.BaseResult;
 import com.pas.edu.entity.common.Result;
-import com.pas.edu.service.ChildApplyService;
-import com.pas.edu.service.OrganService;
-import com.pas.edu.service.ReportService;
+import com.pas.edu.service.*;
 import io.swagger.annotations.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,9 @@ public class ReportController {
 
     @Autowired
     private ChildApplyService childApplyService;
+
+    @Autowired
+    private SafeguardRecordService safeguardRecordService;
 
     @ApiOperation(value = "儿童统计报表", notes = "获取子机构下儿童信息的统计")
 	@ApiImplicitParams(value = {
@@ -85,13 +86,45 @@ public class ReportController {
         List<Organ> organList = organ.getChildOrganList();
         for(Organ item:organList) {
             EfficiencyResponse response = new EfficiencyResponse();
-            int notRefuseNum = childApplyService.getNotRefuseNum(orgId,beginTime,endTime);
-            int allApplyNum = childApplyService.getAllApplyNum(orgId,beginTime,endTime);
+            int notRefuseNum = childApplyService.getNotRefuseNum(item.getOrgId(),item.getOrgLevel(),beginTime,endTime);
+            int allApplyNum = childApplyService.getAllApplyNum(item.getOrgId(),item.getOrgLevel(),beginTime,endTime);
             if(allApplyNum!=0) {
-                response.setEfficiency(notRefuseNum/allApplyNum * 100+"%");
+                double a = (float)notRefuseNum/allApplyNum * 100;
+                response.setEfficiency( String.format("%.2f", a)+"%");
             }
             response.setOrgId(item.getOrgId());
             response.setOrgName(item.getOrgName());
+            list.add(response);
+        }
+        result.setData(list);
+        return result;
+    }
+
+    @ApiOperation(value = "数据采集完成率", notes = "数据采集完成率，统计下级机构的完成率")
+    @ApiImplicitParams( value = {
+            @ApiImplicitParam(paramType = "query", name = "orgId", value = "机构id", required = true, dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "beginTime", value = "开始时间", required = false, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "endTime", value = "结束时间", required = false, dataType = "String")
+    }
+    )
+    @RequestMapping(value = "completeRating", method = RequestMethod.GET)
+    public BaseResult<List<EfficiencyResponse>> completeRating(@RequestParam(value = "orgId", required = true) Integer orgId, @RequestParam(value = "beginTime", required = false) String beginTime, @RequestParam(value = "endTime", required = false) String endTime) throws Exception {
+        BaseResult<List<EfficiencyResponse>> result = new BaseResult<List<EfficiencyResponse>>();
+        List<EfficiencyResponse> list = new ArrayList<EfficiencyResponse>();
+        //查找子机构
+        Organ organ = organService.getOrganDetail(orgId);
+        List<Organ> organList = organ.getChildOrganList();
+        for(Organ item:organList) {
+            EfficiencyResponse response = new EfficiencyResponse();
+            int safeguardNum = safeguardRecordService.getSafeguardNum(item.getOrgId(),item.getOrgLevel(),beginTime,endTime);
+            int allRosterNum = safeguardRecordService.getRosterNum(item.getOrgId(),item.getOrgLevel());
+            if(allRosterNum!=0) {
+                double a = (float)safeguardNum/allRosterNum * 100;
+                response.setEfficiency( String.format("%.2f", a)+"%");
+            }
+            response.setOrgId(item.getOrgId());
+            response.setOrgName(item.getOrgName());
+            list.add(response);
         }
         result.setData(list);
         return result;

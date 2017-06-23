@@ -414,6 +414,7 @@
 	<select id="getNotRefuseNum" resultType="java.lang.Integer">
 		select count(*) from kjet_child_apply t
 		where 1=1
+		and town_status != 1
 		<if test="orgLevel==1">
 			and child_city_id=#{orgId}
 		</if>
@@ -426,15 +427,22 @@
 		<if test="orgLevel==4">
 			and village_id=#{orgId}
 		</if>
-		and town_status != 1
 
-		and t.create_time>#{beginTime}
-		and <![CDATA[t.create_time<#{endTime}]]>
+		<if test="beginTime!=null">
+			and t.create_time>=#{beginTime}
+		</if>
+		<if test="endTime!=null">
+			and <![CDATA[t.create_time<#{endTime}]]>
+		</if>
 		and t.child_id not in(
 			select apply_id from kjet_approval_record r
 			where r.type=2
-			and r.create_time>#{beginTime}
-			and <![CDATA[r.create_time<#{endTime}]]>
+			<if test="beginTime!=null">
+				and r.create_time>#{beginTime}
+			</if>
+			<if test="endTime!=null">
+				and <![CDATA[r.create_time<#{endTime}]]>
+			</if>
 			group by apply_id
 		)
 	</select>
@@ -455,7 +463,11 @@
 		<if test="orgLevel==4">
 			and village_id=#{orgId}
 		</if>
-		and t.create_time>#{beginTime}
-		and <![CDATA[t.create_time<#{endTime}]]>
+		<if test="beginTime!=null">
+			and t.create_time>=#{beginTime}
+		</if>
+		<if test="endTime!=null">
+			and <![CDATA[t.create_time<#{endTime}]]>
+		</if>
 	</select>
 </mapper>
