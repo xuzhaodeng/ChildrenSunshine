@@ -28,4 +28,7 @@ public interface ChildApplyService {
 	 * @param childRoster
 	 */
 	public void decorateChildRoster(ChildRoster childRoster, Map<String, String> jhqkMap, Map<String, String> kjlbMap, Map<String, String> jbshqkMap, Map<String, String> jyqkMap, Map<String, String> ylqkMap, Map<String, String> flqkMap);
+
+	int getAllApplyNum(int orgId, int orgLevel, String beginTime, String endTime);
+	int getNotRefuseNum(int orgId, int orgLevel, String beginTime, String endTime);
 }

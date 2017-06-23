@@ -30,4 +30,7 @@ public interface ChildApplyDao {
 	List<ChildRoster> getChildByOrg(@Param("orgId") int orgId, @Param("orgLevel") int orgLevel, @Param("currLevel") int currLevel);
 
 	ChildRoster getRosterInfoByChildId(@Param("childId") int childId);
+
+	int getNotRefuseNum(@Param("orgId") int orgId, @Param("orgLevel") int orgLevel, @Param("beginTime") String beginTime, @Param("endTime") String endTime);
+	int getAllApplyNum(@Param("orgId") int orgId, @Param("orgLevel") int orgLevel, @Param("beginTime") String beginTime, @Param("endTime") String endTime);
 }

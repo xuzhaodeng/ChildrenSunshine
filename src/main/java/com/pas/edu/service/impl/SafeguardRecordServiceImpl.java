@@ -148,4 +148,14 @@ public class SafeguardRecordServiceImpl implements SafeguardRecordService{
         }
         return list;
     }
+
+    @Override
+    public int getSafeguardNum(int orgId, int orgLevel, String beginTime, String endTime) {
+        return safeguardRecordDao.getSafeguardNum(orgId,orgLevel,beginTime,endTime);
+    }
+
+    @Override
+    public int getRosterNum(int orgId, int orgLevel) {
+        return safeguardRecordDao.getRosterNum(orgId,orgLevel);
+    }
 }

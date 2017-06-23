@@ -184,4 +184,52 @@
             and child.village_id=#{orgId}
         </if>
     </select>
+
+    <!--应评估人数-->
+    <select id="getRosterNum" resultType="java.lang.Integer">
+        select count(*) from kjet_child_apply t
+        where 1=1
+        and isdel!=2
+        <!-- 小于18岁
+        <![CDATA[and TIMESTAMPDIFF(YEAR,t.child_birthday,sysdate())<18]]>
+        -->
+        <if test="orgLevel==1">
+            and t.child_city_id=#{orgId}
+        </if>
+        <if test="orgLevel==2">
+            and t.child_county_id=#{orgId}
+        </if>
+        <if test="orgLevel==3">
+            and t.town_id=#{orgId}
+        </if>
+        <if test="orgLevel==4">
+            and t.village_id=#{orgId}
+        </if>
+    </select>
+
+    <!--已评估人数-->
+    <select id="getSafeguardNum" resultType="java.lang.Integer">
+        select count(*) from kjet_safeguard_record t
+        where 1=1
+        <if test="beginTime!=null">
+            and t.create_time >= #{beginTime}
+        </if>
+        <if test="endTime!=null">
+            and <![CDATA[t.create_time < #{endTime}]]>
+        </if>
+
+        <if test="orgLevel==1">
+            and t.city_id=#{orgId}
+        </if>
+        <if test="orgLevel==2">
+            and t.county_id=#{orgId}
+        </if>
+        <if test="orgLevel==3">
+            and t.town_id=#{orgId}
+        </if>
+        <if test="orgLevel==4">
+            and t.village_id=#{orgId}
+        </if>
+    </select>
+
 </mapper>
