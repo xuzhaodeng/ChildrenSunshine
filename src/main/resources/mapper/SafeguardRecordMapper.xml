@@ -215,7 +215,7 @@
             and t.create_time >= #{beginTime}
         </if>
         <if test="endTime!=null">
-            and <![CDATA[t.create_time <= #{endTime}]]>
+            and <![CDATA[t.create_time < #{endTime}]]>
         </if>
 
         <if test="orgLevel==1">

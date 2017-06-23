@@ -73,8 +73,8 @@ public class ReportController {
     @ApiOperation(value = "数据采集准确率", notes = "数据采集准确率，统计下级机构的准确率")
     @ApiImplicitParams( value = {
             @ApiImplicitParam(paramType = "query", name = "orgId", value = "机构id", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType = "query", name = "beginTime", value = "开始时间", required = false, dataType = "String"),
-            @ApiImplicitParam(paramType = "query", name = "endTime", value = "结束时间", required = false, dataType = "String")
+            @ApiImplicitParam(paramType = "query", name = "beginTime", value = "季度开始时间", required = true, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "endTime", value = "季度结束时间", required = true, dataType = "String")
     }
     )
     @RequestMapping(value = "accuracyRating", method = RequestMethod.GET)
@@ -100,11 +100,11 @@ public class ReportController {
         return result;
     }
 
-    @ApiOperation(value = "数据采集完成率", notes = "数据采集完成率，统计下级机构的完成率")
+    @ApiOperation(value = "评估保障完成率", notes = "评估保障完成率，统计下级机构的完成率")
     @ApiImplicitParams( value = {
             @ApiImplicitParam(paramType = "query", name = "orgId", value = "机构id", required = true, dataType = "int"),
-            @ApiImplicitParam(paramType = "query", name = "beginTime", value = "开始时间", required = false, dataType = "String"),
-            @ApiImplicitParam(paramType = "query", name = "endTime", value = "结束时间", required = false, dataType = "String")
+            @ApiImplicitParam(paramType = "query", name = "beginTime", value = "每月开始时间", required = true, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "endTime", value = "每月结束时间", required = true, dataType = "String")
     }
     )
     @RequestMapping(value = "completeRating", method = RequestMethod.GET)

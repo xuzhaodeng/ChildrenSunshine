@@ -438,7 +438,7 @@
 			select apply_id from kjet_approval_record r
 			where r.type=2
 			<if test="beginTime!=null">
-				and r.create_time>#{beginTime}
+				and r.create_time>=#{beginTime}
 			</if>
 			<if test="endTime!=null">
 				and <![CDATA[r.create_time<#{endTime}]]>
