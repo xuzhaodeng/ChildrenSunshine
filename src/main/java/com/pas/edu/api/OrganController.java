@@ -58,4 +58,12 @@ public class OrganController extends BaseController {
         result.setData(id);
         return result;
     }
+
+    @ApiOperation(value = "编辑机构", notes = "编辑机构")
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public Result edit(@RequestBody @Valid OrganEditRequest organEditRequest) throws Exception {
+        Result result = new Result();
+        organService.editOrgan(organEditRequest);
+        return result;
+    }
 }

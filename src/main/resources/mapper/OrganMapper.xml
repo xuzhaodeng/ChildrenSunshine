@@ -45,4 +45,16 @@
         INSERT INTO kjet_organization (org_level, org_parent_id, org_name, org_code, operate_id, create_time, update_time)
         VALUES (#{orgLevel}, #{parentOrgId}, #{orgName}, #{orgCode}, #{operateUserId}, now(), now())
     </insert>
+
+    <!--更新机构-->
+    <update id="updateOrgan">
+        UPDATE kjet_organization
+        SET org_level     = #{orgLevel},
+            org_parent_id = #{parentOrgId},
+            org_name      = #{orgName},
+            org_code      = #{orgCode},
+            operate_id    = #{operateUserId},
+            update_time   = now()
+        WHERE org_id=#{orgId}
+    </update>
 </mapper>

@@ -18,4 +18,6 @@ public interface OrganService {
     CompleteOrgan getCompleteOrgan(int userId) throws Exception;
 
     long addOrgan(OrganEditRequest organEditRequest) throws Exception;
+
+    void editOrgan(OrganEditRequest organEditRequest)throws Exception ;
 }

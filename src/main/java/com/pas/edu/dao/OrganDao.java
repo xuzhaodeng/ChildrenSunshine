@@ -24,4 +24,6 @@ public interface OrganDao {
 
     Organ getOrganByNameOrCode( @Param("orgName") String orgName
             , @Param("orgCode") String orgCode);
+
+    void updateOrgan(OrganEditRequest organEditRequest);
 }

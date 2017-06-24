@@ -1,5 +1,6 @@
 package com.pas.edu.service.impl;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleGotoStatement;
 import com.pas.edu.common.UserHelper;
 import com.pas.edu.dao.OrganDao;
 import com.pas.edu.dao.UserDao;
@@ -91,16 +92,7 @@ public class OrganServiceImpl implements OrganService {
      */
     @Override
     public long addOrgan(OrganEditRequest organEditRequest) throws Exception {
-        User user = userDao.getUserById(organEditRequest.getOperateUserId());
-        if (user == null) {
-            throw new CommonException("操作用户不在");
-        }
-        if (user.getOrgLevel() != UserHelper.LEVEL_CITY) {
-            throw new CommonException("非市级别权限，无法添加机构");
-        }
-        if (user.getOrgLevel() >= organEditRequest.getOrgLevel()) {
-            throw new CommonException("机构级别错误");
-        }
+        checkOperateUser(organEditRequest);
         //查询机构名称和机构号是否重复
         Organ organ = organDao.getOrganByNameOrCode(
                 organEditRequest.getOrgName(),
@@ -120,6 +112,35 @@ public class OrganServiceImpl implements OrganService {
         organDao.add(organEditRequest);
         //返回orgId
         return organEditRequest.getOrgId();
+    }
+
+    @Override
+    public void editOrgan(OrganEditRequest organEditRequest) throws Exception {
+        checkOperateUser(organEditRequest);
+        Organ organ = organDao.getOrgan(organEditRequest.getOrgId());
+        if (organ == null) {
+            throw new CommonException("机构不存在");
+        }
+        organDao.updateOrgan(organEditRequest);
+    }
+
+    /**
+     * 检查操作用户是否合法
+     *
+     * @param organEditRequest
+     * @throws Exception
+     */
+    private void checkOperateUser(OrganEditRequest organEditRequest) throws Exception {
+        User user = userDao.getUserById(organEditRequest.getOperateUserId());
+        if (user == null) {
+            throw new CommonException("操作用户不在");
+        }
+        if (user.getOrgLevel() != UserHelper.LEVEL_CITY) {
+            throw new CommonException("非市级别权限，无法添加机构");
+        }
+        if (user.getOrgLevel() >= organEditRequest.getOrgLevel()) {
+            throw new CommonException("机构级别错误");
+        }
     }
 
     /**
