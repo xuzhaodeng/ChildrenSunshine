@@ -10,10 +10,7 @@ import com.pas.edu.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -87,6 +84,15 @@ public class UserController extends BaseController {
     public Result valid(@RequestBody List<UserStatus> userStatusList) throws Exception {
         Result result = new Result();
         userService.modifyUserStatus(userStatusList);
+        return result;
+    }
+
+    @ApiOperation(value = "查询机构下的用户", notes = "通过机构Id查询用户")
+    @RequestMapping(value = "listByOrgId/{orgId}", method = RequestMethod.GET)
+    public BaseResult<List<UserInfo>> userListByOrgId(@PathVariable int orgId) throws Exception {
+        BaseResult<List<UserInfo>> result = new BaseResult<List<UserInfo>>();
+        List<UserInfo> list=userService.getUserByOrgId(orgId);
+        result.setData(list);
         return result;
     }
 }

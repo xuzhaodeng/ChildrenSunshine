@@ -22,6 +22,15 @@
         <result column="orgCode" property="orgCode"/>
         <result column="orgLevel" property="orgLevel"/>
     </resultMap>
+    <resultMap id="UserInfoResult" type="UserInfo">
+        <id column="user_id" property="id"/>
+        <result column="org_id" property="orgId"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="valid" property="valid"/>
+        <result column="head_img" property="headImg"/>
+        <result column="description" property="desc"/>
+    </resultMap>
     <!--查询用户信息，包含所属机构信息-->
     <sql id="getUserWithOrgInfo">
         SELECT
@@ -64,6 +73,15 @@
             and users.phone = #{phone}
         </if>
     </select>
+    <!--通过机构Id查询用户-->
+    <select id="getUserByOrgId" resultMap="UserInfoResult">
+        SELECT * FROM kjet_system_user users
+        WHERE
+        users.valid!=3
+        and
+        users.org_id=#{orgId}
+    </select>
+
     <!--修改密码-->
     <update id="updatePwd">
         UPDATE kjet_system_user

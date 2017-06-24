@@ -96,4 +96,10 @@ public class UserServiceImpl implements UserService {
             userDao.updateStatus(userStatus);
         }
     }
+
+    @Override
+    public List<UserInfo> getUserByOrgId(int orgId) throws Exception {
+        List<UserInfo> list = userDao.getUserByOrgId(orgId);
+        return list;
+    }
 }

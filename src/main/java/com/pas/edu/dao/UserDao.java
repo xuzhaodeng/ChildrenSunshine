@@ -2,6 +2,7 @@ package com.pas.edu.dao;
 
 import com.pas.edu.entity.User;
 import com.pas.edu.entity.UserEdit;
+import com.pas.edu.entity.UserInfo;
 import com.pas.edu.entity.UserStatus;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.CacheConfig;
@@ -34,4 +35,6 @@ public interface UserDao {
     void update(UserEdit userEdit);
 
     void updateStatus(UserStatus userStatus);
+
+    List<UserInfo> getUserByOrgId(@Param("orgId") int orgId);
 }
