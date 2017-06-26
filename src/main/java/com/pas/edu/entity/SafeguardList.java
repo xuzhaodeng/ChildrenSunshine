@@ -18,6 +18,9 @@ public class SafeguardList {
 	@ApiModelProperty("保障评估个数")
 	private Integer safeguardNum;
 	
+	@ApiModelProperty("已落实个数")
+	private Integer alreadySafeguardNum;
+	
 	@ApiModelProperty("当前状态 1、已保障 2、未保障")
 	private Integer status;
 

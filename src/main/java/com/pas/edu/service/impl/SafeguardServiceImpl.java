@@ -47,9 +47,32 @@ public class SafeguardServiceImpl implements SafeguardService {
 				SafeguardList safe = new SafeguardList();
 				safe.setChildId(Integer.parseInt(map.get("child_id").toString()));
 				safe.setChildName(map.get("child_name").toString());
+				Integer sfTotalNum = 0;
 				Integer sfNum = 0;
 				Integer status = 2;
 				Integer safeguardId = 0;
+				
+				if(map.get("medical_happening").toString() != "0" && map.get("medical_happening").toString() != null){
+					sfTotalNum ++;
+				}
+				
+				if(map.get("education_happening").toString() != "0" && map.get("education_happening").toString() != null){
+					sfTotalNum ++;	
+				}
+				
+				if(map.get("basic_life").toString() != "0" && map.get("basic_life").toString() != null){
+					sfTotalNum ++;
+				}
+				
+				if(map.get("welfare").toString() != "0" && map.get("welfare").toString() != null){
+					sfTotalNum ++;
+				}
+				
+				if(map.get("guardian_hapening").toString() != "0" && map.get("guardian_hapening").toString() != null){
+					sfTotalNum ++;
+				}
+				
+				safe.setSafeguardNum(sfTotalNum);
 				List<Map<String, Object>> safeLst = sfdao.getSafeuardByChildId(Integer.parseInt(map.get("child_id").toString()), currTime);
 				if(safeLst != null && safeLst.size() > 0){
 					if(Integer.parseInt(safeLst.get(0).get("educationHappening").toString()) == 1){
@@ -76,7 +99,7 @@ public class SafeguardServiceImpl implements SafeguardService {
 					safeguardId = Integer.parseInt(safeLst.get(0).get("safeguardId").toString());
 				}
 				safe.setSafeguardId(safeguardId);
-				safe.setSafeguardNum(sfNum);
+				safe.setAlreadySafeguardNum(sfNum);
 				safe.setStatus(status);
 				result.add(safe);
 			}
