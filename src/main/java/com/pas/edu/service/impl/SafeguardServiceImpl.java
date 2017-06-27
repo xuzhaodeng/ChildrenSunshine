@@ -52,23 +52,23 @@ public class SafeguardServiceImpl implements SafeguardService {
 				Integer status = 2;
 				Integer safeguardId = 0;
 				
-				if(map.get("medical_happening").toString() != "0" && map.get("medical_happening").toString() != null){
+				if(map.get("medical_happening").toString() != "0" && map.get("medical_happening").toString() != null && map.get("medical_happening").toString() != ""){
 					sfTotalNum ++;
 				}
 				
-				if(map.get("education_happening").toString() != "0" && map.get("education_happening").toString() != null){
+				if(map.get("education_happening").toString() != "0" && map.get("education_happening").toString() != null && map.get("education_happening").toString() != ""){
 					sfTotalNum ++;	
 				}
 				
-				if(map.get("basic_life").toString() != "0" && map.get("basic_life").toString() != null){
+				if(map.get("basic_life").toString() != "0" && map.get("basic_life").toString() != null && map.get("basic_life").toString() != ""){
 					sfTotalNum ++;
 				}
 				
-				if(map.get("welfare").toString() != "0" && map.get("welfare").toString() != null){
+				if(map.get("welfare").toString() != "0" && map.get("welfare").toString() != null && map.get("welfare").toString() != ""){
 					sfTotalNum ++;
 				}
 				
-				if(map.get("guardian_hapening").toString() != "0" && map.get("guardian_hapening").toString() != null){
+				if(map.get("guardian_hapening").toString() != "0" && map.get("guardian_hapening").toString() != null && map.get("guardian_hapening").toString() != ""){
 					sfTotalNum ++;
 				}
 				
