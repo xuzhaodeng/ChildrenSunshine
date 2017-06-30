@@ -27,25 +27,25 @@ public class SafeguardRecord {
     private int guaranteeStatus;
     @ApiModelProperty(value = "停保说明")
     private String guaranteeStatusDesc;
-    @ApiModelProperty(value = "监护情况是否落实 1、已落实 2、未落实")
+    @ApiModelProperty(value = "落实监护责任 1、已落实 2、未落实")
     private int guardHappening;
-    @ApiModelProperty(value = "监护情况未落实描述")
+    @ApiModelProperty(value = "落实监护责任描述")
     private String guardHappeningDesc;
-    @ApiModelProperty(value = "困境儿童福利情况是否落实 1、已落实 2、未落实")
+    @ApiModelProperty(value = "残疾儿童福利 1、已落实 2、未落实")
     private int welfareHappening;
-    @ApiModelProperty(value = "福利情况未落实描述")
+    @ApiModelProperty(value = "残疾儿童福利描述")
     private String welfareHappeningDesc;
-    @ApiModelProperty(value = "生活情况是否落实 1、已落实 2、未落实")
+    @ApiModelProperty(value = "基本生活保障 1、已落实 2、未落实")
     private int lifeHappening;
     @ApiModelProperty(value = "生活情况未落实描述")
     private String lifeHappeningDesc;
-    @ApiModelProperty(value = "教育情况是否落实 1、已落实 2、未落实")
+    @ApiModelProperty(value = "教育保障 1、已落实 2、未落实")
     private int educationHappening;
-    @ApiModelProperty(value = "教育情况未落实描述")
+    @ApiModelProperty(value = "教育保障描述")
     private String educationHappeningDesc;
-    @ApiModelProperty(value = "医疗情况是否落实 1、已落实 2、未落实")
+    @ApiModelProperty(value = "基本医疗保障 1、已落实 2、未落实")
     private int medicalHappening;
-    @ApiModelProperty(value = "医疗情况未落实描述")
+    @ApiModelProperty(value = "基本医疗保障描述")
     private String medicalHappeningDesc;
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
