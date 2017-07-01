@@ -58,7 +58,7 @@ public class SafeguardRecordController extends BaseController{
     @ApiOperation(value = "保障评估记录详情", notes = "保障评估记录详情")
     @ApiImplicitParam(paramType = "query", name = "safeguardId", value = "保障评估记录id", required = true, dataType = "int")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public BaseResult detail(@RequestParam int safeguardId) {
+    public BaseResult<SafeguardRecord> detail(@RequestParam int safeguardId) {
         BaseResult result = new BaseResult();
         SafeguardRecord safeguardRecord = safeguardRecordService.getSafeguardRecord(safeguardId);
         ChildRoster childRoster = childApplyService.getRosterInfoByChildId(safeguardRecord.getChildId());
