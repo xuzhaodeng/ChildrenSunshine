@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
             throw new CommonException("用户不存在");
         if (!user.getPassword().equals(password))
             throw new CommonException("密码错误");
-        if (user.getValid() != 1)
-            throw new CommonException("该用户已被禁用");
+        //if (user.getValid() != 1)
+        //    throw new CommonException("该用户已被禁用");
         return user;
 
     }
