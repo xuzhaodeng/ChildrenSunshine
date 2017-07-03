@@ -72,9 +72,17 @@ public class SafeguardRecordController extends BaseController{
     @ApiImplicitParam(paramType = "query", name = "safeguardId", value = "保障评估记录id", required = true, dataType = "int")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     public BaseResult<SafeguardRecord> detail(@RequestParam int safeguardId) {
+        Map<String,String> jhqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JHQK);
+        Map<String,String> kjlbMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_KJLB);
+        Map<String,String> jbshqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JBSHQK);
+        Map<String,String> jyqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_JYQK);
+        Map<String,String> ylqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_YLQK);
+        Map<String,String> flqkMap = datadictService.getDatadictMap(DictionaryHelper.DATA_TYPE_FLQK);
+
         BaseResult result = new BaseResult();
         SafeguardRecord safeguardRecord = safeguardRecordService.getSafeguardRecord(safeguardId);
         ChildRoster childRoster = childApplyService.getRosterInfoByChildId(safeguardRecord.getChildId());
+        childApplyService.decorateChildRoster(childRoster,jhqkMap,kjlbMap,jbshqkMap,jyqkMap,ylqkMap,flqkMap);
         safeguardRecord.setChildRoster(childRoster);
         result.setData(safeguardRecord);
         return result;
